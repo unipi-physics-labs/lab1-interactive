@@ -1,0 +1,55 @@
+name: Genera e pubblica la dispensa
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  PROJECT_DIR: .
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Scarica i sorgenti
+        uses: actions/checkout@v6
+
+      - name: Installa Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.11.9"
+
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Genera HTML e PDF
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          quarto render --to html
+          quarto render --to typst --no-clean
+          test -s _book/index.html
+          test -s _book/lab1_dispensa.pdf
+
+      - name: Carica il sito e il PDF
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ env.PROJECT_DIR }}/_book
+
+      - name: Pubblica su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
