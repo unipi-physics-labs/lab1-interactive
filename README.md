@@ -1,3 +1,9 @@
+La versione corrente della dispensa è disponibile:
+
+- [Scarica il PDF](https://github.com/unipi-physics-labs/lab1-interactive/releases/latest/download/lab1_dispensa.pdf)
+- [Scarica la versione HTML interattiva](https://github.com/unipi-physics-labs/lab1-interactive/releases/latest/download/lab1_html.zip)
+
+
 # Lab1 con Quarto: un capitolo, HTML e PDF
 
 Questa cartella è un progetto completo: una breve introduzione e **un capitolo
