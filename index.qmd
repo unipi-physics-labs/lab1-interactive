@@ -1,0 +1,29 @@
+# Come leggere questa dispensa {.unnumbered}
+
+Questa dispensa accompagna il laboratorio di Fisica 1: mette in evidenza
+**che cosa descrive un modello, quando si può usare e come interpretare un risultato**.
+
+Il primo capitolo è dedicato alla distribuzione binomiale. Si parte da una domanda
+concreta: quante volte può verificarsi un certo esito, ripetendo una prova?
+
+::: {.callout-note title="Un percorso in tre passi" icon=false}
+1. **Capisci il modello.** Identifica la grandezza che varia e le ipotesi.
+2. **Usalo.** Segui un esempio e interpreta il numero ottenuto.
+3. **Verifica.** Fai una previsione, esplora la simulazione e confronta.
+:::
+
+I riquadri **Da ricordare** raccolgono i risultati essenziali; **Attenzione** segnala
+gli errori frequenti. Gli approfondimenti sono separati dal percorso principale.
+Nella versione HTML puoi sperimentare direttamente; il PDF contiene gli stessi
+concetti, gli esempi, una figura statica e le domande dell'attività.
+
+## Fonte e attribuzione {.unnumbered}
+
+Il capitolo è una rielaborazione sintetica dei contenuti sulla binomiale e sulle
+misure di efficienza di *Introduzione all'analisi dei dati. Per il laboratorio di
+Fisica*, di **Luca Baldini, Niccolò Di Lalla, Massimiliano Razzano e Carmelo Sgrò**,
+disponibile nel [progetto lab1-notes](https://github.com/unipi-physics-labs/lab1-notes).
+
+Testo riorganizzato e abbreviato; figura e attività interattiva aggiunte per questo
+percorso. L'opera originale e questo adattamento sono distribuiti con licenza
+[Creative Commons Attribuzione - Condividi allo stesso modo 4.0](https://creativecommons.org/licenses/by-sa/4.0/).

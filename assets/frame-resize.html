@@ -1,0 +1,11 @@
+<script>
+// Accept only layout messages from this page's simulation frame.
+window.addEventListener('message', function (event) {
+  const frame = document.getElementById('binomiale-frame');
+  if (!frame || event.source !== frame.contentWindow) return;
+  const message = event.data;
+  if (!message || message.type !== 'lab1:height' || !Number.isFinite(message.height)) return;
+  if (message.height < 200 || message.height > 12000) return;
+  frame.style.height = Math.ceil(message.height) + 'px';
+});
+</script>

@@ -1,0 +1,36 @@
+# Titolo del capitolo {#sec-nuovo-capitolo}
+
+::: {.callout-note title="Alla fine del capitolo sai..." icon=false}
+- Primo obiettivo concreto.
+- Secondo obiettivo concreto.
+:::
+
+## La domanda di partenza
+
+Introduci una situazione di laboratorio e definisci tutte le quantità.
+
+## Il modello e le sue ipotesi
+
+::: {.callout-important title="Da ricordare" icon=false}
+Scrivi il risultato essenziale e le condizioni in cui si applica.
+:::
+
+## Un esempio svolto
+
+Mostra i passaggi necessari e interpreta il risultato con una frase.
+
+::: {.callout-warning title="Attenzione" icon=false}
+Spiega una confusione frequente.
+:::
+
+## Prova tu
+
+Proponi una previsione, un calcolo o un'attività interattiva.
+
+::: {.callout-note title="Approfondimento" collapse=true icon=false}
+Colloca qui una dimostrazione o un dettaglio non necessario alla prima lettura.
+:::
+
+::: {.callout-important title="Prima di passare oltre" icon=false}
+Indica due o tre domande con cui verificare la comprensione.
+:::
