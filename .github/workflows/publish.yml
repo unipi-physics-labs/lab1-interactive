@@ -1,4 +1,6 @@
-name: Genera e pubblica la dispensa
+# Salva questo file come .github/workflows/publish.yml nel repository.
+# Se esiste il precedente workflow per GitHub Pages, sostituiscilo.
+name: Genera HTML e PDF
 
 on:
   push:
@@ -7,23 +9,15 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
-
-env:
-  PROJECT_DIR: .
+  group: dispensa-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
 
     steps:
       - name: Scarica i sorgenti
@@ -34,22 +28,32 @@ jobs:
         with:
           version: "1.11.9"
 
-      - name: Configura GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Individua la cartella del progetto
+        id: project
+        shell: bash
+        run: |
+          if [ -f _quarto.yml ]; then
+            echo "directory=." >> "$GITHUB_OUTPUT"
+          elif [ -f lab1_quarto/_quarto.yml ]; then
+            echo "directory=lab1_quarto" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::File _quarto.yml non trovato nella radice o nella cartella lab1_quarto."
+            exit 1
+          fi
 
-      - name: Genera HTML e PDF
-        working-directory: ${{ env.PROJECT_DIR }}
+      - name: Genera HTML e PDF con Typst
+        working-directory: ${{ steps.project.outputs.directory }}
+        shell: bash
         run: |
           quarto render --to html
           quarto render --to typst --no-clean
           test -s _book/index.html
           test -s _book/lab1_dispensa.pdf
 
-      - name: Carica il sito e il PDF
-        uses: actions/upload-pages-artifact@v4
+      - name: Salva HTML e PDF come archivio scaricabile
+        uses: actions/upload-artifact@v4
         with:
-          path: ${{ env.PROJECT_DIR }}/_book
-
-      - name: Pubblica su GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          name: lab1-html-pdf
+          path: ${{ steps.project.outputs.directory }}/_book/
+          if-no-files-found: error
+          retention-days: 30
