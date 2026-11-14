@@ -1,10 +1,12 @@
 # Salva questo file come .github/workflows/publish.yml nel repository.
-# Se esiste il precedente workflow per GitHub Pages, sostituiscilo.
-name: Genera HTML e PDF
+# Sostituisce il workflow precedente. Non richiede GitHub Pages.
+# Push su main: artifacts di controllo. Push di un tag: crea anche la release.
+name: Genera dispensa e prepara release
 
 on:
   push:
     branches: [main]
+    tags: ["*"]
   workflow_dispatch:
 
 permissions:
@@ -12,7 +14,7 @@ permissions:
 
 concurrency:
   group: dispensa-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
 
 jobs:
   build:
@@ -57,3 +59,45 @@ jobs:
           path: ${{ steps.project.outputs.directory }}/_book/
           if-no-files-found: error
           retention-days: 30
+
+  release:
+    name: Allega i file alla release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Recupera HTML e PDF generati
+        uses: actions/download-artifact@v4
+        with:
+          name: lab1-html-pdf
+          path: _book
+
+      - name: Prepara lo ZIP della versione HTML
+        working-directory: _book
+        run: zip -r ../lab1_html.zip . -x lab1_dispensa.pdf
+
+      - name: Crea la release e carica i file
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" \
+              _book/lab1_dispensa.pdf \
+              lab1_html.zip \
+              --clobber
+          else
+            gh release create "$RELEASE_TAG" \
+              _book/lab1_dispensa.pdf \
+              lab1_html.zip \
+              --verify-tag \
+              --title "$RELEASE_TAG" \
+              --notes "Dispensa Lab1: PDF e versione HTML interattiva da scaricare ed estrarre." \
+              --latest
+          fi
