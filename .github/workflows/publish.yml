@@ -1,7 +1,10 @@
 # Salva questo file come .github/workflows/publish.yml nel repository.
-# Sostituisce il workflow precedente. Non richiede GitHub Pages.
-# Push su main: artifacts di controllo. Push di un tag: crea anche la release.
-name: Genera dispensa e prepara release
+# Push su main: artifacts di controllo.
+# Push di un tag: release con PDF/ZIP e pubblicazione HTML su GitHub Pages.
+# I job release e pages sono indipendenti: un errore di Pages non blocca la release.
+# Per Pages: Settings > Pages > Source: GitHub Actions.
+# Se l'ambiente github-pages limita i deployment, autorizza anche i tag.
+name: Genera dispensa, release e sito
 
 on:
   push:
@@ -101,3 +104,39 @@ jobs:
               --notes "Dispensa Lab1: PDF e versione HTML interattiva da scaricare ed estrarre." \
               --latest
           fi
+
+  pages:
+    name: Pubblica HTML su GitHub Pages
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+
+    steps:
+      - name: Recupera HTML e PDF generati
+        uses: actions/download-artifact@v4
+        with:
+          name: lab1-html-pdf
+          path: _book
+
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepara il sito per GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _book
+
+      - name: Pubblica il sito
+        id: deployment
+        uses: actions/deploy-pages@v4
