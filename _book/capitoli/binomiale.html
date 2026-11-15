@@ -138,10 +138,9 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#che-cosa-stiamo-contando" id="toc-che-cosa-stiamo-contando" class="nav-link active" data-scroll-target="#che-cosa-stiamo-contando"><span class="header-section-number">1.1</span> Che cosa stiamo contando?</a></li>
   <li><a href="#la-probabilità-di-un-conteggio" id="toc-la-probabilità-di-un-conteggio" class="nav-link" data-scroll-target="#la-probabilità-di-un-conteggio"><span class="header-section-number">1.2</span> La probabilità di un conteggio</a></li>
-  <li><a href="#media-dispersione-e-precisione-della-media" id="toc-media-dispersione-e-precisione-della-media" class="nav-link" data-scroll-target="#media-dispersione-e-precisione-della-media"><span class="header-section-number">1.3</span> Media, dispersione e precisione della media</a></li>
-  <li><a href="#un-risultato-raro-tre-1-in-cento-lanci" id="toc-un-risultato-raro-tre-1-in-cento-lanci" class="nav-link" data-scroll-target="#un-risultato-raro-tre-1-in-cento-lanci"><span class="header-section-number">1.4</span> Un risultato raro: tre “1” in cento lanci</a></li>
-  <li><a href="#sec-attivita" id="toc-sec-attivita" class="nav-link" data-scroll-target="#sec-attivita"><span class="header-section-number">1.5</span> Prova tu: dalla previsione ai dati</a></li>
-  <li><a href="#unapplicazione-misurare-unefficienza" id="toc-unapplicazione-misurare-unefficienza" class="nav-link" data-scroll-target="#unapplicazione-misurare-unefficienza"><span class="header-section-number">1.6</span> Un’applicazione: misurare un’efficienza</a></li>
+  <li><a href="#media-e-deviazione-standard" id="toc-media-e-deviazione-standard" class="nav-link" data-scroll-target="#media-e-deviazione-standard"><span class="header-section-number">1.3</span> Media e deviazione standard</a></li>
+  <li><a href="#sec-attivita" id="toc-sec-attivita" class="nav-link" data-scroll-target="#sec-attivita"><span class="header-section-number">1.4</span> Prova tu: dalla previsione ai dati</a></li>
+  <li><a href="#unapplicazione-misurare-unefficienza" id="toc-unapplicazione-misurare-unefficienza" class="nav-link" data-scroll-target="#unapplicazione-misurare-unefficienza"><span class="header-section-number">1.5</span> Un’applicazione: misurare un’efficienza</a></li>
   </ul>
 </nav>
     </div>
@@ -167,29 +166,41 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled">
+<!-- ::: {.callout-note title="Alla fine del capitolo sai..." icon=false}
+- riconoscere quando un conteggio segue una distribuzione binomiale;
+- distinguere numero di prove, numero di successi e numero di serie;
+- calcolare una probabilità e interpretare media e deviazione standard;
+- spiegare che cosa cambia quando aumentano i dati raccolti.
+:::
+-->
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Alla fine del capitolo sai…
+<span class="screen-reader-only">Importante</span>Il numero di successi segue una binomiale se:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>riconoscere quando un conteggio segue una distribuzione binomiale;</li>
-<li>distinguere numero di prove, numero di successi e numero di serie;</li>
-<li>calcolare una probabilità e interpretare media e deviazione standard;</li>
-<li>spiegare che cosa cambia quando aumentano i dati raccolti.</li>
-</ul>
+<ol type="1">
+<li><strong>il numero di prove è fissato</strong></li>
+<li>le prove sono <strong>indipendenti</strong></li>
+<li>ciascuna è classificata in <strong>successo o insuccesso</strong></li>
+<li>la probabilità di successo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> è <strong>la stessa in ogni prova</strong></li>
+</ol>
 </div>
 </div>
 <section id="che-cosa-stiamo-contando" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="che-cosa-stiamo-contando"><span class="header-section-number">1.1</span> Che cosa stiamo contando?</h2>
-<p>Lanciamo un dado cento volte e contiamo quante volte esce <strong>la faccia 1</strong>. In questo esempio definiamo <em>successo</em> l’uscita di 1 e <em>insuccesso</em> l’uscita di una delle altre cinque facce. Se il dado è equo, la probabilità di successo è <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">p=1/6</annotation></semantics></math>.</p>
-<p>Una <strong>prova</strong> è un singolo lancio. Una <strong>serie</strong> comprende <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> prove. Il risultato della serie è il conteggio <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>: il numero di successi osservati.</p>
+<p>Ragioniamoci con un esempio. Lanciamo un dado cento volte e contiamo quante volte esce la faccia 1. In questo esempio definiamo <em>successo</em> l’uscita di 1 e <em>insuccesso</em> l’uscita di una delle altre cinque facce. Se il dado è equo, la probabilità di successo è <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">p=1/6</annotation></semantics></math>.</p>
+<p>Una <strong>prova</strong> è un singolo lancio. Una <strong>serie</strong> comprende <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> prove. Il risultato della serie è il conteggio <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>: il numero di successi osservati. Un esperimento è un insieme di <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> serie.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Simbolo</th>
@@ -215,30 +226,17 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math></td>
-<td style="text-align: left;">Numero di serie simulate</td>
+<td style="text-align: left;">Numero di serie effettuate</td>
 <td style="text-align: left;">Quante serie di 100 lanci ripetiamo</td>
 </tr>
 </tbody>
 </table>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> definiscono la distribuzione. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> è la variabile casuale, che può valere <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">0,1,\ldots,n</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> indica quanti conteggi raccogliamo nella simulazione; complessivamente eseguiamo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">nM</annotation></semantics></math> prove.</p>
-<div class="callout callout-style-default callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Quando si applica
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Il numero di successi segue una binomiale se <strong>il numero di prove è fissato</strong>, le prove sono <strong>indipendenti</strong>, ciascuna è classificata in <strong>successo o insuccesso</strong> e la probabilità <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> è <strong>la stessa in ogni prova</strong>.</p>
-</div>
-</div>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> definiscono la distribuzione, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> è la variabile casuale, che può valere <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">0,1,\ldots,n</annotation></semantics></math>. Se l’esperimento comprende <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> serie, significa che complessivamente eseguiamo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>⋅</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">n\cdot M</annotation></semantics></math> prove.</p>
 <p>La definizione di successo dipende dalla domanda: per una moneta può essere «esce testa»; per un rivelatore, «la particella produce un segnale». Avere due categorie di esito, da solo, non basta a garantire il modello binomiale.</p>
 </section>
 <section id="la-probabilità-di-un-conteggio" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="la-probabilità-di-un-conteggio"><span class="header-section-number">1.2</span> La probabilità di un conteggio</h2>
-<p>La probabilità di ottenere <strong>esattamente <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> successi</strong> è</p>
+<p>La probabilità di ottenere <strong>esattamente <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> successi su <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> prove</strong> è</p>
 <p><span id="eq-binomiale"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>;</mo><mi>n</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msup><mi>p</mi><mi>k</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mi>k</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>1.1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
 B(k;n,p)=\binom{n}{k}p^k(1-p)^{n-k},
 \qquad \binom{n}{k}=\frac{n!}{k!(n-k)!}.
@@ -247,11 +245,11 @@ B(k;n,p)=\binom{n}{k}p^k(1-p)^{n-k},
 <section id="esempio-due-teste-in-quattro-lanci" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="esempio-due-teste-in-quattro-lanci"><span class="header-section-number">1.2.1</span> Esempio: due teste in quattro lanci</h3>
 <p>Per una moneta equa, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p=1/2</annotation></semantics></math>. Tra le 16 sequenze possibili, tutte equiprobabili, sei contengono due teste:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>;</mo><mn>4</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mn>4</mn><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>4</mn></msup><mo>=</mo><mfrac><mn>6</mn><mn>16</mn></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>375</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>;</mo><mn>4</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mn>4</mn><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>4</mn></msup><mo>=</mo><mfrac><mn>6</mn><mn>16</mn></mfrac><mo>=</mo><mn>0.375</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
 B(2;4,1/2)=\binom{4}{2}\left(\frac12\right)^4
-=\frac{6}{16}=0{,}375.
+=\frac{6}{16}=0.375.
 </annotation></semantics></math></p>
-<p><strong>Interpretazione:</strong> ripetendo molte serie di quattro lanci, la frazione di serie con esattamente due teste tende al 37,5%.</p>
+<p><strong>Interpretazione:</strong> ripetendo molte serie di quattro lanci, la frazione di serie con esattamente due teste tende al 37.5%.</p>
 </section>
 <section id="eventi-che-comprendono-più-conteggi" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="eventi-che-comprendono-più-conteggi"><span class="header-section-number">1.2.2</span> Eventi che comprendono più conteggi</h3>
@@ -269,7 +267,7 @@ P(k\geq1)=1-P(k=0)=1-(1-p)^n.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Avviso</span>Attenzione: esattamente e almeno sono eventi diversi
+<span class="screen-reader-only">Avviso</span>Attenzione: “esattamente” e “almeno” sono eventi diversi
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -277,9 +275,19 @@ P(k\geq1)=1-P(k=0)=1-(1-p)^n.
 </div>
 </div>
 </section>
+<section id="un-risultato-raro-tre-1-in-cento-lanci" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="un-risultato-raro-tre-1-in-cento-lanci"><span class="header-section-number">1.2.3</span> Un risultato raro: tre “1” in cento lanci</h3>
+<p>Per un dado equo, la probabilità di osservare al massimo tre uscite della faccia 1 in cento lanci vale</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>≤</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mn>3</mn></munderover><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>;</mo><mn>100</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>≃</mo><mn>1.83</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>5</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)
+\simeq1.83\times10^{-5}.
+</annotation></semantics></math></p>
+<p>È circa lo <strong>0.00183%</strong>. Un risultato così basso è molto raro sotto l’ipotesi di dado equo e lanci indipendenti. Questo calcolo <strong>non</strong> è la probabilità che il dado sia equo: descrive i risultati attesi <em>assumendo</em> quel modello.</p>
+<p>Notate che una simulazione di poche migliaia di serie può non produrre alcun caso di questo tipo. Una frequenza osservata nulla non implica una probabilità teorica nulla.</p>
 </section>
-<section id="media-dispersione-e-precisione-della-media" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="media-dispersione-e-precisione-della-media"><span class="header-section-number">1.3</span> Media, dispersione e precisione della media</h2>
+</section>
+<section id="media-e-deviazione-standard" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="media-e-deviazione-standard"><span class="header-section-number">1.3</span> Media e deviazione standard</h2>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -291,52 +299,54 @@ P(k\geq1)=1-P(k=0)=1-(1-p)^n.
 </div>
 <div class="callout-body-container callout-body">
 <p>Per una binomiale:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mi>n</mi><mi>p</mi><mo>,</mo><mspace width="2.0em"></mspace><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mi>n</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>σ</mi><mo>=</mo><msqrt><mrow><mi>n</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">
-\mu=np,\qquad \sigma^2=np(1-p),\qquad \sigma=\sqrt{np(1-p)}.
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>μ</mi><mo>=</mo><mi>n</mi><mi>p</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mi>n</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
+E[k] = \mu=np,\qquad Var(k) = \sigma^2=np(1-p)
 </annotation></semantics></math></p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> è il numero medio di successi per serie. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> descrive la dispersione dei conteggi delle singole serie attorno alla media.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> è il valore di aspettazione di <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>, ovvero del numero aspettato di successi per serie. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> è la deviazione standard di <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>, quindi descrive la dispersione dei conteggi delle singole serie attorno alla media.</p>
 </div>
 </div>
-<p>Per quattro lanci di moneta equa, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu=2</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sigma=1</annotation></semantics></math>. Per cento lanci di dado equo, contando la faccia 1, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≃</mo><mn>16</mn><mo>,</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">\mu\simeq16{,}67</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>≃</mo><mn>3</mn><mo>,</mo><mn>73</mn></mrow><annotation encoding="application/x-tex">\sigma\simeq3{,}73</annotation></semantics></math>. La media non deve essere intera, anche se ogni conteggio lo è.</p>
+<p>Per quattro lanci di moneta equa, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu=2</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sigma=1</annotation></semantics></math>. Per cento lanci di dado equo, contando la faccia 1, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≃</mo><mn>16.67</mn></mrow><annotation encoding="application/x-tex">\mu\simeq16.67</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>≃</mo><mn>3.73</mn></mrow><annotation encoding="application/x-tex">\sigma\simeq3.73</annotation></semantics></math>. La media non deve essere intera, anche se ogni conteggio lo è.</p>
 <div id="fig-confronto" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Probabilità discrete per la moneta, simmetriche attorno a 2, e per il dado, concentrate attorno a 16,7.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confronto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../immagini/binomiale_confronto.png" class="img-fluid figure-img" style="width:100.0%" alt="Probabilità discrete per la moneta, simmetriche attorno a 2, e per il dado, concentrate attorno a 16,7.">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confronto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1.1: Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media.
+Figura&nbsp;1.1: Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media teorica <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.
 </figcaption>
 </figure>
 </div>
-<p>Se ripetiamo la serie <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> volte, otteniamo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>k</mi><mi>M</mi></msub></mrow><annotation encoding="application/x-tex">k_1,\ldots,k_M</annotation></semantics></math> e la media campionaria <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>k</mi><mo accent="true">‾</mo></mover><mo>=</mo><msup><mi>M</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></msubsup><msub><mi>k</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\bar{k}=M^{-1}\sum_{i=1}^M k_i</annotation></semantics></math>. Per serie indipendenti con gli stessi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">n,p</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mover><mi>k</mi><mo accent="true">‾</mo></mover></msub><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>M</mi></msqrt></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
-\sigma_{\bar{k}}=\frac{\sigma}{\sqrt M}.
+<section id="stimatori-di-media-e-deviazione-standard" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="stimatori-di-media-e-deviazione-standard"><span class="header-section-number">1.3.1</span> Stimatori di media e deviazione standard</h3>
+<p>Un campione di <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> serie fornisce i conteggi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>k</mi><mi>M</mi></msub></mrow><annotation encoding="application/x-tex">k_1,\ldots,k_M</annotation></semantics></math>, dove <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>i</mi></msub><annotation encoding="application/x-tex">k_i</annotation></semantics></math> è il numero di successi nella serie <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-esima. La <strong>media campionaria dei conteggi</strong> è</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>k</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mn>1</mn><mi>M</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><msub><mi>k</mi><mi>i</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>≥</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\bar{k}=\frac{1}{M}\sum_{i=1}^M k_i,\qquad M\geq1.
 </annotation></semantics></math></p>
-<p>Se <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> non è nota, la stimiamo con <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>, dove <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></msubsup><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mi>i</mi></msub><mo>−</mo><mover><mi>k</mi><mo accent="true">‾</mo></mover><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s^2=\sum_{i=1}^M(k_i-\bar{k})^2/(M-1)</annotation></semantics></math> per <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\geq2</annotation></semantics></math>: la stima dell’incertezza sulla media è <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><msqrt><mi>M</mi></msqrt></mrow><annotation encoding="application/x-tex">s/\sqrt M</annotation></semantics></math>.</p>
-<p><strong>Aumentare <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> rende più precisa la media; non restringe la distribuzione dei singoli conteggi.</strong> A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">n,p</annotation></semantics></math> fissati, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> rimane la stessa. La stima <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> fluttua al cambiare del campione e non deve aumentare o diminuire in modo monotono.</p>
-</section>
-<section id="un-risultato-raro-tre-1-in-cento-lanci" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="un-risultato-raro-tre-1-in-cento-lanci"><span class="header-section-number">1.4</span> Un risultato raro: tre “1” in cento lanci</h2>
-<p>Per un dado equo, la probabilità di osservare al massimo tre uscite della faccia 1 in cento lanci vale</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>≤</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mn>3</mn></munderover><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>;</mo><mn>100</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>≃</mo><mn>1</mn><mo>,</mo><mn>83</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>5</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
-P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)
-\simeq1{,}83\times10^{-5}.
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>k</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{k}</annotation></semantics></math> stima la media teorica <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mi>n</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\mu=np</annotation></semantics></math>. È definita anche con una sola serie: per <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M=1</annotation></semantics></math> coincide con l’unico conteggio osservato, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>k</mi><mo accent="true">‾</mo></mover><mo>=</mo><msub><mi>k</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\bar{k}=k_1</annotation></semantics></math>.</p>
+<p>All’interno di una singola serie possiamo anche calcolare la media dei <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> esiti, assegnando 1 al successo e 0 all’insuccesso: questa media è <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">k/n</annotation></semantics></math> e stima <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>. <strong>Nel grafico interattivo confrontiamo la media dei conteggi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>k</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{k}</annotation></semantics></math> con <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mi>n</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\mu=np</annotation></semantics></math>.</strong></p>
+<p>Per <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\geq2</annotation></semantics></math>, la deviazione standard campionaria <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> si calcola da</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>=</mo><mfrac><mn>1</mn><mrow><mi>M</mi><mo>−</mo><mn>1</mn></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mi>i</mi></msub><mo>−</mo><mover><mi>k</mi><mo accent="true">‾</mo></mover><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+s^2=\frac{1}{M-1}\sum_{i=1}^M(k_i-\bar{k})^2.
 </annotation></semantics></math></p>
-<p>È circa lo <strong>0,00183%</strong>. Un risultato così basso è molto raro sotto l’ipotesi di dado equo e lanci indipendenti. Questo calcolo <strong>non</strong> è la probabilità che il dado sia equo: descrive i risultati attesi assumendo quel modello.</p>
-<p>Una simulazione di poche migliaia di serie può non produrre alcun caso di questo tipo. Una frequenza osservata nulla non implica una probabilità teorica nulla.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> stima la dispersione <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> dei conteggi; con un solo conteggio non è definita. Per serie indipendenti, la deviazione standard della media si stima con</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mover><mi>k</mi><mo accent="true">‾</mo></mover></msub><mo>=</mo><mfrac><mi>s</mi><msqrt><mi>M</mi></msqrt></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>≥</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+s_{\bar{k}}=\frac{s}{\sqrt M},\qquad M\geq2.
+</annotation></semantics></math></p>
+<p><strong>Aumentare <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> rende più precisa la media; non restringe la distribuzione dei singoli conteggi.</strong> La stima <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> fluttua al cambiare del campione (cioè può sia aumentare che diminuire in modo non monotono).</p>
 </section>
-<section id="sec-attivita" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="sec-attivita"><span class="header-section-number">1.5</span> Prova tu: dalla previsione ai dati</h2>
+</section>
+<section id="sec-attivita" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-attivita"><span class="header-section-number">1.4</span> Prova tu: dalla previsione ai dati</h2>
 <p>Prima di simulare, scrivi una previsione; poi confrontala con il risultato.</p>
 <ol type="1">
-<li><strong>Moneta.</strong> Scegli il pulsante «Moneta»: imposta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p=1/2</annotation></semantics></math> ed «esattamente 2». Simula 100 serie, poi aggiungine 1.000. La frequenza si avvicina a 0,375? Può allontanarsene temporaneamente?</li>
+<li><strong>Moneta.</strong> Scegli il pulsante «Moneta»: imposta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p=1/2</annotation></semantics></math> ed «esattamente 2». Simula 100 serie, poi aggiungine 1.000. La frequenza si avvicina a 0.375? Può allontanarsene temporaneamente? Confronta anche la media dei conteggi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>k</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{k}</annotation></semantics></math> con <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu=2</annotation></semantics></math>.</li>
 <li><strong>Dispersione.</strong> Lascia fissi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">n,p</annotation></semantics></math> e aumenta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>. Confronta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><msqrt><mi>M</mi></msqrt></mrow><annotation encoding="application/x-tex">s/\sqrt M</annotation></semantics></math>: quale grandezza descrive la variabilità di una singola serie?</li>
 <li><strong>Dado.</strong> Scegli il pulsante «Dado»: imposta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">p=1/6</annotation></semantics></math> e «al massimo 3». Confronta probabilità teorica e frequenza simulata. Come interpreti zero casi osservati?</li>
 </ol>
 <p><a href="../interattivi/binomiale_lab1.html" class="lab-open" target="_blank" rel="noopener">Apri la simulazione completa in una nuova scheda</a></p>
 <iframe id="binomiale-frame" class="lab-frame" src="../interattivi/binomiale_lab1.html?embed=1" title="Simulazione della distribuzione binomiale: moneta e dado" loading="lazy" sandbox="allow-scripts allow-downloads" style="width:100%;height:1400px;border:0;" allowfullscreen=""></iframe>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -345,25 +355,25 @@ P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>La frequenza tende alla probabilità teorica, ma il suo avvicinamento non è monotono. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> stima la dispersione delle singole serie; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><msqrt><mi>M</mi></msqrt></mrow><annotation encoding="application/x-tex">s/\sqrt M</annotation></semantics></math> stima la precisione della loro media. Un evento molto raro può non comparire in un campione finito: il calcolo teorico resta diverso da zero.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="unapplicazione-misurare-unefficienza" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="unapplicazione-misurare-unefficienza"><span class="header-section-number">1.6</span> Un’applicazione: misurare un’efficienza</h2>
+<section id="unapplicazione-misurare-unefficienza" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="unapplicazione-misurare-unefficienza"><span class="header-section-number">1.5</span> Un’applicazione: misurare un’efficienza</h2>
 <p>Un rivelatore produce un segnale per 962 delle 1.000 particelle incidenti. Definendo il successo come «segnale prodotto», abbiamo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">n=1000</annotation></semantics></math> prove e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>962</mn></mrow><annotation encoding="application/x-tex">k=962</annotation></semantics></math> successi. Stimiamo l’efficienza con la frazione osservata:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mi>k</mi><mi>n</mi></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>962</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>s</mi><mover><mi>ε</mi><mo accent="true">̂</mo></mover></msub><mo>=</mo><msqrt><mfrac><mrow><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">)</mo></mrow><mi>n</mi></mfrac></msqrt><mo>≃</mo><mn>0</mn><mo>,</mo><mn>006</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
-\hat\varepsilon=\frac{k}{n}=0{,}962,
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mi>k</mi><mi>n</mi></mfrac><mo>=</mo><mn>0.962</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>s</mi><mover><mi>ε</mi><mo accent="true">̂</mo></mover></msub><mo>=</mo><msqrt><mfrac><mrow><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">)</mo></mrow><mi>n</mi></mfrac></msqrt><mo>≃</mo><mn>0.006</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\hat\varepsilon=\frac{k}{n}=0.962,
 \qquad
 s_{\hat\varepsilon}=\sqrt{\frac{\hat\varepsilon(1-\hat\varepsilon)}{n}}
-\simeq0{,}006.
+\simeq0.006.
 </annotation></semantics></math></p>
 <p>Questa stima dell’errore è utile quando successi e insuccessi sono entrambi abbastanza numerosi. Per <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k=0</annotation></semantics></math> o <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k=n</annotation></semantics></math> restituisce zero: <strong>non significa che l’efficienza sia nota esattamente</strong>. Il problema richiede una trattazione diversa.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -372,7 +382,7 @@ s_{\hat\varepsilon}=\sqrt{\frac{\hat\varepsilon(1-\hat\varepsilon)}{n}}
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Scriviamo il conteggio come somma <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><msub><mi>Y</mi><mn>1</mn></msub><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>Y</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">k=Y_1+\cdots+Y_n</annotation></semantics></math>, con <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Y_i=1</annotation></semantics></math> per un successo e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Y_i=0</annotation></semantics></math> per un insuccesso. Ogni <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Y_i</annotation></semantics></math> ha media <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> e varianza <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(1-p)</annotation></semantics></math>. Le medie si sommano; per prove indipendenti si sommano anche le varianze. Quindi <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>n</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">E[k]=np</annotation></semantics></math> e <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">V</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>n</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Var}(k)=np(1-p)</annotation></semantics></math>.</p>
 </div>

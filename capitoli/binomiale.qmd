@@ -1,37 +1,39 @@
 # La distribuzione binomiale {#sec-binomiale}
 
-::: {.callout-note title="Alla fine del capitolo sai..." icon=false}
+<!-- ::: {.callout-note title="Alla fine del capitolo sai..." icon=false}
 - riconoscere quando un conteggio segue una distribuzione binomiale;
 - distinguere numero di prove, numero di successi e numero di serie;
 - calcolare una probabilità e interpretare media e deviazione standard;
 - spiegare che cosa cambia quando aumentano i dati raccolti.
 :::
+--> 
+
+::: {.callout-important title="Il numero di successi segue una binomiale se:" icon=false}
+1. **il numero di prove è fissato**
+2. le prove sono **indipendenti**
+3. ciascuna è classificata in **successo o insuccesso**
+4. la probabilità di successo $p$ è **la stessa in ogni prova**
+:::
 
 ## Che cosa stiamo contando?
 
-Lanciamo un dado cento volte e contiamo quante volte esce **la faccia 1**.
+Ragioniamoci con un esempio. Lanciamo un dado cento volte e contiamo quante volte esce la faccia 1.
 In questo esempio definiamo *successo* l'uscita di 1 e *insuccesso* l'uscita di
 una delle altre cinque facce. Se il dado è equo, la probabilità di successo è $p=1/6$.
 
 Una **prova** è un singolo lancio. Una **serie** comprende $n$ prove.
 Il risultato della serie è il conteggio $k$: il numero di successi osservati.
+Un esperimento è un insieme di $M$ serie.
 
 | Simbolo | Significato | Esempio del dado |
 |:---:|:---|:---|
 | $n$ | Numero di prove in una serie | 100 lanci |
 | $p$ | Probabilità di successo in ogni prova | $1/6$ |
 | $k$ | Numero di successi nella serie | Quante volte esce 1 |
-| $M$ | Numero di serie simulate | Quante serie di 100 lanci ripetiamo |
+| $M$ | Numero di serie effettuate | Quante serie di 100 lanci ripetiamo |
 
-$n$ e $p$ definiscono la distribuzione. $k$ è la variabile casuale, che può valere
-$0,1,\ldots,n$. $M$ indica quanti conteggi raccogliamo nella simulazione;
-complessivamente eseguiamo $nM$ prove.
-
-::: {.callout-important title="Quando si applica" icon=false}
-Il numero di successi segue una binomiale se **il numero di prove è fissato**,
-le prove sono **indipendenti**, ciascuna è classificata in **successo o insuccesso**
-e la probabilità $p$ è **la stessa in ogni prova**.
-:::
+$n$ e $p$ definiscono la distribuzione, $k$ è la variabile casuale, che può valere
+$0,1,\ldots,n$. Se l'esperimento comprende $M$ serie, significa che complessivamente eseguiamo $n\cdot M$ prove.
 
 La definizione di successo dipende dalla domanda: per una moneta può essere
 «esce testa»; per un rivelatore, «la particella produce un segnale».
@@ -39,7 +41,7 @@ Avere due categorie di esito, da solo, non basta a garantire il modello binomial
 
 ## La probabilità di un conteggio
 
-La probabilità di ottenere **esattamente $k$ successi** è
+La probabilità di ottenere **esattamente $k$ successi su $n$ prove** è
 
 $$
 B(k;n,p)=\binom{n}{k}p^k(1-p)^{n-k},
@@ -57,11 +59,11 @@ equiprobabili, sei contengono due teste:
 
 $$
 B(2;4,1/2)=\binom{4}{2}\left(\frac12\right)^4
-=\frac{6}{16}=0{,}375.
+=\frac{6}{16}=0.375.
 $$
 
 **Interpretazione:** ripetendo molte serie di quattro lanci, la frazione di serie
-con esattamente due teste tende al 37,5%.
+con esattamente due teste tende al 37.5%.
 
 ### Eventi che comprendono più conteggi
 
@@ -77,61 +79,81 @@ $$
 P(k\geq1)=1-P(k=0)=1-(1-p)^n.
 $$
 
-::: {.callout-warning title="Attenzione: esattamente e almeno sono eventi diversi" icon=false}
+::: {.callout-warning title="Attenzione: \"esattamente\" e \"almeno\" sono eventi diversi" icon=false}
 $B(3;n,p)$ riguarda solo $k=3$. La probabilità $P(k\geq3)$ comprende tutti i
 conteggi da 3 a $n$. Prima di calcolare, traduci la domanda in un evento preciso.
 :::
 
-## Media, dispersione e precisione della media
-
-::: {.callout-note title="Da ricordare" icon=false}
-Per una binomiale:
-
-$$
-\mu=np,\qquad \sigma^2=np(1-p),\qquad \sigma=\sqrt{np(1-p)}.
-$$
-
-$\mu$ è il numero medio di successi per serie. $\sigma$ descrive la dispersione
-dei conteggi delle singole serie attorno alla media.
-:::
-
-Per quattro lanci di moneta equa, $\mu=2$ e $\sigma=1$.
-Per cento lanci di dado equo, contando la faccia 1, $\mu\simeq16{,}67$ e
-$\sigma\simeq3{,}73$. La media non deve essere intera, anche se ogni conteggio lo è.
-
-![Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media.](../immagini/binomiale_confronto.png){#fig-confronto fig-alt="Probabilità discrete per la moneta, simmetriche attorno a 2, e per il dado, concentrate attorno a 16,7." width=100%}
-
-Se ripetiamo la serie $M$ volte, otteniamo $k_1,\ldots,k_M$ e la media campionaria
-$\bar{k}=M^{-1}\sum_{i=1}^M k_i$. Per serie indipendenti con gli stessi $n,p$:
-
-$$
-\sigma_{\bar{k}}=\frac{\sigma}{\sqrt M}.
-$$
-
-Se $\sigma$ non è nota, la stimiamo con $s$, dove
-$s^2=\sum_{i=1}^M(k_i-\bar{k})^2/(M-1)$ per $M\geq2$:
-la stima dell'incertezza sulla media è $s/\sqrt M$.
-
-**Aumentare $M$ rende più precisa la media; non restringe la distribuzione dei
-singoli conteggi.** A $n,p$ fissati, $\sigma$ rimane la stessa. La stima $s$
-fluttua al cambiare del campione e non deve aumentare o diminuire in modo monotono.
-
-## Un risultato raro: tre “1” in cento lanci
+### Un risultato raro: tre “1” in cento lanci
 
 Per un dado equo, la probabilità di osservare al massimo tre uscite della faccia 1
 in cento lanci vale
 
 $$
 P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)
-\simeq1{,}83\times10^{-5}.
+\simeq1.83\times10^{-5}.
 $$
 
-È circa lo **0,00183%**. Un risultato così basso è molto raro sotto l'ipotesi
+È circa lo **0.00183%**. Un risultato così basso è molto raro sotto l'ipotesi
 di dado equo e lanci indipendenti. Questo calcolo **non** è la probabilità
-che il dado sia equo: descrive i risultati attesi assumendo quel modello.
+che il dado sia equo: descrive i risultati attesi _assumendo_ quel modello.
 
-Una simulazione di poche migliaia di serie può non produrre alcun caso di questo
+Notate che una simulazione di poche migliaia di serie può non produrre alcun caso di questo
 tipo. Una frequenza osservata nulla non implica una probabilità teorica nulla.
+
+
+## Media e deviazione standard
+
+::: {.callout-note title="Da ricordare" icon=false}
+Per una binomiale:
+
+$$
+E[k] = \mu=np,\qquad Var(k) = \sigma^2=np(1-p)
+$$
+
+$\mu$ è il valore di aspettazione di $k$, ovvero del numero aspettato di successi per serie. $\sigma$ è la deviazione standard di $k$, quindi descrive la dispersione
+dei conteggi delle singole serie attorno alla media.
+:::
+
+Per quattro lanci di moneta equa, $\mu=2$ e $\sigma=1$.
+Per cento lanci di dado equo, contando la faccia 1, $\mu\simeq16.67$ e
+$\sigma\simeq3.73$. La media non deve essere intera, anche se ogni conteggio lo è.
+
+![Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media teorica $\mu$.](../immagini/binomiale_confronto.png){#fig-confronto fig-alt="Probabilità discrete per la moneta, simmetriche attorno a 2, e per il dado, concentrate attorno a 16,7." width=100%}
+
+### Stimatori di media e deviazione standard
+
+Un campione di $M$ serie fornisce i conteggi $k_1,\ldots,k_M$, dove $k_i$ è il numero
+di successi nella serie $i$-esima. La **media campionaria dei conteggi** è
+
+$$
+\bar{k}=\frac{1}{M}\sum_{i=1}^M k_i,\qquad M\geq1.
+$$
+
+$\bar{k}$ stima la media teorica $\mu=np$. È definita anche con una sola serie:
+per $M=1$ coincide con l'unico conteggio osservato, $\bar{k}=k_1$.
+
+All'interno di una singola serie possiamo anche calcolare la media dei $n$ esiti,
+assegnando 1 al successo e 0 all'insuccesso: questa media è $k/n$ e stima $p$.
+**Nel grafico interattivo confrontiamo la media dei conteggi $\bar{k}$ con $\mu=np$.**
+
+Per $M\geq2$, la deviazione standard campionaria $s$ si calcola da
+
+$$
+s^2=\frac{1}{M-1}\sum_{i=1}^M(k_i-\bar{k})^2.
+$$
+
+$s$ stima la dispersione $\sigma$ dei conteggi; con un solo conteggio non è
+definita. Per serie indipendenti, la deviazione standard della media si stima con
+
+$$
+s_{\bar{k}}=\frac{s}{\sqrt M},\qquad M\geq2.
+$$
+
+**Aumentare $M$ rende più precisa la media; non restringe la distribuzione dei
+singoli conteggi.** La stima $s$
+fluttua al cambiare del campione (cioè può sia aumentare che diminuire in modo non monotono).
+
 
 ## Prova tu: dalla previsione ai dati {#sec-attivita}
 
@@ -139,8 +161,8 @@ Prima di simulare, scrivi una previsione; poi confrontala con il risultato.
 
 1. **Moneta.** Scegli il pulsante «Moneta»: imposta $n=4$, $p=1/2$ ed
    «esattamente 2». Simula 100 serie,
-   poi aggiungine 1.000. La frequenza si avvicina a 0,375? Può allontanarsene
-   temporaneamente?
+   poi aggiungine 1.000. La frequenza si avvicina a 0.375? Può allontanarsene
+   temporaneamente? Confronta anche la media dei conteggi $\bar{k}$ con $\mu=2$.
 2. **Dispersione.** Lascia fissi $n,p$ e aumenta $M$. Confronta $s$ e
    $s/\sqrt M$: quale grandezza descrive la variabilità di una singola serie?
 3. **Dado.** Scegli il pulsante «Dado»: imposta $n=100$, $p=1/6$ e
@@ -186,10 +208,10 @@ Definendo il successo come «segnale prodotto», abbiamo $n=1000$ prove e $k=962
 successi. Stimiamo l'efficienza con la frazione osservata:
 
 $$
-\hat\varepsilon=\frac{k}{n}=0{,}962,
+\hat\varepsilon=\frac{k}{n}=0.962,
 \qquad
 s_{\hat\varepsilon}=\sqrt{\frac{\hat\varepsilon(1-\hat\varepsilon)}{n}}
-\simeq0{,}006.
+\simeq0.006.
 $$
 
 Questa stima dell'errore è utile quando successi e insuccessi sono entrambi

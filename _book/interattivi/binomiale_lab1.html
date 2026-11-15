@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Laboratorio interattivo sulla distribuzione binomiale: prove di Bernoulli, simulazioni, probabilità e fluttuazioni statistiche. Utilizzabile offline.">
+<meta name="description" content="Laboratorio interattivo sulla distribuzione binomiale: simulazioni, probabilità e fluttuazioni statistiche. Utilizzabile offline.">
 <title>Lab1 · La distribuzione binomiale</title>
 <style>
-:root{color-scheme:light;--bg:#f4f6fa;--card:#fff;--ink:#192c40;--muted:#5d7084;--line:#dbe3ed;--blue:#2563c5;--pale:#edf3fd;--gold:#bd640b;--goldfill:#e7a34e;--teal:#137e73;--soft:#f6f8fb;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+:root{color-scheme:light;--bg:#f4f6fa;--card:#fff;--ink:#192c40;--muted:#5d7084;--line:#dbe3ed;--blue:#2563c5;--pale:#edf3fd;--gold:#bd640b;--goldfill:#e7a34e;--teal:#137e73;--sample:#8b3fa1;--soft:#f6f8fb;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}main{max-width:1380px;margin:auto;padding:28px 28px 22px}button,input,select{font:inherit}button,input,select,summary{touch-action:manipulation}button,select,summary{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 15px;border-radius:9px;font-size:14px;font-weight:600;transition:background .15s,border-color .15s}button:hover:not(:disabled){border-color:var(--blue);background:var(--pale)}button:disabled{cursor:default;opacity:.45}.primary{background:var(--blue);border-color:var(--blue);color:white}.primary:hover:not(:disabled){background:#194d9e;color:white}.tag{font-size:11px;letter-spacing:.12em;font-weight:750;color:var(--blue);text-transform:uppercase}.masthead{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:15px}.masthead span:last-child{font-size:12px;color:var(--muted)}h1{font-size:clamp(28px,3.5vw,42px);letter-spacing:-.035em;line-height:1.1;margin:0 0 12px;font-weight:740}header p{max-width:930px;margin:0;color:var(--muted);font-size:16px;line-height:1.65}h2{font-size:18px;line-height:1.3;margin:0}h3{font-size:15px;margin:0 0 8px}p{line-height:1.55}.intro{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 22px}.pill{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px;background:var(--card)}.panel{border:1px solid var(--line);background:var(--card);border-radius:14px;min-width:0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:36px;padding:20px 24px}.control-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.control-head label{font-size:15px;font-weight:650}.number-field{background:var(--pale);color:var(--blue);font-weight:700;border:1px solid transparent;border-radius:7px;padding:5px 8px;width:92px;text-align:right;font-variant-numeric:tabular-nums}input[type=range]{width:100%;margin:13px 0 5px;accent-color:var(--blue);cursor:pointer}.bounds{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.presets{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}.presets span{font-size:12px;color:var(--muted);margin-right:3px}.presets button{font-size:12px;padding:6px 10px;font-weight:500}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0 6px}.actions .reset{margin-left:auto}.run-note{font-size:12px;color:var(--muted);margin:6px 0 18px;min-height:18px}.workspace{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);gap:16px;align-items:start}.chart-panel{padding:21px 22px 15px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.sub{color:var(--muted);font-size:13px;margin:8px 0 0}.legend{display:flex;flex-wrap:wrap;gap:15px;font-size:12px;color:var(--muted);margin:17px 0 3px;align-items:center}.key{display:inline-block;width:11px;height:11px;border-radius:2px;background:var(--blue);vertical-align:-1px;margin-right:5px}.key.emp{background:var(--goldfill)}.key.mean{height:0;width:17px;border-top:2px dashed var(--teal);background:none;border-radius:0;vertical-align:3px}.legend label{cursor:pointer;display:flex;align-items:center;gap:5px}.legend input{accent-color:var(--teal);margin:0}.chart{width:100%;height:auto;display:block;overflow:visible}.readout{font-size:12px;color:var(--muted);line-height:1.5;padding:8px 11px;background:var(--soft);border-radius:6px;min-height:34px;font-variant-numeric:tabular-nums}.event-box{margin-top:17px;padding-top:17px;border-top:1px solid var(--line)}.event-fields{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:12px 0}.event-fields label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.event-fields select,.event-fields input{border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);padding:7px 8px;height:36px}.event-fields input{width:72px}.prob-results{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--pale);border-radius:9px;padding:13px 14px}.prob-results small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.prob-results strong{font-size:22px;letter-spacing:-.025em;font-variant-numeric:tabular-nums;color:var(--blue)}.prob-results .experimental{color:var(--gold)}#eventLabel{font-size:13px;font-weight:650;margin:2px 0 10px}#eventDetail{font-size:12px;color:var(--muted);margin:10px 0 0}.experiment{padding:21px 22px}.stage-label{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:17px 0 11px;color:var(--muted);font-size:12px}.badge{font-size:12px;border-radius:20px;padding:4px 9px;color:var(--blue);background:var(--pale);font-weight:650}.trials{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;min-height:78px;align-content:start}.trial{aspect-ratio:1;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;background:var(--soft);color:var(--muted)}.trial.success{background:var(--blue);border-color:var(--blue);color:white}.trial.failure{background:var(--card);border-color:#afbbc9;color:#51657c}.trial.pending{border-style:dashed;color:#9caaba}.last-total{display:flex;align-items:baseline;gap:9px;margin:15px 0 0}.last-total strong{font-size:31px;color:var(--blue);font-variant-numeric:tabular-nums;letter-spacing:-.04em}.last-total span{font-size:13px;color:var(--muted)}.trial-legend{font-size:12px;color:var(--muted);margin:12px 0 0}.trial-legend b{color:var(--blue)}.explain{border-top:1px solid var(--line);padding-top:15px;margin-top:20px}.explain p{font-size:13px;color:var(--muted);margin:8px 0}.explain strong{color:var(--ink)}.formula{padding:14px 12px;border-radius:9px;background:var(--soft);margin-top:14px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:18px}.formula math{font-size:18px}.formula small{display:block;font:12px system-ui;color:var(--muted);margin-top:10px;line-height:1.5}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{padding:16px 18px}.stat h3{font-size:12px;font-weight:550;color:var(--muted);margin:0 0 9px}.stat strong{font-size:25px;font-variant-numeric:tabular-nums;letter-spacing:-.035em}.stat .obs{display:block;font-size:12px;color:var(--gold);margin-top:8px;font-variant-numeric:tabular-nums;min-height:17px}.stat .caption{font-size:11px;color:var(--muted);display:block;margin-top:5px}.learning{padding:20px 22px;margin-top:17px}.learning-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:17px}.learning-title p{font-size:13px;color:var(--muted);margin:0}.questions{display:grid;grid-template-columns:repeat(3,1fr);gap:21px}.question{border-left:2px solid var(--line);padding-left:14px}.question .q-number{font-size:11px;font-weight:750;color:var(--blue);display:block;margin-bottom:7px}.question p{font-size:13px;margin:8px 0;color:var(--muted)}.question button{padding:6px 9px;font-size:12px}.question summary{font-size:12px;color:var(--blue);margin:12px 0 4px}.question details p{color:var(--ink);font-size:12px;line-height:1.65}.data{margin-top:16px;padding:15px 20px}.data>summary{font-size:13px;font-weight:600}.data-actions{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:15px 0}.data-actions p{font-size:12px;color:var(--muted);margin:0}.table-wrap{max-height:300px;overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}th{position:sticky;top:0;background:var(--soft);font-weight:650}th:first-child,td:first-child{text-align:left}caption{text-align:left;color:var(--muted);padding:0 0 12px}footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:20px;padding-top:15px;border-top:1px solid var(--line)}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.key.sample{height:0;width:17px;border-top:3px dotted var(--sample);background:none;border-radius:0;vertical-align:3px}.legend .sample-mean input{accent-color:var(--sample)}#statSampleMean{color:var(--sample)}
+.experiment-choice{margin:0 0 18px}.experiment-choice .presets{margin-top:0}
+.examples-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:1000px){main{padding:22px 18px}.workspace{grid-template-columns:minmax(0,1.4fr) minmax(270px,1fr)}.chart-panel,.experiment{padding:18px 16px}.trials{gap:4px}.trial{font-size:12px}.stats{gap:8px}.stat{padding:14px}.stat strong{font-size:23px}}
 @media(max-width:760px){main{padding:18px 12px}.masthead span:last-child{font-size:11px}header p{font-size:14px}.controls{grid-template-columns:1fr;gap:22px;padding:18px}.workspace{grid-template-columns:1fr}.experiment{order:-1}.trials{grid-template-columns:repeat(10,minmax(0,30px))}.stats{grid-template-columns:1fr 1fr}.questions{grid-template-columns:1fr;gap:23px}.actions .reset{margin-left:0}.actions button{padding:9px 11px;font-size:12px}.panel-head h2{font-size:17px}.chart-panel{padding:16px 12px}.learning{padding:18px}.legend{gap:10px;font-size:11px}.chart text{font-size:14px}.explain{margin-top:16px}.intro{gap:6px}.pill{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{body{background:white}main{max-width:none;padding:0}.actions,.presets,.run-note,.learning,.data,footer{display:none}.controls{padding:12px}.workspace{grid-template-columns:1.4fr 1fr}.experiment{order:0}.stats{grid-template-columns:repeat(4,1fr)}.panel{break-inside:avoid}input[type=range]{display:none}header p{font-size:12px}.intro{margin:10px 0}.chart-panel,.experiment{padding:12px}}
 
-.eff-summary{display:grid;grid-template-columns:1fr 1fr;gap:22px;background:var(--pale);border-radius:9px;padding:16px 18px;margin-top:15px}.eff-summary small{font-size:11px;color:var(--muted);display:block;margin-bottom:8px}.eff-summary strong{display:block;font-size:27px;color:var(--blue);font-variant-numeric:tabular-nums}.eff-summary p,.eff-bayes p{font-size:13px;line-height:1.65;color:var(--muted);margin:8px 0}.eff-formula{font-family:Georgia,serif;font-size:17px;line-height:1.8}.eff-note{font-size:13px;color:var(--gold);margin:12px 0}.eff-bayes{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}.eff-bayes summary{color:var(--blue);font-size:13px;font-weight:600}#efficiencyPanel .event-fields input{width:135px}#pValue{width:120px}.source-note{margin-top:18px;font-size:11px;color:var(--muted);line-height:1.6}.source-note a{color:var(--blue)}
-@media(max-width:760px){.eff-summary{grid-template-columns:1fr;gap:10px}.bounds{gap:8px;font-size:11px}}
+#pValue{width:120px}.source-note{margin-top:18px;font-size:11px;color:var(--muted);line-height:1.6}.source-note a{color:var(--blue)}
+@media(max-width:760px){.bounds{gap:8px;font-size:11px}}
 .success-context{margin-top:13px;padding:12px 16px;background:var(--pale);border:1px solid #c7d8f3;border-left:4px solid var(--blue);border-radius:8px}.success-context strong{display:block;font-size:14px;color:var(--blue);line-height:1.6}.success-context p{margin:4px 0 0;color:var(--ink);font-size:13px;line-height:1.6}.presets button[aria-pressed="true"]{border-color:var(--blue);background:var(--pale)}#eventMeaning{margin:0 0 12px;font-size:13px;color:var(--ink)}
 </style>
 </head>
@@ -26,11 +29,14 @@
 <p>Quanti successi si ottengono in <b>n</b> prove? Scegli la probabilità <b>p</b> di successo, simula una serie e ripetila: osserva come le frequenze si confrontano con la distribuzione teorica.</p>
 <div class="intro"><span class="pill">Due esiti per prova</span><span class="pill">Prove indipendenti</span><span class="pill">Probabilità p costante</span></div>
 </header>
+<div class="experiment-choice">
+<div class="presets"><span>Esperimento:</span><button data-preset="coin">Moneta · successo = testa · 4 lanci</button><button data-preset="die">Dado · successo = faccia 1 · 100 lanci</button><button data-preset="generic" title="Mantiene i parametri e i dati attuali; scegli liberamente n e p">Libero</button></div>
+<p class="sub">Moneta e dado sono esempi precompilati. In «Libero» scegli n e p, anche per monete e dadi non equi o altri esperimenti con due esiti, prove indipendenti e p costante.</p>
+</div>
 <section class="controls panel" aria-label="Parametri della distribuzione">
  <div><div class="control-head"><label for="nValue">Numero di prove per serie · n</label><input class="number-field" id="nValue" type="number" min="1" max="100" step="1" value="4" aria-label="Numero di prove n"></div><input id="nSlider" type="range" min="1" max="100" step="1" value="4" aria-label="Varia il numero di prove n"><div class="bounds"><span>1 prova</span><span>100 prove</span></div></div>
  <div><div class="control-head"><label for="pValue">Probabilità di successo · p</label><input class="number-field" id="pValue" type="text" inputmode="text" spellcheck="false" title="Inserisci un numero tra 0 e 1 oppure una frazione, ad esempio 1/6" value="0.50" aria-label="Probabilità p"></div><input id="pSlider" type="range" min="0" max="1" step="any" value="0.5" aria-label="Varia la probabilità p"><div class="bounds"><span>0 · impossibile</span><span>Decimale o frazione, es. 1/6</span><span>1 · certo</span></div></div>
 </section>
-<div class="presets"><span>Dalle dispense:</span><button data-preset="coin">Moneta · successo = testa · 4 lanci</button><button data-preset="die">Dado · successo = faccia 1 · 100 lanci</button><button id="detectorExample">Efficienza · 962 segnali su 1.000</button></div>
 <div class="success-context" aria-live="polite"><strong id="contextDefinition">Moneta: successo = testa; insuccesso = croce.</strong><p id="contextSeries">Ogni serie comprende 4 lanci. k conta le teste; p = P(testa) = 0,5.</p></div>
 <div class="actions" aria-label="Simulazione"><button id="single" class="primary">▶ Simula una serie</button><button id="hundred">+100 serie</button><button id="thousand">+1.000 serie</button><button id="auto" aria-pressed="false">▷ Ripeti in automatico</button><button id="reset" class="reset">Azzera simulazione</button></div>
 <p class="run-note" id="runNote" role="status">Ogni serie comprende 4 prove. Cambiare n o p azzera i dati simulati.</p>
@@ -38,9 +44,11 @@
 <section class="panel chart-panel" aria-labelledby="distributionTitle">
  <div class="panel-head"><h2 id="distributionTitle">Distribuzione del numero di successi</h2></div>
  <p class="sub" id="chartMeaning">k è il numero di teste in una serie di 4 lanci. Ogni barra corrisponde a un valore di k.</p>
- <div class="legend"><span><i class="key"></i>Probabilità teoriche B(k; n, p)</span><span><i class="key emp"></i>Frequenze relative</span><label><input id="showMean" type="checkbox" checked><i class="key mean"></i>Media μ = np</label></div>
- <svg id="chart" class="chart" viewBox="0 0 760 365" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">Distribuzione binomiale</title><desc id="chartDesc">Probabilità teoriche e frequenze relative per ogni numero di successi. I valori sono disponibili anche nella tabella dati.</desc><g id="chartDrawing"></g></svg>
+ <div class="legend"><span><i class="key"></i>Probabilità teoriche B(k; n, p)</span><span><i class="key emp"></i>Dati simulati · frequenze e conteggi</span><label><input id="showMean" type="checkbox" checked><i class="key mean"></i>Media teorica μ = np</label><label class="sample-mean" title="Disponibile dopo almeno una serie simulata"><input id="showSampleMean" type="checkbox" checked disabled><i class="key sample"></i>Media dei conteggi k̄</label></div>
+ <svg id="chart" class="chart" viewBox="0 0 760 400" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">Distribuzione binomiale</title><desc id="chartDesc">Probabilità e frequenze relative sull’asse sinistro; conteggi sull’asse destro. I valori sono disponibili anche nella tabella dati.</desc><g id="chartDrawing"></g></svg>
  <div class="readout" id="readout">Passa sulle barre per leggere i valori; fai clic per selezionare un numero di successi.</div>
+ <p class="sub" id="axisNote">Sinistra: probabilità e frequenze relative. Destra: conteggi Nₖ = M × fₖ, disponibili dopo la prima serie.</p>
+ <p class="sub">Qui k̄ = (k₁ + … + k<sub>M</sub>) / M è la media dei conteggi e stima μ = np; con una sola serie coincide con k₁. La media degli esiti 0/1 all’interno di una serie è k/n e stima p.</p>
  <div class="event-box">
   <h3>Qual è la probabilità dell’evento?</h3>
   <div class="event-fields"><label>Evento<select id="eventType"><option value="exact">Esattamente k successi</option><option value="le">Al massimo k successi</option><option value="ge">Almeno k successi</option><option value="between">Tra a e b successi, inclusi</option></select></label><label><span id="lowerLabel">k₀</span><input id="eventLo" type="number" min="0" max="4" step="1" value="2"></label><label id="upperField" hidden>b<input id="eventHi" type="number" min="0" max="4" step="1" value="3"></label></div>
@@ -62,25 +70,16 @@
 </div>
 <section class="stats" aria-label="Valori teorici e statistiche del campione">
  <div class="stat panel"><h3>Serie simulate · M</h3><strong id="statM">0</strong><span class="caption" id="statTrials">0 prove complessive</span><span class="obs" id="statEventCount">Nessun dato simulato</span></div>
- <div class="stat panel"><h3>Media teorica · μ = np</h3><strong id="statMean">2,00</strong><span class="caption">Numero medio di successi</span><span class="obs" id="statSampleMean">Media campionaria: —</span></div>
+ <div class="stat panel"><h3>Media teorica · μ = np</h3><strong id="statMean">2,00</strong><span class="caption">Numero medio di successi</span><span class="obs" id="statSampleMean">Media dei conteggi k̄: —</span></div>
  <div class="stat panel"><h3>Deviazione standard · σ</h3><strong id="statSigma">1,00</strong><span class="caption">σ = √[np(1 − p)]</span><span class="obs" id="statSampleSigma">Dev. standard campionaria s: —</span></div>
  <div class="stat panel"><h3>Dev. standard della media</h3><strong id="statSE">—</strong><span class="caption">σ / √M · previsione teorica</span><span class="caption"><b>M = numero di serie simulate</b></span><span class="obs" id="statEstimatedSE">Stima dai dati s / √M: —</span></div>
 </section>
 <section class="panel learning" aria-labelledby="examplesTitle">
- <div class="learning-title"><h2 id="examplesTitle">Gli esempi delle dispense</h2><p>§§5.1–5.2 · Dal conteggio alla misura di efficienza.</p></div>
- <div class="questions">
+ <div class="learning-title"><h2 id="examplesTitle">Gli esempi delle dispense</h2><p>Moneta e dado: due esempi di conteggio dei successi.</p></div>
+ <div class="questions examples-grid">
   <article class="question"><span class="q-number">ESEMPIO 5.1 / MONETA</span><h3>Due teste in quattro lanci</h3><p>Con una moneta equa ci sono 16 sequenze equiprobabili. Le 6 con due teste sono TTCC, TCTC, TCCT, CTTC, CTCT e CCTT.</p><p><b>B(2; 4, 1/2) = 6/16 = 37,5%</b>.</p><button data-preset="coin">Imposta la moneta</button></article>
   <article class="question"><span class="q-number">ESEMPIO 5.2 / DADO</span><h3>Solo tre “1” in cento lanci</h3><p>Il successo è l’uscita della faccia 1: n = 100, p = 1/6. Per un dado equo μ ≈ 16,67 e σ ≈ 3,73.</p><p>Quanto è raro ottenere <b>al massimo tre “1”</b>?</p><button data-preset="die">Calcola P(k ≤ 3)</button><details><summary>Leggi il commento</summary><p>La somma B(0; 100, 1/6) + … + B(3; 100, 1/6) vale circa 1,8 × 10⁻⁵, cioè 0,0018%. È un evento molto raro sotto l’ipotesi di dado equo. Il calcolo teorico è utile anche quando una simulazione di poche migliaia di serie non produce alcun caso.</p></details></article>
-  <article class="question"><span class="q-number">ESEMPIO 5.3 / RIVELATORE</span><h3>962 segnali su 1.000 particelle</h3><p>Il successo è la produzione di un segnale. L’efficienza ε è la probabilità di successo che vogliamo stimare dai conteggi.</p><p>La stima classica è <b>ε̂ = 0,962 ± 0,006</b>. Prova il calcolatore qui sotto, anche con nessun segnale o con tutte le particelle rivelate.</p></article>
  </div>
-</section>
-<section class="panel learning" id="efficiencyPanel" aria-labelledby="efficiencyTitle">
- <div class="learning-title"><h2 id="efficiencyTitle">Misurare un’efficienza</h2><p>Un singolo campione di particelle · §5.2.</p></div>
- <p class="sub">Qui adottiamo la notazione delle dispense: <b>N</b> è il numero totale di particelle e <b>n</b> il numero di segnali osservati. Corrispondono rispettivamente al numero di prove e al conteggio k del grafico sopra. Questi dati sono indipendenti dalle M serie simulate.</p>
- <div class="event-fields"><label for="effN">Particelle incidenti · N<input id="effN" type="number" min="1" max="1000000" step="1" value="1000"></label><label for="effK">Segnali osservati · n<input id="effK" type="number" min="0" max="1000" step="1" value="962"></label><button id="effReset">Esempio 962 / 1.000</button><button id="effNone">Nessun segnale</button><button id="effAll">Tutte rivelate</button></div>
- <div class="eff-summary" aria-live="polite"><div><small>STIMA CLASSICA · n / N</small><strong id="effEstimate"></strong><p id="effUncertainty"></p></div><div><small>ERRORE STATISTICO STIMATO</small><span class="eff-formula">σ<sub>ε̂</sub> ≈ √[ε̂(1 − ε̂) / N]</span><p>È una stima della deviazione standard di ε̂, ottenuta sostituendo l’efficienza incognita con n/N.</p></div></div>
- <p class="eff-note" id="effWarning"></p>
- <details class="eff-bayes"><summary>Approfondimento: soluzione bayesiana con prior uniforme · §5.2.2</summary><p>Assumendo una prior uniforme per ε tra 0 e 1, la densità a posteriori è proporzionale a εⁿ(1 − ε)<sup>N−n</sup>. La sua media e la sua deviazione standard sono:</p><p class="eff-formula">E[ε | n, N] = (n + 1) / (N + 2)<br>σ<sub>post</sub> = √[(n + 1)(N − n + 1) / ((N + 3)(N + 2)²)]</p><p><b id="effBayes"></b></p><p>La deviazione standard a posteriori rimane positiva anche per n = 0 e n = N. Il valore “±” riassume media e deviazione standard: non è un intervallo di credibilità.</p></details>
 </section>
 <section class="panel learning" aria-labelledby="learningTitle"><div class="learning-title"><h2 id="learningTitle">Tre esplorazioni per Lab1</h2><p>Fai una previsione, simula, poi confronta.</p></div><div class="questions">
  <article class="question"><span class="q-number">01 / FORMA</span><h3>Quando è simmetrica?</h3><p>Fissa n = 20. Confronta p = 0,50, p = 0,20 e p = 0,80: dove si trovano il centro e la coda?</p><button id="exploreShape">Imposta n = 20, p = 0,50</button><details><summary>Leggi il commento</summary><p>Per p = 0,50 la distribuzione è simmetrica intorno a n/2. Per p = 0,20 la coda si allunga verso i valori alti; per p = 0,80 verso i valori bassi. Sostituire p con 1 − p riflette la distribuzione: k diventa n − k.</p></details></article>
@@ -88,8 +87,8 @@
  <article class="question"><span class="q-number">03 / EVENTO COMPLEMENTARE</span><h3>Almeno un successo</h3><p>Con n = 20 e p = 0,10, quanto vale P(k ≥ 1)? Puoi calcolarla senza sommare venti termini?</p><button id="exploreComplement">Esplora P(k ≥ 1)</button><details><summary>Leggi il commento</summary><p>L’evento complementare è «nessun successo». Quindi P(k ≥ 1) = 1 − P(k = 0) = 1 − (1 − p)ⁿ. Con questi parametri vale circa 0,8784, cioè 87,84%.</p></details></article>
 </div></section>
 <details class="panel data" id="dataDetails"><summary>Tabella delle probabilità e dati da esportare</summary><div class="data-actions"><p>La frequenza relativa è Nₖ / M. Il CSV include n, p, M, k, probabilità, conteggi e frequenze.</p><button id="download">Scarica CSV</button></div><div class="table-wrap"><table><caption id="tableCaption">Distribuzione teorica e simulazione</caption><thead><tr><th scope="col">k</th><th scope="col">B(k; n, p)</th><th scope="col">Conteggi Nₖ</th><th scope="col">Frequenza Nₖ / M</th></tr></thead><tbody id="tableBody"></tbody></table></div><p class="sub">Per M ≥ 2, s² = Σᵢ(kᵢ − k̄)² / (M − 1): si usa la varianza campionaria con correzione di Bessel.</p></details>
-<p class="source-note">Supporto interattivo alle dispense <cite>statnotes, versione 6.2.7</cite>, §§5.1–5.2, pp. 109–114. Esempi 5.1–5.3 adattati dalle dispense, distribuite con licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Questo adattamento è distribuito con la stessa licenza.</p>
-<footer><span>Lab1 · Dalla prova di Bernoulli alla distribuzione binomiale</span><span>Simulazione pseudocasuale · Nessuna connessione necessaria</span></footer>
+<p class="source-note">Supporto interattivo alle dispense <cite>statnotes, versione 6.2.7</cite>. Esempi 5.1 e 5.2 adattati dalle dispense, distribuite con licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Questo adattamento è distribuito con la stessa licenza.</p>
+<footer><span>Lab1 · La distribuzione binomiale</span><span>Simulazione pseudocasuale · Nessuna connessione necessaria</span></footer>
 <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
 <noscript><p>Per usare i controlli e la simulazione, abilita JavaScript nel browser.</p></noscript>
 </main>
@@ -131,10 +130,10 @@
      legend:'+ = Testa; − = Croce; · = In attesa',success:'testa',failure:'croce'
    };
    return {
-     definition:'Prova di Bernoulli: successo = esito 1; insuccesso = esito 0.',
+     definition:'Libero · scegli quale esito chiamare successo (1); l’altro è un insuccesso (0).',
      noun:'successi',unit:n===1?'prova':'prove',event:'esito 1',
      chartTitle:'Distribuzione del numero di successi',axis:'Numero di successi · k',
-     trial:'Ogni cerchio è una prova di Bernoulli: + significa esito 1, − significa esito 0.',
+     trial:'Ogni cerchio è una prova: + significa esito 1, − significa esito 0.',
      legend:'+ = Esito 1; − = Esito 0; · = In attesa',success:'esito 1',failure:'esito 0'
    };
  }
@@ -146,7 +145,7 @@
    $('chartMeaning').textContent=`k è il numero di ${c.noun} in una serie di ${n} ${c.unit}. Ogni barra corrisponde a un valore di k.`;
    $('trialMeaning').textContent=c.trial;
    $('trialLegend').textContent=c.legend;
-   $('chartDesc').textContent=`${$('chartMeaning').textContent} Blu: probabilità teoriche; arancione: frequenze relative sulle M serie simulate. I valori sono disponibili anche nella tabella dati.`;
+   $('chartDesc').textContent=`${$('chartMeaning').textContent} Blu: probabilità teoriche; arancione: dati simulati. Asse sinistro: probabilità e frequenze relative. Asse destro: conteggi Nₖ = M × fₖ sulle ${int(M)} serie simulate. Verde: media teorica μ = np; viola: media dei conteggi k̄ = Σkᵢ / M, disponibile per M ≥ 1. I valori sono disponibili anche nella tabella dati.`;
    document.querySelectorAll('[data-preset]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.preset===selectedExample)));
  }
  // Logarithms avoid factorial overflow and handle small probabilities safely.
@@ -218,7 +217,7 @@
  function niceStep(value){const power=10**Math.floor(Math.log10(value));const fraction=value/power;return (fraction<=1?1:fraction<=2?2:fraction<=2.5?2.5:fraction<=5?5:10)*power;}
  function showBin(k){lastInspectedK=k;$('readout').textContent=`k = ${k} · P(k = ${k}) = ${probability(pmf[k])} · ${M?`Nₖ = ${int(counts[k])} / ${int(M)}; frequenza = ${probability(counts[k]/M)}`:'Nessun dato simulato'}`;}
  function drawChart(){
-   const W=760,H=365,L=60,R=15,T=34,B=57,plotW=W-L-R,plotH=H-T-B;
+   const W=760,H=400,L=60,R=75,T=69,B=57,plotW=W-L-R,plotH=H-T-B;
    const binW=plotW/(n+1),X=k=>L+(k+.5)*binW;
    const highest=Math.max(...pmf,...counts.map(c=>M?c/M:0));
    const step=niceStep(Math.max(highest,.01)/4);
@@ -226,24 +225,54 @@
    const Y=v=>H-B-(v/ymax)*plotH;
    const event=selectedEvent(),root=svgEl('g');
    root.appendChild(svgEl('text',{x:L,y:17,fill:'var(--muted)','font-size':12},'Probabilità / frequenza relativa'));
+   root.appendChild(svgEl('text',{x:W-R,y:17,'text-anchor':'end',fill:M?'var(--gold)':'var(--muted)','font-size':12},'Conteggi · Nₖ'));
    const ticks=[];for(let v=0;v<ymax-step*.01;v+=step)ticks.push(v);ticks.push(ymax);
-   for(const v of ticks){const y=Y(v);root.appendChild(svgEl('line',{x1:L,y1:y,x2:W-R,y2:y,stroke:'var(--line)'}));root.appendChild(svgEl('text',{x:L-10,y:y+4,'text-anchor':'end',fill:'var(--muted)','font-size':12},fmt(v*100,step<.01?1:0)+'%'));}
+   const percentDigits=Math.abs(step*100-Math.round(step*100))<1e-8?0:1;
+   for(const v of ticks){const y=Y(v);root.appendChild(svgEl('line',{x1:L,y1:y,x2:W-R,y2:y,stroke:'var(--line)'}));root.appendChild(svgEl('text',{x:L-10,y:y+4,'text-anchor':'end',fill:'var(--muted)','font-size':12},fmt(v*100,percentDigits)+'%'));}
+   // Both axes describe the same bar: N_k = M * f_k. Count ticks are integers.
+   root.appendChild(svgEl('line',{x1:L,y1:T,x2:L,y2:H-B,stroke:'var(--muted)'}));
+   root.appendChild(svgEl('line',{x1:W-R,y1:T,x2:W-R,y2:H-B,stroke:M?'var(--gold)':'var(--line)'}));
+   if(M){
+     const countStep=Math.max(1,Math.ceil(niceStep(M*ymax/4)));
+     for(let c=0;c<=M*ymax+1e-9;c+=countStep){
+       const y=Y(c/M);
+       root.appendChild(svgEl('line',{x1:W-R,y1:y,x2:W-R+5,y2:y,stroke:'var(--gold)'}));
+       root.appendChild(svgEl('text',{x:W-R+10,y:y+4,fill:'var(--gold)','font-size':12},int(c)));
+     }
+   }else{
+     root.appendChild(svgEl('text',{x:W-R+10,y:H-B+4,fill:'var(--muted)','font-size':12},'—'));
+   }
    for(let k=0;k<=n;k++){
      const selected=k>=event.lo&&k<=event.hi;
      root.appendChild(svgEl('rect',{x:X(k)-binW*.39,y:Y(pmf[k]),width:binW*.78,height:Math.max(0,H-B-Y(pmf[k])),rx:Math.min(2,binW*.1),fill:'var(--blue)',opacity:selected?.9:.25}));
      if(M&&counts[k])root.appendChild(svgEl('rect',{x:X(k)-binW*.16,y:Y(counts[k]/M),width:binW*.32,height:Math.max(0,H-B-Y(counts[k]/M)),fill:'var(--goldfill)'}));
    }
-   if($('showMean').checked){const x=X(n*p);root.appendChild(svgEl('line',{x1:x,y1:T-2,x2:x,y2:H-B,stroke:'var(--teal)','stroke-width':1.8,'stroke-dasharray':'5 5'}));root.appendChild(svgEl('text',{x:Math.min(W-R-2,Math.max(L+42,x)),y:T-9,'text-anchor':'end',fill:'var(--teal)','font-size':12},`μ = ${fmt(n*p)}`));}
+   // Separate label rows keep the means readable even when their positions coincide.
+   const meanLabelX=x=>Math.min(W-R-2,Math.max(L+96,x-4));
+   if($('showMean').checked){
+     const x=X(n*p);
+     root.appendChild(svgEl('line',{x1:x,y1:T-2,x2:x,y2:H-B,stroke:'var(--teal)','stroke-width':1.8,'stroke-dasharray':'5 5','data-mean':'theory'}));
+     root.appendChild(svgEl('text',{x:meanLabelX(x),y:T-29,'text-anchor':'end',fill:'var(--teal)','font-size':12},`μ = ${fmt(n*p)}`));
+   }
+   $('showSampleMean').disabled=M===0;
+   if(M&&$('showSampleMean').checked){
+     const mean=sum/M,x=X(mean);
+     root.appendChild(svgEl('line',{x1:x,y1:T-2,x2:x,y2:H-B,stroke:'var(--sample)','stroke-width':2.4,'stroke-dasharray':'1 9','stroke-dashoffset':-7,'stroke-linecap':'round','data-mean':'sample'}));
+     root.appendChild(svgEl('text',{x:meanLabelX(x),y:T-9,'text-anchor':'end',fill:'var(--sample)','font-size':12},`k̄ = ${fmt(mean,3)}`));
+   }
    root.appendChild(svgEl('line',{x1:L,y1:H-B,x2:W-R,y2:H-B,stroke:'var(--muted)'}));
    const tickStep=n<=20?1:n<=50?5:10;
    for(let k=0;k<=n;k++){if(k%tickStep!==0&&k!==n)continue;if(k!==n&&n-k<tickStep*.6&&n-k>0)continue;const x=X(k);root.appendChild(svgEl('line',{x1:x,y1:H-B,x2:x,y2:H-B+4,stroke:'var(--muted)'}));root.appendChild(svgEl('text',{x,y:H-B+20,'text-anchor':'middle',fill:'var(--muted)','font-size':12},String(k)));}
    root.appendChild(svgEl('text',{x:L+plotW/2,y:H-10,'text-anchor':'middle',fill:'var(--muted)','font-size':13},exampleContext().axis));
    for(let k=0;k<=n;k++){
      const hit=svgEl('rect',{x:L+k*binW,y:T,width:binW,height:plotH,fill:'transparent','data-k':k,style:'cursor:pointer'});
-     hit.appendChild(svgEl('title',{},`k = ${k}: probabilità ${probability(pmf[k])}${M?`, frequenza ${probability(counts[k]/M)}`:''}`));root.appendChild(hit);
+     hit.appendChild(svgEl('title',{},`k = ${k}: probabilità ${probability(pmf[k])}${M?`, frequenza ${pct(counts[k]/M)}, conteggio ${int(counts[k])} su ${int(M)} serie`:''}`));root.appendChild(hit);
    }
    $('chartDrawing').replaceChildren(root);
    $('chartTitle').textContent=`Distribuzione binomiale, n = ${n}, p = ${pLabel(p)}; ${M} serie simulate.`;
+   $('axisNote').textContent=M
+     ? `Sinistra: probabilità e frequenze relative fₖ = Nₖ / M. Destra: conteggi Nₖ. Le scale sono collegate: Nₖ = ${int(M)} × fₖ.${M===1?' Con una sola serie, l’unico risultato osservato ha frequenza 100% e conteggio 1.':''}`
+     : 'Sinistra: probabilità teoriche. I conteggi sull’asse destro saranno disponibili dopo la prima serie.';
  }
  function updateEvent(){
    const event=selectedEvent();let prob=0,num=0;
@@ -263,7 +292,7 @@
    const s=M>1?Math.sqrt(Math.max(0,(sumSq-sum*sum/M)/(M-1))):0;
    $('statM').textContent=int(M);$('statTrials').textContent=`${int(M*n)} prove complessive`;
    $('statMean').textContent=fmt(n*p);$('statSigma').textContent=fmt(sigma);
-   $('statSampleMean').textContent='Media campionaria: '+(M?fmt(mean,3):'—');
+   $('statSampleMean').textContent='Media dei conteggi k̄: '+(M?fmt(mean,3):'—');
    $('statSampleSigma').textContent='Dev. standard campionaria s: '+(M>1?fmt(s,3):'—');
    $('statSE').textContent=M?fmt(sigma/Math.sqrt(M),4):'—';
    $('statEstimatedSE').textContent='Stima dai dati s / √M: '+(M>1?fmt(s/Math.sqrt(M),4):'—');
@@ -314,21 +343,31 @@
    drawChart();updateEvent();
  }
  function preset(newN,newP,example='generic'){selectedExample=example;setParameters(newN,newP);$('eventLo').value=Math.round(n*p);$('eventHi').value=Math.min(n,Math.round(n*p)+2);$('eventType').value='exact';changeEvent();}
- $('nSlider').addEventListener('input',()=>setParameters(Number($('nSlider').value),p));
- $('pSlider').addEventListener('input',()=>setParameters(n,Number($('pSlider').value)));
- $('nValue').addEventListener('input',()=>{const value=$('nValue').valueAsNumber;if(Number.isInteger(value)&&value>=1&&value<=100)setParameters(value,p,'nValue');});
- $('pValue').addEventListener('input',()=>{const value=parseProbability($('pValue').value);if(Number.isFinite(value)&&value>=0&&value<=1)setParameters(n,value,'pValue');});
- $('nValue').addEventListener('change',()=>{clampIntegerInput($('nValue'),n);setParameters(Number($('nValue').value),p);});
- $('pValue').addEventListener('change',()=>{const raw=$('pValue').value;const value=raw.trim()===''?p:parseProbability(raw);setParameters(n,Number.isFinite(value)?value:p);});
+ function setUserParameters(newN,newP,editing=null){
+   const nextN=Math.max(1,Math.min(100,Math.round(newN))),nextP=Math.max(0,Math.min(1,newP));
+   if(nextN===n&&nextP===p){
+     if(editing!=='nValue')$('nValue').value=n;
+     if(editing!=='pValue')$('pValue').value=pLabel(p);
+     return;
+   }
+   selectedExample='generic';setParameters(nextN,nextP,editing);
+ }
+ $('nSlider').addEventListener('input',()=>setUserParameters(Number($('nSlider').value),p));
+ $('pSlider').addEventListener('input',()=>setUserParameters(n,Number($('pSlider').value)));
+ $('nValue').addEventListener('input',()=>{const value=$('nValue').valueAsNumber;if(Number.isInteger(value)&&value>=1&&value<=100)setUserParameters(value,p,'nValue');});
+ $('pValue').addEventListener('input',()=>{const value=parseProbability($('pValue').value);if(Number.isFinite(value)&&value>=0&&value<=1)setUserParameters(n,value,'pValue');});
+ $('nValue').addEventListener('change',()=>{clampIntegerInput($('nValue'),n);setUserParameters(Number($('nValue').value),p);});
+ $('pValue').addEventListener('change',()=>{const raw=$('pValue').value;const value=raw.trim()===''?p:parseProbability(raw);setUserParameters(n,Number.isFinite(value)?value:p);});
  $('single').addEventListener('click',()=>runOne());$('hundred').addEventListener('click',()=>runBatch(100));$('thousand').addEventListener('click',()=>runBatch(1000));
  $('auto').addEventListener('click',()=>{if(auto){stopAuto();return;}auto=true;updateButtons();runOne(true);});
  $('reset').addEventListener('click',()=>{reset();$('announcement').textContent='Simulazione azzerata.';});
  for(const id of ['eventType','eventLo','eventHi'])$(id).addEventListener('change',changeEvent);
  for(const id of ['eventLo','eventHi'])$(id).addEventListener('input',()=>{const value=$(id).valueAsNumber;if(Number.isInteger(value)&&value>=0&&value<=n){drawChart();updateEvent();}});
- $('showMean').addEventListener('change',drawChart);
+ for(const id of ['showMean','showSampleMean'])$(id).addEventListener('change',drawChart);
  $('chart').addEventListener('pointermove',event=>{const target=event.target.closest('[data-k]');if(target)showBin(Number(target.dataset.k));});
  $('chart').addEventListener('click',event=>{const target=event.target.closest('[data-k]');if(!target)return;$('eventType').value='exact';$('eventLo').value=target.dataset.k;changeEvent();showBin(Number(target.dataset.k));});
  function applyExample(name){
+   if(name==='generic'){selectedExample='generic';if(!busy)drawTrials(lastOutcomes);render();return;}
    if(name==='die'){preset(100,1/6,'die');$('eventType').value='le';$('eventLo').value=3;changeEvent();}
    else preset(4,.5,'coin');
  }
@@ -341,25 +380,6 @@
    for(let k=0;k<=n;k++)rows.push([n,p,M,k,pmf[k].toPrecision(15),counts[k],M?(counts[k]/M).toPrecision(15):''].join(','));
    const blob=new Blob([rows.join('\r\n')+'\r\n'],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=`binomiale_n${n}_p${Number(p.toPrecision(8))}_M${M}.csv`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  });
- function updateEfficiency(){
-   clampIntegerInput($('effN'),1000);
-   const N=Number($('effN').value);$('effK').max=N;clampIntegerInput($('effK'),Math.min(962,N));
-   const successes=Number($('effK').value),estimate=successes/N;
-   const error=Math.sqrt(estimate*(1-estimate)/N);
-   const postMean=(successes+1)/(N+2);
-   const postSigma=Math.sqrt((successes+1)*(N-successes+1)/((N+3)*(N+2)**2));
-   const precise=v=>v>0&&v<.0001?scientific(v):fmt(v,6);
-   $('effEstimate').textContent=`${fmt(estimate,4)} ± ${precise(error)}`;
-   $('effUncertainty').textContent=`Efficienza osservata: ${fmt(estimate*100,2)}% · ${int(successes)} segnali su ${int(N)} particelle.`;
-   $('effWarning').textContent=successes===0||successes===N?'La formula classica restituisce errore zero a questo estremo. Non significa che l’efficienza sia nota esattamente: apri l’approfondimento bayesiano.':'Aumentare il numero di particelle, a parità di efficienza, riduce l’incertezza statistica sulla sua stima.';
-   $('effBayes').textContent=`Media a posteriori = ${precise(postMean)}; deviazione standard = ${precise(postSigma)}.`;
- }
- for(const id of ['effN','effK'])$(id).addEventListener('change',updateEfficiency);
- $('effReset').addEventListener('click',()=>{$('effN').value=1000;$('effK').value=962;updateEfficiency();});
- $('effNone').addEventListener('click',()=>{$('effK').value=0;updateEfficiency();});
- $('effAll').addEventListener('click',()=>{$('effK').value=$('effN').value;updateEfficiency();});
- $('detectorExample').addEventListener('click',()=>{$('effReset').click();$('effN').focus({preventScroll:true});$('efficiencyPanel').scrollIntoView({block:'start',behavior:reducedMotion.matches?'instant':'smooth'});});
- updateEfficiency();
  document.addEventListener('visibilitychange' ,()=>{if(document.hidden&&auto)stopAuto();});
  setParameters(n,p);
 })();
@@ -369,7 +389,7 @@
   if (!new URLSearchParams(window.location.search).has('embed')) return;
   document.documentElement.classList.add('embedded-lab');
   const style = document.createElement('style');
-  style.textContent = '.embedded-lab main{padding:12px;max-width:100%}.embedded-lab header,.embedded-lab .learning,.embedded-lab .source-note,.embedded-lab footer,.embedded-lab .explain,.embedded-lab .formula,.embedded-lab #detectorExample{display:none}.embedded-lab .stats{margin-bottom:8px}';
+  style.textContent = '.embedded-lab main{padding:12px;max-width:100%}.embedded-lab header,.embedded-lab .learning,.embedded-lab .source-note,.embedded-lab footer,.embedded-lab .explain,.embedded-lab .formula{display:none}.embedded-lab .stats{margin-bottom:8px}';
   document.head.appendChild(style);
   let scheduled = false;
   function sendHeight() {
