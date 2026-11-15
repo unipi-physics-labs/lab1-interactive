@@ -4,7 +4,7 @@
 # I job release e pages sono indipendenti: un errore di Pages non blocca la release.
 # Per Pages: Settings > Pages > Source: GitHub Actions.
 # Se l'ambiente github-pages limita i deployment, autorizza anche i tag.
-name: Genera dispensa, release e sito
+name: Genera laboratorio, release e sito
 
 on:
   push:
@@ -16,13 +16,15 @@ permissions:
   contents: read
 
 concurrency:
-  group: dispensa-${{ github.ref }}
+  group: laboratorio-${{ github.ref }}
   cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      pdf_file: ${{ steps.config.outputs.pdf_file }}
 
     steps:
       - name: Scarica i sorgenti
@@ -46,14 +48,38 @@ jobs:
             exit 1
           fi
 
+      - name: Leggi il nome del PDF dalla configurazione Quarto
+        id: config
+        working-directory: ${{ steps.project.outputs.directory }}
+        shell: bash
+        run: |
+          quarto inspect > "$RUNNER_TEMP/quarto-inspect.json"
+          python3 - "$RUNNER_TEMP/quarto-inspect.json" <<'PY'
+          import json
+          import os
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as stream:
+              config = json.load(stream)["config"]
+          name = config.get("book", {}).get("output-file")
+          if not isinstance(name, str) or not name.strip() or any(char in name for char in "\r\n/\\"):
+              raise SystemExit("Imposta book.output-file in _quarto.yml con il nome del file, senza cartelle.")
+          pdf_file = name if name.endswith(".pdf") else name + ".pdf"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as stream:
+              stream.write(f"pdf_file={pdf_file}\n")
+          print(f"PDF atteso: {pdf_file}")
+          PY
+
       - name: Genera HTML e PDF con Typst
         working-directory: ${{ steps.project.outputs.directory }}
+        env:
+          PDF_FILE: ${{ steps.config.outputs.pdf_file }}
         shell: bash
         run: |
           quarto render --to html
           quarto render --to typst --no-clean
           test -s _book/index.html
-          test -s _book/lab1_dispensa.pdf
+          test -s "_book/$PDF_FILE"
 
       - name: Salva HTML e PDF come archivio scaricabile
         uses: actions/upload-artifact@v4
@@ -71,6 +97,8 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+    env:
+      PDF_FILE: ${{ needs.build.outputs.pdf_file }}
 
     steps:
       - name: Recupera HTML e PDF generati
@@ -81,7 +109,7 @@ jobs:
 
       - name: Prepara lo ZIP della versione HTML
         working-directory: _book
-        run: zip -r ../lab1_html.zip . -x lab1_dispensa.pdf
+        run: zip -r ../lab1_html.zip . -x "$PDF_FILE"
 
       - name: Crea la release e carica i file
         env:
@@ -92,16 +120,16 @@ jobs:
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" \
-              _book/lab1_dispensa.pdf \
+              "_book/$PDF_FILE" \
               lab1_html.zip \
               --clobber
           else
             gh release create "$RELEASE_TAG" \
-              _book/lab1_dispensa.pdf \
+              "_book/$PDF_FILE" \
               lab1_html.zip \
               --verify-tag \
               --title "$RELEASE_TAG" \
-              --notes "Dispensa Lab1: PDF e versione HTML interattiva da scaricare ed estrarre." \
+              --notes "Laboratorio interattivo Lab1: PDF e versione HTML da scaricare ed estrarre." \
               --latest
           fi
 

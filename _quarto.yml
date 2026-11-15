@@ -8,10 +8,10 @@ project:
 lang: it
 
 book:
-  title: "Lab1: misure e statistica"
-  subtitle: "Dispensa essenziale · Capitolo pilota"
-  author: "Progetto Lab1"
-  output-file: lab1_dispensa
+  title: "Lab1: laboratorio interattivo"
+  subtitle: "Probabilità e statistica"
+  author: "Giulia Casarosa"
+  output-file: lab1_interattivo
   chapters:
     - index.qmd
     - capitoli/binomiale.qmd

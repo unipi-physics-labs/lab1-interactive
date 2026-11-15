@@ -2,21 +2,21 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Lab1: misure e statistica",
+    "title": "Lab1: laboratorio interattivo",
     "section": "",
-    "text": "Come leggere questa dispensa\nQuesta dispensa accompagna il laboratorio di Fisica 1: mette in evidenza che cosa descrive un modello, quando si può usare e come interpretare un risultato.\nIl primo capitolo è dedicato alla distribuzione binomiale. Si parte da una domanda concreta: quante volte può verificarsi un certo esito, ripetendo una prova?\nI riquadri Da ricordare raccolgono i risultati essenziali; Attenzione segnala gli errori frequenti. Gli approfondimenti sono separati dal percorso principale. Nella versione HTML puoi sperimentare direttamente; il PDF contiene gli stessi concetti, gli esempi, una figura statica e le domande dell’attività.",
+    "text": "Come usare il laboratorio interattivo\nQuesto laboratorio interattivo accompagna il corso di Fisica 1 e propone attività per esplorare i modelli di probabilità e statistica. Ogni attività collega una domanda, un modello e una simulazione: fai una previsione, sperimenta e interpreta i risultati.\nLa prima attività è dedicata alla distribuzione binomiale. Si parte da una domanda concreta: quante volte può verificarsi un certo esito, ripetendo una prova?\nI riquadri Da ricordare raccolgono i risultati essenziali; Attenzione segnala gli errori frequenti. Gli approfondimenti sono separati dal percorso principale. Nella versione HTML puoi sperimentare direttamente. Il PDF è la versione stampabile del laboratorio: raccoglie concetti, esempi, figure statiche e domande per le attività.",
     "crumbs": [
-      "Come leggere questa dispensa"
+      "Come usare il laboratorio interattivo"
     ]
   },
   {
     "objectID": "index.html#fonte-e-attribuzione",
     "href": "index.html#fonte-e-attribuzione",
-    "title": "Lab1: misure e statistica",
+    "title": "Lab1: laboratorio interattivo",
     "section": "Fonte e attribuzione",
     "text": "Fonte e attribuzione\nIl capitolo è una rielaborazione sintetica dei contenuti sulla binomiale e sulle misure di efficienza di Introduzione all’analisi dei dati. Per il laboratorio di Fisica, di Luca Baldini, Niccolò Di Lalla, Massimiliano Razzano e Carmelo Sgrò, disponibile nel progetto lab1-notes.\nTesto riorganizzato e abbreviato; figura e attività interattiva aggiunte per questo percorso. L’opera originale e questo adattamento sono distribuiti con licenza Creative Commons Attribuzione - Condividi allo stesso modo 4.0.",
     "crumbs": [
-      "Come leggere questa dispensa"
+      "Come usare il laboratorio interattivo"
     ]
   },
   {
