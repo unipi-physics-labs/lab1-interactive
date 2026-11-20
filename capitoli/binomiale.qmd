@@ -130,7 +130,7 @@ $$
 \bar{k}=\frac{1}{M}\sum_{i=1}^M k_i,\qquad M\geq1.
 $$
 
-$\bar{k}$ stima la media teorica $\mu=np$. È definita anche con una sola serie:
+$\bar{k}$ stima la media aspettata $\mu=np$. È definita anche con una sola serie:
 per $M=1$ coincide con l'unico conteggio osservato, $\bar{k}=k_1$.
 
 All'interno di una singola serie possiamo anche calcolare la media dei $n$ esiti,
@@ -199,30 +199,6 @@ La frequenza tende alla probabilità teorica, ma il suo avvicinamento non è
 monotono. $s$ stima la dispersione delle singole serie; $s/\sqrt M$ stima la
 precisione della loro media. Un evento molto raro può non comparire in un
 campione finito: il calcolo teorico resta diverso da zero.
-:::
-
-## Un'applicazione: misurare un'efficienza
-
-Un rivelatore produce un segnale per 962 delle 1.000 particelle incidenti.
-Definendo il successo come «segnale prodotto», abbiamo $n=1000$ prove e $k=962$
-successi. Stimiamo l'efficienza con la frazione osservata:
-
-$$
-\hat\varepsilon=\frac{k}{n}=0.962,
-\qquad
-s_{\hat\varepsilon}=\sqrt{\frac{\hat\varepsilon(1-\hat\varepsilon)}{n}}
-\simeq0.006.
-$$
-
-Questa stima dell'errore è utile quando successi e insuccessi sono entrambi
-abbastanza numerosi. Per $k=0$ o $k=n$ restituisce zero: **non significa che
-l'efficienza sia nota esattamente**. Il problema richiede una trattazione diversa.
-
-::: {.callout-note title="Approfondimento: perché media e varianza hanno questa forma" collapse=true icon=false}
-Scriviamo il conteggio come somma $k=Y_1+\cdots+Y_n$, con $Y_i=1$ per un successo
-e $Y_i=0$ per un insuccesso. Ogni $Y_i$ ha media $p$ e varianza $p(1-p)$.
-Le medie si sommano; per prove indipendenti si sommano anche le varianze.
-Quindi $E[k]=np$ e $\mathrm{Var}(k)=np(1-p)$.
 :::
 
 ::: {.callout-important title="Prima di passare oltre" icon=false}
