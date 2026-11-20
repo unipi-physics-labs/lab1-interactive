@@ -1,7 +1,4 @@
-La versione corrente è disponibile:
-
-- [Scarica il PDF](https://github.com/unipi-physics-labs/lab1-interactive/releases/latest/download/lab1_interattivo.pdf)
-- [Scarica la versione HTML interattiva](https://github.com/unipi-physics-labs/lab1-interactive/releases/latest/download/lab1_html.zip)
+[Apri il laboratorio interattivo](https://unipi-physics-labs.github.io/lab1-interactive/)
 
 
 Il capitolo rielabora le dispense `unipi-physics-labs/lab1-notes`, mantenendo

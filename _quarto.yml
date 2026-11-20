@@ -11,7 +11,6 @@ book:
   title: "Lab1: laboratorio interattivo"
   subtitle: "Probabilità e statistica"
   author: "Giulia Casarosa"
-  output-file: lab1_interattivo
   chapters:
     - index.qmd
     - capitoli/binomiale.qmd
@@ -32,15 +31,6 @@ format:
     number-sections: true
     code-copy: true
     include-after-body: assets/frame-resize.html
-  typst:
-    papersize: a4
-    fontsize: 11pt
-    include-in-header: assets/pdf.typ
-    template-partials:
-      - assets/typst-show.typ
-    toc: true
-    toc-depth: 2
-    number-sections: true
 
 execute:
   enabled: false

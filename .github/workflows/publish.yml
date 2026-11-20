@@ -1,10 +1,9 @@
 # Salva questo file come .github/workflows/publish.yml nel repository.
 # Push su main: artifacts di controllo.
-# Push di un tag: release con PDF/ZIP e pubblicazione HTML su GitHub Pages.
-# I job release e pages sono indipendenti: un errore di Pages non blocca la release.
-# Per Pages: Settings > Pages > Source: GitHub Actions.
-# Se l'ambiente github-pages limita i deployment, autorizza anche i tag.
-name: Genera laboratorio, release e sito
+# Push di un tag: release con PDF/ZIP.
+# Il sito viene pubblicato localmente con make publish sul branch pages.
+# Per Pages: Settings > Pages > Deploy from a branch > pages > /(root).
+name: Genera laboratorio e release
 
 on:
   push:
@@ -133,38 +132,3 @@ jobs:
               --latest
           fi
 
-  pages:
-    name: Pubblica HTML su GitHub Pages
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: github-pages
-      cancel-in-progress: false
-
-    steps:
-      - name: Recupera HTML e PDF generati
-        uses: actions/download-artifact@v4
-        with:
-          name: lab1-html-pdf
-          path: _book
-
-      - name: Configura GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Prepara il sito per GitHub Pages
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: _book
-
-      - name: Pubblica il sito
-        id: deployment
-        uses: actions/deploy-pages@v4
