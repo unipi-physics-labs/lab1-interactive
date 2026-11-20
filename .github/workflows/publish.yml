@@ -1,6 +1,6 @@
 # Salva questo file come .github/workflows/publish.yml nel repository.
 # Push su main: artifacts di controllo.
-# Push di un tag: release con PDF/ZIP.
+# Push di un tag: release con ZIP HTML.
 # Il sito viene pubblicato localmente con make publish sul branch pages.
 # Per Pages: Settings > Pages > Deploy from a branch > pages > /(root).
 name: Genera laboratorio e release
@@ -22,8 +22,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    outputs:
-      pdf_file: ${{ steps.config.outputs.pdf_file }}
 
     steps:
       - name: Scarica i sorgenti
@@ -47,43 +45,17 @@ jobs:
             exit 1
           fi
 
-      - name: Leggi il nome del PDF dalla configurazione Quarto
-        id: config
+      - name: Genera il laboratorio HTML
         working-directory: ${{ steps.project.outputs.directory }}
-        shell: bash
-        run: |
-          quarto inspect > "$RUNNER_TEMP/quarto-inspect.json"
-          python3 - "$RUNNER_TEMP/quarto-inspect.json" <<'PY'
-          import json
-          import os
-          import sys
-
-          with open(sys.argv[1], encoding="utf-8") as stream:
-              config = json.load(stream)["config"]
-          name = config.get("book", {}).get("output-file")
-          if not isinstance(name, str) or not name.strip() or any(char in name for char in "\r\n/\\"):
-              raise SystemExit("Imposta book.output-file in _quarto.yml con il nome del file, senza cartelle.")
-          pdf_file = name if name.endswith(".pdf") else name + ".pdf"
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as stream:
-              stream.write(f"pdf_file={pdf_file}\n")
-          print(f"PDF atteso: {pdf_file}")
-          PY
-
-      - name: Genera HTML e PDF con Typst
-        working-directory: ${{ steps.project.outputs.directory }}
-        env:
-          PDF_FILE: ${{ steps.config.outputs.pdf_file }}
         shell: bash
         run: |
           quarto render --to html
-          quarto render --to typst --no-clean
           test -s _book/index.html
-          test -s "_book/$PDF_FILE"
 
-      - name: Salva HTML e PDF come archivio scaricabile
+      - name: Salva il laboratorio come archivio scaricabile
         uses: actions/upload-artifact@v4
         with:
-          name: lab1-html-pdf
+          name: lab1-html
           path: ${{ steps.project.outputs.directory }}/_book/
           if-no-files-found: error
           retention-days: 30
@@ -96,19 +68,17 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
-    env:
-      PDF_FILE: ${{ needs.build.outputs.pdf_file }}
 
     steps:
-      - name: Recupera HTML e PDF generati
+      - name: Recupera il laboratorio HTML
         uses: actions/download-artifact@v4
         with:
-          name: lab1-html-pdf
+          name: lab1-html
           path: _book
 
       - name: Prepara lo ZIP della versione HTML
         working-directory: _book
-        run: zip -r ../lab1_html.zip . -x "$PDF_FILE"
+        run: zip -r ../lab1_html.zip .
 
       - name: Crea la release e carica i file
         env:
@@ -119,16 +89,14 @@ jobs:
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" \
-              "_book/$PDF_FILE" \
               lab1_html.zip \
               --clobber
           else
             gh release create "$RELEASE_TAG" \
-              "_book/$PDF_FILE" \
               lab1_html.zip \
               --verify-tag \
               --title "$RELEASE_TAG" \
-              --notes "Laboratorio interattivo Lab1: PDF e versione HTML da scaricare ed estrarre." \
+              --notes "Laboratorio interattivo Lab1: versione HTML da scaricare ed estrarre." \
               --latest
           fi
 
