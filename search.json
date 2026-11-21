@@ -1,0 +1,252 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lab1: laboratorio interattivo",
+    "section": "",
+    "text": "Come usare il laboratorio interattivo\nQuesto laboratorio interattivo accompagna il corso di Laboratorio di Fisica 1. Ogni attività collega una domanda, un modello e una simulazione: fai una previsione, sperimenta e interpreta i risultati.",
+    "crumbs": [
+      "Come usare il laboratorio interattivo"
+    ]
+  },
+  {
+    "objectID": "index.html#il-percorso",
+    "href": "index.html#il-percorso",
+    "title": "Lab1: laboratorio interattivo",
+    "section": "Il percorso",
+    "text": "Il percorso\n\nDistribuzioni, campioni e stimatori: definizioni comuni, dalla probabilità all’incertezza della media.\nBinomiale: quanti successi in un numero fissato di prove?\nPoissoniana: quanti eventi in un’unità di osservazione?\nEsponenziale: quanto tempo passa fra due eventi?\n\nPuoi leggere prima il capitolo comune oppure consultarlo attraverso i rimandi nei singoli laboratori. I riquadri Da ricordare raccolgono i risultati essenziali; Attenzione segnala gli errori frequenti. Gli approfondimenti sono richiudibili e separati dal percorso principale.\nNei laboratori puoi modificare i parametri, raccogliere dati simulati e confrontarli con le previsioni. Le simulazioni funzionano anche senza connessione, una volta scaricata e scompattata la versione HTML completa.",
+    "crumbs": [
+      "Come usare il laboratorio interattivo"
+    ]
+  },
+  {
+    "objectID": "index.html#fonte-e-attribuzione",
+    "href": "index.html#fonte-e-attribuzione",
+    "title": "Lab1: laboratorio interattivo",
+    "section": "Fonte e attribuzione",
+    "text": "Fonte e attribuzione\nIl percorso rielabora in forma sintetica contenuti di Introduzione all’analisi dei dati. Per il laboratorio di Fisica, di Luca Baldini, Niccolò Di Lalla, Massimiliano Razzano e Carmelo Sgrò, disponibile nel progetto lab1-notes.\nL’opera originale e questo adattamento sono distribuiti con licenza Creative Commons Attribuzione - Condividi allo stesso modo 4.0.",
+    "crumbs": [
+      "Come usare il laboratorio interattivo"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html",
+    "href": "capitoli/distribuzioni-stimatori.html",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "",
+    "text": "1.1 Probabilità discrete e densità\nUna distribuzione descrive i possibili risultati di un fenomeno aleatorio e le loro probabilità. Un campione è un insieme di risultati osservati. Uno stimatore è una regola che usa il campione per stimare una proprietà della distribuzione.\nUna variabile discreta assume valori distinti, come il risultato del lancio di un dado o il numero di eventi di un certo tipo registrati. A ciascun valore xjx_j associamo una probabilità Pj=P(X=xj)P_j=P(X=x_j).\nPer una variabile continua, come un tempo di attesa, la probabilità è associata ad un intervallo. Se p(x)p(x) è la densità di probabilità,\nP(a≤x≤b)=∫abp(x)dx.\nP(a\\leq x\\leq b)=\\int_a^b p(x)\\,dx.\nLa probabilità è quindi l’area sotto la curva p(x)p(x). La densità di probabilità ha le dimensioni dell’inverso di xx: se xx si misura in secondi, p(x)p(x) si misura in s−1\\mathrm{s}^{-1}. Includere o escludere gli estremi di un intervallo non cambia la probabilità, infatti per variabili continue P(x=a)=0P(x=a)=0.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html#sec-probabilita-densita",
+    "href": "capitoli/distribuzioni-stimatori.html#sec-probabilita-densita",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "",
+    "text": "AvvisoUna densità può superare uno\n\n\n\nUna variabile uniforme fra 00 e 0.5s0.5\\,\\mathrm{s} ha densità f(x)=2s−1f(x)=2\\,\\mathrm{s}^{-1} in quell’intervallo e zero altrove. La probabilità totale è 2s−1×0.5s=12\\,\\mathrm{s}^{-1}\\times0.5\\,\\mathrm{s}=1.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html#sec-cumulativa",
+    "href": "capitoli/distribuzioni-stimatori.html#sec-cumulativa",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "1.2 Normalizzazione e funzione cumulativa",
+    "text": "1.2 Normalizzazione e funzione cumulativa\n\n\n\n\n\n\n\n\n\nVariabile discreta\nVariabile continua\n\n\n\n\nNon negatività\nPj≥0P_j\\geq0\np(x)≥0p(x)\\geq0\n\n\nNormalizzazione\n∑jPj=1\\sum_j P_j=1\n∫−∞+∞p(x)dx=1\\int_{-\\infty}^{+\\infty} p(x)\\,dx=1\n\n\nCumulativa\nF(x)=∑xj≤xPjF(x)=\\sum_{x_j\\leq x}P_j\nF(x)=∫−∞xp(u)duF(x)=\\int_{-\\infty}^{x}p(u)\\,du\n\n\n\nLa condizione di normalizzazione ci assicura che la probabilità che si verifichi uno qualsiasi dei risultati possibili è uno.\nLa definizione di funzione cumulativa è la stessa nei due casi:\nF(x)=P(X≤x).\nF(x)=P(X\\leq x).\n\nFF non diminuisce all’aumentare di xx, assume valori tra zero e uno e passa da zero a uno per xx che va da −∞-\\infty a +∞+\\infty. Per una variabile discreta è una funzione a gradini; per una variabile continua è continua e nei punti in cui è derivabile, F′(x)=p(x)F'(x)=p(x).\nPer entrambi i casi valgono\nP(X&gt;x)=1−F(x),P(a&lt;X≤b)=F(b)−F(a).\nP(X&gt;x)=1-F(x),\\qquad P(a&lt;X\\leq b)=F(b)-F(a).\n\nPer un conteggio intero KK, attenzione agli estremi: P(K≥k)=1−F(k−1)P(K\\geq k)=1-F(k-1), mentre P(K≤k)=F(k)P(K\\leq k)=F(k). Per un dado equo, ad esempio, F(3)=3/6F(3)=3/6 e P(K≥4)=1−F(3)=1/2P(K\\geq4)=1-F(3)=1/2.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html#sec-momenti-distribuzione",
+    "href": "capitoli/distribuzioni-stimatori.html#sec-momenti-distribuzione",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "1.3 Media, varianza e deviazione standard",
+    "text": "1.3 Media, varianza e deviazione standard\nLa media, o valore di aspettazione, è una media dei risultati possibili pesata con le loro probabilità. La varianza misura lo scarto quadratico medio rispetto alla media.\n\n\n\n\n\n\n\n\n\nVariabile discreta\nVariabile continua con densità\n\n\n\n\nMedia\nμ=E[x]=∑jxjPj\\mu=E[x]=\\sum_j x_jP_j\nμ=E[x]=∫−∞+∞xp(x)dx\\mu=E[x]=\\int_{-\\infty}^{+\\infty}xp(x)\\,dx\n\n\nVarianza\nσ2=∑j(xj−μ)2Pj\\sigma^2=\\sum_j(x_j-\\mu)^2P_j\nσ2=∫−∞+∞(x−μ)2p(x)dx\\sigma^2=\\int_{-\\infty}^{+\\infty}(x-\\mu)^2p(x)\\,dx\n\n\n\nQuando i momenti sono finiti, è utile anche la forma\nVar⁡(x)=E[x2]−μ2,σ=Var⁡(x).\n\\operatorname{Var}(x)=E[x^2]-\\mu^2,\\qquad\n\\sigma=\\sqrt{\\operatorname{Var}(x)}.\n\nLa deviazione standard σ\\sigma ha le stesse unità di xx. La media non deve necessariamente essere un risultato possibile: per un dado equo μ=3.5\\mu=3.5, σ2=35/12\\sigma^2=35/12 e σ≃1.71\\sigma\\simeq1.71. La media non coincide necessariamente con il valore più probabile.\n\n\n\n\n\n\nNotaCondizioni di validità\n\n\n\nQueste quantità sono finite quando le somme o gli integrali corrispondenti convergono; per la media richiediamo E[|x|]&lt;∞E[|x|]&lt;\\infty e per la varianza E[x2]&lt;∞E[x^2]&lt;\\infty. Non tutte le distribuzioni hanno media e varianza finite. I modelli binomiale, di Poisson ed esponenziale trattati qui le hanno.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html#sec-stimatori",
+    "href": "capitoli/distribuzioni-stimatori.html#sec-stimatori",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "1.4 Dal campione alle stime",
+    "text": "1.4 Dal campione alle stime\nOsserviamo MM valori x1,…,xMx_1,\\ldots,x_M, assunti indipendenti ed estratti dalla stessa distribuzione. MM è il numero di osservazioni, non un parametro della distribuzione. Nei laboratori un’osservazione è un conteggio per la binomiale e la Poissoniana, oppure una distanza temporale per l’esponenziale.\n\n1.4.1 Media campionaria\nx‾=1M∑i=1Mxi,M≥1.\n\\bar{x}=\\frac1M\\sum_{i=1}^{M}x_i,\\qquad M\\geq1.\n\nx‾\\bar{x} stima μ\\mu ed è definita anche per M=1M=1: coincide con l’unico valore osservato. Sotto le ipotesi indicate, E[x‾]=μE[\\bar{x}]=\\mu: lo stimatore è imparziale, cioè il suo valore di aspettazione coincide con la media della distribuzione. Attenzione, questo non significa che ogni singola stima sia esatta, anche la media campionaria è una variabile casuale che fluttua.\n\n\n1.4.2 Varianza e deviazione standard campionarie\ns2=1M−1∑i=1M(xi−x‾)2,s=s2,M≥2.\ns^2=\\frac1{M-1}\\sum_{i=1}^{M}(x_i-\\bar{x})^2,\\qquad\ns=\\sqrt{s^2},\\qquad M\\geq2.\n\nIl denominatore M−1M-1 tiene conto del fatto che la media è stata stimata con gli stessi dati: rende s2s^2 uno stimatore imparziale di σ2\\sigma^2. ss stima σ\\sigma, ma la radice quadrata non conserva in generale la proprietà di imparzialità. Con una sola osservazione s2s^2 e ss non sono definiti: nei laboratori vengono indicati con un trattino.\n\n\n1.4.3 Deviazione standard della media\nAnche la media campionaria fluttua: se ripetiamo l’intero campionamento non necessariamente otterremo la stessa media campionaria (anzi, quasi sicuramente otteremo un valore diverso!). Per MM osservazioni indipendenti con la stessa varianza finita,\nVar⁡(x‾)=σ2M,σx‾=σM.\n\\operatorname{Var}(\\bar{x})=\\frac{\\sigma^2}{M},\\qquad\n\\sigma_{\\bar{x}}=\\frac{\\sigma}{\\sqrt M}.\n\nSe σ\\sigma è ignota, usiamo la stima\nsx‾=sM,M≥2.\ns_{\\bar{x}}=\\frac{s}{\\sqrt M},\\qquad M\\geq2.\n\n\n\n\n\n\n\nImportanteDispersione e incertezza della media\n\n\n\n\nss descrive la dispersione delle singole osservazioni.\ns/Ms/\\sqrt M stima l’incertezza statistica della media.\n\nAumentare MM rende più precisa la media, ma non restringe la distribuzione delle singole osservazioni. La stima ss può fluttuare in entrambe le direzioni. La formula σ/M\\sigma/\\sqrt M non si applica automaticamente a dati correlati.\n\n\nCon M=1M=1 la dispersione campionaria non si può stimare, anche se il modello può già fornire una previsione di σ\\sigma e di σX‾\\sigma_{\\bar{X}}. L’incertezza statistica della media non include eventuali errori sistematici.\n\n\n\n\n\n\nConsiglioApprofondimento: quantili e inversa della cumulativa\n\n\n\n\n\nUn quantile associa a una probabilità uu, con 0&lt;u&lt;10&lt;u&lt;1, una soglia:\nQ(u)=inf⁡{x:F(x)≥u}.\nQ(u)=\\inf\\{x:F(x)\\geq u\\}.\n\nSe la cumulativa è continua e strettamente crescente sul supporto, Q(u)=F−1(u)Q(u)=F^{-1}(u). Per una distribuzione discreta l’inversa ordinaria non esiste: si sceglie il primo valore la cui cumulativa raggiunge o supera uu. Per un dado equo, Q(0.6)=4Q(0.6)=4.\nQuesta costruzione permette anche di simulare dati: se UU è uniforme tra zero e uno, Q(U)Q(U) ha la distribuzione desiderata. Per l’esponenziale,\nF(t)=1−e−λt,Q(u)=−ln⁡(1−u)λ.\nF(t)=1-e^{-\\lambda t},\\qquad\nQ(u)=-\\frac{\\ln(1-u)}{\\lambda}.\n\nIl quantile al 50% è una mediana; il quantile al 95% è una soglia sotto la quale cade almeno il 95% della probabilità. Non è l’inverso della densità.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/distribuzioni-stimatori.html#usa-questi-concetti-nei-laboratori",
+    "href": "capitoli/distribuzioni-stimatori.html#usa-questi-concetti-nei-laboratori",
+    "title": "1  Distribuzioni, campioni e stimatori",
+    "section": "1.5 Usa questi concetti nei laboratori",
+    "text": "1.5 Usa questi concetti nei laboratori\n\nBinomiale: un’osservazione è il numero di successi in una serie.\nPoissoniana: un’osservazione è il numero di eventi in un’unità di osservazione fissata.\nEsponenziale: un’osservazione è il tempo fra due eventi consecutivi.\n\nIn tutti i casi, confronta i parametri del modello con le stime ottenute dai dati e distingui il numero di osservazioni dal loro valore medio.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribuzioni, campioni e stimatori</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/binomiale.html",
+    "href": "capitoli/binomiale.html",
+    "title": "2  La distribuzione binomiale",
+    "section": "",
+    "text": "2.1 Che cosa stiamo contando?\nQuando ripetiamo una prova, possiamo chiederci quante volte si verificherà un certo esito. La distribuzione binomiale descrive il numero di successi kk in un numero fissato nn di prove indipendenti, ciascuna con la stessa probabilità di successo pp. Il conteggio può assumere i valori 0,1,…,n0,1,\\ldots,n.\nRagioniamoci con un esempio. Lanciamo un dado cento volte e contiamo quante volte esce la faccia 1. In questo esempio definiamo successo l’uscita di 1 e insuccesso l’uscita di una delle altre cinque facce. Se il dado è equo, la probabilità di successo è p=1/6p=1/6.\nUna prova è un singolo lancio. Una serie comprende nn prove. Il risultato della serie è il conteggio kk: il numero di successi osservati. Un esperimento è un insieme di MM serie.\nnn e pp definiscono la distribuzione, kk è la variabile casuale, che può valere 0,1,…,n0,1,\\ldots,n. Se l’esperimento comprende MM serie, significa che complessivamente eseguiamo n⋅Mn\\cdot M prove.\nLa definizione di successo dipende dalla domanda: per una moneta può essere «esce testa»; per un rivelatore, «la particella produce un segnale». Attenzione: avere due categorie di esito, da solo, non basta a garantire il modello binomiale.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribuzione binomiale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/binomiale.html#che-cosa-stiamo-contando",
+    "href": "capitoli/binomiale.html#che-cosa-stiamo-contando",
+    "title": "2  La distribuzione binomiale",
+    "section": "",
+    "text": "Simbolo\nSignificato\nEsempio del dado\n\n\n\n\nnn\nNumero di prove in una serie\n100 lanci\n\n\npp\nProbabilità di successo in ogni prova\n1/61/6\n\n\nkk\nNumero di successi nella serie\nQuante volte esce 1\n\n\nMM\nNumero di serie effettuate\nQuante serie di 100 lanci ripetiamo",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribuzione binomiale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/binomiale.html#la-probabilità-di-un-conteggio",
+    "href": "capitoli/binomiale.html#la-probabilità-di-un-conteggio",
+    "title": "2  La distribuzione binomiale",
+    "section": "2.2 La probabilità di un conteggio",
+    "text": "2.2 La probabilità di un conteggio\nLa probabilità di ottenere esattamente kk successi su nn prove è\nB(k;n,p)=(nk)pk(1−p)n−k,(nk)=n!k!(n−k)!.(2.1)\nB(k;n,p)=\\binom{n}{k}p^k(1-p)^{n-k},\n\\qquad \\binom{n}{k}=\\frac{n!}{k!(n-k)!}.\n \\qquad(2.1)\nUna particolare sequenza con kk successi ha probabilità pk(1−p)n−kp^k(1-p)^{n-k}. Il coefficiente binomiale conta quante sequenze diverse hanno quel numero di successi. Sommando le probabilità di queste sequenze si ottiene Equazione 2.1.\n\n2.2.1 Esempio: due teste in quattro lanci\nPer una moneta equa, n=4n=4 e p=1/2p=1/2. Tra le 16 sequenze possibili, tutte equiprobabili, sei contengono due teste:\nB(2;4,1/2)=(42)(12)4=616=0.375.\nB(2;4,1/2)=\\binom{4}{2}\\left(\\frac12\\right)^4\n=\\frac{6}{16}=0.375.\n\nInterpretazione: ripetendo molte serie di quattro lanci, la frazione di serie con esattamente due teste tende al 37.5%.\n\n\n2.2.2 Eventi che comprendono più conteggi\nPer «al massimo tre successi» si sommano quattro probabilità:\nP(k≤3)=∑j=03B(j;n,p).\nP(k\\leq 3)=\\sum_{j=0}^{3}B(j;n,p).\n\nPer «almeno un successo» è più rapido usare l’evento complementare:\nP(k≥1)=1−P(k=0)=1−(1−p)n.\nP(k\\geq1)=1-P(k=0)=1-(1-p)^n.\n\n\n\n\n\n\n\nAvvisoAttenzione: “esattamente” e “almeno” sono eventi diversi\n\n\n\nB(3;n,p)B(3;n,p) riguarda solo k=3k=3. La probabilità P(k≥3)P(k\\geq3) comprende tutti i conteggi da 3 a nn. Prima di calcolare, traduci la domanda in un evento preciso.\n\n\n\n\n\n\n\n\nAvvisoAttenzione: Una frequenza osservata nulla non implica una probabilità teorica nulla\n\n\n\nP(k≤3)=∑j=03B(j;100,1/6)≃1.83×10−5P(k\\leq3)=\\sum_{j=0}^{3}B(j;100,1/6)\\simeq1.83\\times10^{-5}. Notate che una simulazione di poche migliaia di serie può non produrre alcun caso di questo tipo.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribuzione binomiale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/binomiale.html#media-e-deviazione-standard",
+    "href": "capitoli/binomiale.html#media-e-deviazione-standard",
+    "title": "2  La distribuzione binomiale",
+    "section": "2.3 Media e deviazione standard",
+    "text": "2.3 Media e deviazione standard\n\n\n\n\n\n\nNotaDa ricordare\n\n\n\nPer una binomiale:\nE[k]=μ=np,Var(k)=σ2=np(1−p)\nE[k] = \\mu=np,\\qquad Var(k) = \\sigma^2=np(1-p)\n\nμ\\mu è il valore di aspettazione di kk, ovvero del numero aspettato di successi per una serie di nn lanci. σ\\sigma è la deviazione standard di kk, quindi descrive la dispersione dei conteggi delle singole serie attorno alla media.\n\n\nPer quattro lanci di moneta equa, μ=2\\mu=2 e σ=1\\sigma=1. Per cento lanci di dado equo, contando la faccia 1, μ≃16.67\\mu\\simeq16.67 e σ≃3.73\\sigma\\simeq3.73. La media non deve essere intera, anche se ogni conteggio lo è.\n\n\n\n\n\n\nFigura 2.1: Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media teorica μ\\mu.\n\n\n\n\n2.3.1 Dalla distribuzione al campione\nUn campione di MM serie fornisce i conteggi k1,…,kMk_1,\\ldots,k_M. La loro media campionaria k‾\\bar{k} stima μ=np\\mu=np; la deviazione standard campionaria ss stima np(1−p)\\sqrt{np(1-p)}.\n\n\n\n\n\n\nNotaQuale media stiamo calcolando?\n\n\n\n\nDentro una serie di nn prove, assegnando 1 al successo e 0 all’insuccesso, la media degli esiti è k/nk/n e stima pp.\nFra MM serie, la media dei conteggi è k‾\\bar{k} e stima npnp: è questa la media campionaria mostrata nel grafico.\n\nk‾\\bar{k} è definita anche con una sola serie: per M=1M=1 vale k1k_1. Per calcolare ss dai conteggi servono almeno due serie.\n\n\nPer serie indipendenti, la deviazione standard della media è\nσk‾=np(1−p)M,\n\\sigma_{\\bar{k}}=\\sqrt{\\frac{np(1-p)}{M}},\n\ne si stima dai dati con s/Ms/\\sqrt M, per M≥2M\\geq2. Le definizioni di media, varianza e deviazione standard campionarie sono raccolte nel capitolo Distribuzioni, campioni e stimatori.\nAumentare MM rende più precisa la media; non restringe la distribuzione dei singoli conteggi.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribuzione binomiale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/binomiale.html#sec-attivita",
+    "href": "capitoli/binomiale.html#sec-attivita",
+    "title": "2  La distribuzione binomiale",
+    "section": "2.4 Prova tu: dalla previsione ai dati",
+    "text": "2.4 Prova tu: dalla previsione ai dati\nPrima di simulare, scrivi una previsione; poi confrontala con il risultato.\n\nMoneta. Scegli il pulsante «Moneta»: imposta n=4n=4, p=1/2p=1/2 ed «esattamente 2». Simula 100 serie, poi aggiungine 1.000. La frequenza si avvicina a 0.375? Può allontanarsene temporaneamente? Confronta anche la media dei conteggi k‾\\bar{k} con μ=2\\mu=2.\nDispersione. Lascia fissi n,pn,p e aumenta MM. Confronta ss e s/Ms/\\sqrt M: quale grandezza descrive la variabilità di una singola serie?\nDado. Scegli il pulsante «Dado»: imposta n=100n=100, p=1/6p=1/6 e «al massimo 3». Confronta probabilità teorica e frequenza simulata. Come interpreti zero casi osservati?\n\nApri la simulazione completa in una nuova scheda\n\n\n\n\n\n\n\nConsiglioConfronta le tue risposte\n\n\n\n\n\nLa frequenza tende alla probabilità teorica, ma il suo avvicinamento non è monotono. ss stima la dispersione delle singole serie; s/Ms/\\sqrt M stima la precisione della loro media. Un evento molto raro può non comparire in un campione finito: il calcolo teorico resta diverso da zero.\n\n\n\n\n\n\n\n\n\nImportantePrima di passare oltre\n\n\n\nSai definire il successo prima di guardare il grafico? Sai distinguere nn, kk e MM? Sai spiegare perché una media più precisa non implica conteggi meno dispersi? Se sì, hai acquisito le idee centrali del capitolo.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribuzione binomiale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/poisson.html",
+    "href": "capitoli/poisson.html",
+    "title": "3  La distribuzione di Poisson",
+    "section": "",
+    "text": "3.1 La probabilità di un conteggio\nQuanti eventi osserviamo, quando ne conosciamo il numero medio? Una Poissoniana descrive un conteggio kk e dipende da un solo parametro, la media μ\\mu. Il conteggio non ha valore un massimo fissato come il numero di successi nella binomiale.\nP(k;μ)=μke−μk!,k=0,1,2,…(3.1)\nP(k;\\mu)=\\frac{\\mu^k e^{-\\mu}}{k!},\\qquad k=0,1,2,\\ldots\n \\qquad(3.1)\nLa media può essere non intera: ad esempio μ=0.5\\mu=0.5 significa mezzo evento in media, non mezzo evento in una singola osservazione.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribuzione di Poisson</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/poisson.html#la-probabilità-di-un-conteggio",
+    "href": "capitoli/poisson.html#la-probabilità-di-un-conteggio",
+    "title": "3  La distribuzione di Poisson",
+    "section": "",
+    "text": "3.1.1 Esempio: due eventi in media\nPer μ=2\\mu=2,\nP(k=0)=e−2≃0.1353,P(k=2)=22e−22!≃0.2707.\nP(k=0)=e^{-2}\\simeq0.1353,\\qquad\nP(k=2)=\\frac{2^2e^{-2}}{2!}\\simeq0.2707.\n\nAnche se ci aspettiamo due eventi, osservare zero eventi non è insolito: accade in circa il 13.5% delle osservazioni. Il conteggio atteso non è un risultato garantito.\n\n\n3.1.2 Più conteggi possibili\nPer «al massimo k0k_0 eventi» si sommano le probabilità da zero a k0k_0:\nP(k≤k0)=∑j=0k0P(j;μ).\nP(k\\leq k_0)=\\sum_{j=0}^{k_0}P(j;\\mu).\n\nPer «almeno uno» basta il complementare:\nP(k≥1)=1−e−μ.\nP(k\\geq1)=1-e^{-\\mu}.\n\nPer k0≥1k_0\\geq1, P(k≥k0)=1−∑j=0k0−1P(j;μ)P(k\\geq k_0)=1-\\sum_{j=0}^{k_0-1}P(j;\\mu). La cumulativa raccoglie queste somme.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribuzione di Poisson</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/poisson.html#media-varianza-e-deviazione-standard",
+    "href": "capitoli/poisson.html#media-varianza-e-deviazione-standard",
+    "title": "3  La distribuzione di Poisson",
+    "section": "3.2 Media, varianza e deviazione standard",
+    "text": "3.2 Media, varianza e deviazione standard\n\n\n\n\n\n\nNotaDa ricordare\n\n\n\nE[k]=μ,Var⁡(k)=μ,σ=μ.\nE[k]=\\mu,\\qquad \\operatorname{Var}(k)=\\mu,\\qquad \\sigma=\\sqrt{\\mu}.\n\nNella Poissoniana media e varianza coincidono. Per μ&gt;0\\mu&gt;0 la dispersione relativa è σ/μ=1/μ\\sigma/\\mu=1/\\sqrt{\\mu}: all’aumentare della media la dispersione assoluta cresce, quella relativa diminuisce.\n\n\nPer μ=2\\mu=2, la deviazione standard è 2≃1.41\\sqrt2\\simeq1.41; per μ=8\\mu=8 è 8≃2.83\\sqrt8\\simeq2.83. Quadruplicare la media raddoppia la deviazione standard. Per medie piccole la distribuzione è molto asimmetrica; aumentando μ\\mu assume una forma progressivamente più simmetrica.\n\n\n\n\n\n\nNotaDalla distribuzione al campione\n\n\n\nDai MM conteggi k1,…,kMk_1,\\ldots,k_M ricaviamo k‾\\bar{k}, s2s^2 e ss: stimano rispettivamente μ\\mu, μ\\mu e μ\\sqrt{\\mu}. La previsione teorica per la deviazione standard della media è σk‾=μ/M\\sigma_{\\bar{k}}=\\sqrt{\\mu/M}; la stima dai dati è s/Ms/\\sqrt M.\nLe definizioni sono nel capitolo Distribuzioni, campioni e stimatori. k‾\\bar{k} esiste per M≥1M\\geq1; s2s^2 e ss richiedono M≥2M\\geq2.\n\n\n\n\n\n\n\n\nAvvisoL’uguaglianza riguarda il modello\n\n\n\nLa media campionaria k‾\\bar{k} e la varianza campionaria s2s^2 non devono coincidere esattamente in un campione finito. Entrambe fluttuano. Inoltre osservare media e varianza simili, da solo, non dimostra che il fenomeno sia Poissoniano: vanno considerate anche le ipotesi e la forma della distribuzione.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribuzione di Poisson</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/poisson.html#il-collegamento-con-la-binomiale",
+    "href": "capitoli/poisson.html#il-collegamento-con-la-binomiale",
+    "title": "3  La distribuzione di Poisson",
+    "section": "3.3 Il collegamento con la binomiale",
+    "text": "3.3 Il collegamento con la binomiale\nLa distribuzione di Poisson è il limite della binomiale per n→∞n\\to\\infty, p→0p\\to0 e np=μnp=\\mu fissato. Infatti np(1−p)→μnp(1-p)\\to\\mu: nel limite anche la varianza coincide con la media. La Poissoniana può quindi approssimare conteggi binomiali con molte prove e piccola probabilità per prova; l’accuratezza dipende dai parametri e dalla probabilità che interessa calcolare.\nNell’esempio delle dispense, in 500 lanci di tre dadi la probabilità che la somma sia 4 in un lancio è 3/2163/216. La media del numero di occorrenze è μ=500×3/216≃6.944\\mu=500\\times3/216\\simeq6.944. La probabilità di osservare 10 occorrenze vale circa 0.069330.06933 con la binomiale e 0.069290.06929 con la Poissoniana.\n\n\n\n\n\n\nConsiglioApprofondimento: sommare conteggi indipendenti\n\n\n\n\n\nSe K1K_1 e K2K_2 sono Poissoniane indipendenti con medie μ1\\mu_1 e μ2\\mu_2, la loro somma è Poissoniana con media μ1+μ2\\mu_1+\\mu_2. Il risultato descrive, ad esempio, il conteggio totale in due regioni indipendenti. L’indipendenza è essenziale.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribuzione di Poisson</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/poisson.html#sec-attivita-poisson",
+    "href": "capitoli/poisson.html#sec-attivita-poisson",
+    "title": "3  La distribuzione di Poisson",
+    "section": "3.4 Prova tu: probabilità e fluttuazioni",
+    "text": "3.4 Prova tu: probabilità e fluttuazioni\n\nZero eventi. Imposta μ=2\\mu=2 e «esattamente 0». Confronta e−2e^{-2} con la frequenza dopo 100 e 1.000 osservazioni.\nMedia e varianza. Mantieni μ=5\\mu=5 e aggiungi dati. k‾\\bar{k} e s2s^2 si avvicinano allo stesso valore? Devono coincidere a ogni passo?\nDispersione. Confronta μ=2\\mu=2 e μ=8\\mu=8. Come cambiano σ\\sigma e σ/μ\\sigma/\\mu? A parametri fissi, aumentare MM restringe la distribuzione o rende più precisa la media?\n\nApri il laboratorio sulla Poissoniana in una nuova scheda\n\n\n\n\n\n\n\nConsiglioConfronta le tue risposte\n\n\n\n\n\nLe frequenze si stabilizzano intorno alle probabilità; media e varianza campionarie stimano entrambe μ\\mu, con fluttuazioni anche non monotone. La dispersione dei conteggi dipende da μ\\mu, non da MM. La deviazione standard della media diminuisce come 1/M1/\\sqrt M.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribuzione di Poisson</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html",
+    "href": "capitoli/esponenziale.html",
+    "title": "4  La distribuzione esponenziale",
+    "section": "",
+    "text": "4.1 Dai conteggi ai tempi di attesa\nNel capitolo sulla Poissoniana abbiamo contato gli eventi. Ora osserviamo quanto tempo passa fra due eventi consecutivi in un processo Poissoniano. Il conteggio è discreto; la distanza temporale è continua.\nConsideriamo un processo Poissoniano nel tempo, con frequenza media costante λ&gt;0\\lambda&gt;0: in media avvengono λ\\lambda eventi per unità di tempo. In un intervallo di durata Δt\\Delta t, il numero medio di eventi è\nμ=λΔt.(4.1)\n\\mu=\\lambda\\Delta t.\n \\qquad(4.1)\nPer λ=2s−1\\lambda=2\\,\\mathrm{s}^{-1}, in un secondo ci aspettiamo μ=2\\mu=2 eventi; in cinque secondi, μ=10\\mu=10. Una frequenza media costante non significa eventi equispaziati: possono esserci attese brevi e lunghe.\nFissiamo l’origine subito dopo un evento. Il successivo arriva dopo più di tt secondi se nell’intervallo di durata tt non avviene nessun evento. Usando la probabilità Poissoniana di zero eventi, otteniamo\nP(τ&gt;t)=P(K=0;μ=λt)=e−λt,t≥0.(4.2)\nP(\\tau&gt;t)=P(K=0;\\mu=\\lambda t)=e^{-\\lambda t},\\qquad t\\geq0.\n \\qquad(4.2)\nQui tt è una soglia scelta; τ\\tau è la variabile casuale.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html#dai-conteggi-ai-tempi-di-attesa",
+    "href": "capitoli/esponenziale.html#dai-conteggi-ai-tempi-di-attesa",
+    "title": "4  La distribuzione esponenziale",
+    "section": "",
+    "text": "Simbolo\nSignificato\nUnità, usando i secondi\n\n\n\n\nλ\\lambda\nFrequenza media del processo\ns−1\\mathrm{s}^{-1}\n\n\nΔt\\Delta t\nDurata di un intervallo di osservazione fissato\ns\\mathrm{s}\n\n\nμ\\mu\nNumero medio di eventi in quell’intervallo\nAdimensionale\n\n\nτ\\tau\nDistanza temporale casuale fra eventi consecutivi\ns\\mathrm{s}",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html#densità-di-probabilità-cumulativa-e-probabilità",
+    "href": "capitoli/esponenziale.html#densità-di-probabilità-cumulativa-e-probabilità",
+    "title": "4  La distribuzione esponenziale",
+    "section": "4.2 Densità di probabilità, cumulativa e probabilità",
+    "text": "4.2 Densità di probabilità, cumulativa e probabilità\nDalla probabilità di superare tt ricaviamo la cumulativa, poi la densità di probabilità:\nF(t)=1−e−λt,p(t)=dFdt=λe−λt,t≥0.(4.3)\nF(t)=1-e^{-\\lambda t},\\qquad\np(t)=\\frac{dF}{dt}=\\lambda e^{-\\lambda t},\\qquad t\\geq0.\n \\qquad(4.3)\nPer t&lt;0t&lt;0, entrambe sono nulle. La normalizzazione segue da ∫0∞λe−λtdt=1\\int_0^\\infty\\lambda e^{-\\lambda t}\\,dt=1. Le definizioni generali sono nel capitolo comune.\n\n\n\n\n\n\nImportanteLa probabilità è un’area\n\n\n\nPer 0≤a≤b0\\leq a\\leq b,\nP(a≤τ≤b)=∫abλe−λtdt=e−λa−e−λb.\nP(a\\leq\\tau\\leq b)=\\int_a^b\\lambda e^{-\\lambda t}\\,dt\n=e^{-\\lambda a}-e^{-\\lambda b}.\n\nLa densità di probabilità p(t)p(t) non è P(τ=t)P(\\tau=t): per un singolo valore quest’ultima probabilità è zero. Se i tempi si misurano in secondi, la densità di probabilità ha unità s−1\\mathrm{s}^{-1} e può essere maggiore di uno.\n\n\nPer λ=2s−1\\lambda=2\\,\\mathrm{s}^{-1}, la probabilità di aspettare più di un secondo è e−2≃0.1353e^{-2}\\simeq0.1353; quella di osservare il prossimo evento entro un secondo è 1−e−2≃0.86471-e^{-2}\\simeq0.8647.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html#media-varianza-e-deviazione-standard",
+    "href": "capitoli/esponenziale.html#media-varianza-e-deviazione-standard",
+    "title": "4  La distribuzione esponenziale",
+    "section": "4.3 Media, varianza e deviazione standard",
+    "text": "4.3 Media, varianza e deviazione standard\n\n\n\n\n\n\nNotaDa ricordare\n\n\n\nE[τ]=1λ,Var⁡(τ)=1λ2,στ=1λ.\nE[\\tau]=\\frac1\\lambda,\\qquad\n\\operatorname{Var}(\\tau)=\\frac1{\\lambda^2},\\qquad\n\\sigma_\\tau=\\frac1\\lambda.\n\nNell’esponenziale media e deviazione standard coincidono. Nella Poissoniana coincidevano invece media e varianza.\n\n\nCon λ=2s−1\\lambda=2\\,\\mathrm{s}^{-1}, media e deviazione standard valgono 0.5s0.5\\,\\mathrm{s}, mentre la varianza vale 0.25s20.25\\,\\mathrm{s}^2. Raddoppiando λ\\lambda, la media e la deviazione standard si dimezzano, la varianza si riduce a un quarto.\nLa densità è massima vicino a zero: il tempo medio non è il tempo più probabile. Inoltre P(τ&gt;E[τ])=e−1≃36.8%P(\\tau&gt;E[\\tau])=e^{-1}\\simeq36.8\\%, non il 50%.\n\n\n\n\n\n\nNotaDalla distribuzione al campione\n\n\n\nUn campione di MM distanze temporali complete fornisce τ‾\\bar{\\tau}, s2s^2 e ss. La deviazione standard della media prevista dal modello è στ‾=1/(λM)\\sigma_{\\bar{\\tau}}=1/(\\lambda\\sqrt M); dai dati si stima con s/Ms/\\sqrt M, per M≥2M\\geq2. Per le definizioni, vedi Dal campione alle stime.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html#sec-memoria-esponenziale",
+    "href": "capitoli/esponenziale.html#sec-memoria-esponenziale",
+    "title": "4  La distribuzione esponenziale",
+    "section": "4.4 Mancanza di memoria",
+    "text": "4.4 Mancanza di memoria\nSe abbiamo già aspettato ss secondi senza osservare un evento, il tempo residuo ha la stessa distribuzione di una nuova attesa. Infatti\nP(τ&gt;s+t∣τ&gt;s)=e−λ(s+t)e−λs=e−λt,s,t≥0.\nP(\\tau&gt;s+t\\mid\\tau&gt;s)\n=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}\n=e^{-\\lambda t},\\qquad s,t\\geq0.\n\nL’evento non diventa «più imminente» solo perché abbiamo già aspettato. Questa proprietà dipende dalle ipotesi del processo: non descrive, per esempio, un segnale periodico con intervalli quasi regolari.\nNel laboratorio scegliamo solo le attese con τi&gt;s\\tau_i&gt;s e studiamo i tempi residui τi−s\\tau_i-s. Per ss grande rimangono poche osservazioni: un confronto rumoroso non smentisce la proprietà teorica.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  },
+  {
+    "objectID": "capitoli/esponenziale.html#sec-attivita-esponenziale",
+    "href": "capitoli/esponenziale.html#sec-attivita-esponenziale",
+    "title": "4  La distribuzione esponenziale",
+    "section": "4.5 Prova tu: misura le distanze temporali",
+    "text": "4.5 Prova tu: misura le distanze temporali\n\nDue eventi al secondo. Imposta λ=2s−1\\lambda=2\\,\\mathrm{s}^{-1}. Osserva la linea del tempo: le distanze sono tutte 0.5s0.5\\,\\mathrm{s}? Confronta media e deviazione standard campionarie con le previsioni.\nArea e altezza. Cambia la larghezza dei bin, mantenendo gli stessi dati. La probabilità dell’intervallo selezionato deve cambiare?\nAttesa residua. Apri «Esplora l’assenza di memoria», scegli un tempo già trascorso e confronta la curva delle attese residue con quella teorica. Aggiungi dati per aumentare il numero di attese selezionate.\n\nApri il laboratorio sull’esponenziale in una nuova scheda\n\n\n\n\n\n\n\nConsiglioConfronta le tue risposte\n\n\n\n\n\nLe singole distanze fluttuano; media e deviazione standard tendono entrambe a 1/λ1/\\lambda. Cambiare i bin modifica l’istogramma, ma non i dati né la probabilità osservata nell’intervallo scelto. Le attese residue seguono la stessa esponenziale; il confronto empirico peggiora se restano pochi dati.\n\n\n\n\n\n\n\n\n\nConsiglioApprofondimento: generare un tempo di attesa\n\n\n\n\n\nIl laboratorio usa l’inversa della cumulativa: da un numero uniforme uu fra zero e uno costruisce τ=−ln⁡(1−u)/λ\\tau=-\\ln(1-u)/\\lambda. Ogni distanza viene generata fino al suo evento finale, senza scartare le attese lunghe. La linea del tempo mostra solo i primi eventi; le statistiche usano tutte le MM distanze generate.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribuzione esponenziale</span>"
+    ]
+  }
+]
