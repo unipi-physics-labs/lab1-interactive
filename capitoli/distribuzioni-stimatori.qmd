@@ -1,0 +1,187 @@
+# Distribuzioni, campioni e stimatori {#sec-distribuzioni-stimatori}
+
+Una **distribuzione** descrive i possibili risultati di un fenomeno aleatorio e le loro probabilità.
+Un **campione** è un insieme di risultati osservati. Uno **stimatore** è una
+regola che usa il campione per stimare una proprietà della distribuzione.
+
+::: {.callout-important title="Modello e dati" icon=false}
+La media $\mu$ e la deviazione standard $\sigma$ sono proprietà del modello.
+La media campionaria $\bar{x}$ e la deviazione standard campionaria $s$ si
+calcolano dai dati: cambiando campione, in generale cambiano anche le stime.
+:::
+
+## Probabilità discrete e densità {#sec-probabilita-densita}
+
+Una variabile **discreta** assume valori distinti, come il risultato del lancio di un dado
+o il numero di eventi di un certo tipo registrati. A ciascun valore $x_j$ associamo una probabilità
+$P_j=P(X=x_j)$.
+
+Per una variabile **continua**, come un tempo di attesa, la probabilità
+è associata ad un intervallo. Se $p(x)$ è la densità di probabilità,
+
+$$
+P(a\leq x\leq b)=\int_a^b p(x)\,dx.
+$$
+
+La probabilità è quindi l'**area** sotto la curva $p(x)$. La densità di probabilità ha le dimensioni dell'inverso di $x$: se $x$ si misura in secondi,
+$p(x)$ si misura in $\mathrm{s}^{-1}$. Includere o escludere gli estremi di un intervallo non cambia
+la probabilità, infatti per variabili continue $P(x=a)=0$.
+
+::: {.callout-warning title="Una densità può superare uno" icon=false}
+Una variabile uniforme fra $0$ e $0.5\,\mathrm{s}$ ha densità
+$f(x)=2\,\mathrm{s}^{-1}$ in quell'intervallo e zero altrove.
+La probabilità totale è $2\,\mathrm{s}^{-1}\times0.5\,\mathrm{s}=1$.
+:::
+
+## Normalizzazione e funzione cumulativa {#sec-cumulativa}
+
+
+| | Variabile discreta | Variabile continua |
+|:--|:--|:--|
+| Non negatività | $P_j\geq0$ | $p(x)\geq0$ |
+| Normalizzazione | $\sum_j P_j=1$ | $\int_{-\infty}^{+\infty} p(x)\,dx=1$ |
+| Cumulativa | $F(x)=\sum_{x_j\leq x}P_j$ | $F(x)=\int_{-\infty}^{x}p(u)\,du$ |
+
+La condizione di normalizzazione ci assicura che la probabilità che si verifichi uno qualsiasi dei risultati possibili è uno.
+
+La definizione di funzione cumulativa è la stessa nei due casi:
+
+$$
+F(x)=P(X\leq x).
+$$
+
+$F$ non diminuisce all'aumentare di $x$, assume valori tra zero e uno e passa da zero a uno per $x$ che va
+da $-\infty$ a $+\infty$. Per una variabile discreta è una funzione a gradini;
+per una variabile continua è continua e nei punti in cui è derivabile,
+$F'(x)=p(x)$.
+
+Per entrambi i casi valgono
+
+$$
+P(X>x)=1-F(x),\qquad P(a<X\leq b)=F(b)-F(a).
+$$
+
+Per un conteggio intero $K$, attenzione agli estremi:
+$P(K\geq k)=1-F(k-1)$, mentre $P(K\leq k)=F(k)$.
+Per un dado equo, ad esempio, $F(3)=3/6$ e $P(K\geq4)=1-F(3)=1/2$.
+
+## Media, varianza e deviazione standard {#sec-momenti-distribuzione}
+
+La **media**, o valore di aspettazione, è una media dei risultati possibili
+pesata con le loro probabilità. La **varianza** misura lo scarto quadratico
+medio rispetto alla media.
+
+| | Variabile discreta | Variabile continua con densità |
+|:--|:--|:--|
+| Media | $\mu=E[x]=\sum_j x_jP_j$ | $\mu=E[x]=\int_{-\infty}^{+\infty}xp(x)\,dx$ |
+| Varianza | $\sigma^2=\sum_j(x_j-\mu)^2P_j$ | $\sigma^2=\int_{-\infty}^{+\infty}(x-\mu)^2p(x)\,dx$ |
+
+Quando i momenti sono finiti, è utile anche la forma
+
+$$
+\operatorname{Var}(x)=E[x^2]-\mu^2,\qquad
+\sigma=\sqrt{\operatorname{Var}(x)}.
+$$
+
+La **deviazione standard** $\sigma$ ha le stesse unità di $x$. La media non deve necessariamente essere un risultato possibile:
+per un dado equo $\mu=3.5$, $\sigma^2=35/12$ e $\sigma\simeq1.71$.
+La media non coincide necessariamente con il valore più probabile.
+
+::: {.callout-note title="Condizioni di validità" icon=false}
+Queste quantità sono finite quando le somme o gli integrali corrispondenti
+convergono; per la media richiediamo $E[|x|]<\infty$ e per la varianza
+$E[x^2]<\infty$. Non tutte le distribuzioni hanno media e varianza finite.
+I modelli binomiale, di Poisson ed esponenziale trattati qui le hanno.
+:::
+
+## Dal campione alle stime {#sec-stimatori}
+
+Osserviamo $M$ valori $x_1,\ldots,x_M$, assunti indipendenti ed estratti dalla
+stessa distribuzione. **$M$ è il numero di osservazioni**, non un parametro
+della distribuzione. Nei laboratori un'osservazione è un conteggio per la
+binomiale e la Poissoniana, oppure una distanza temporale per l'esponenziale.
+
+### Media campionaria {#sec-media-campionaria}
+
+$$
+\bar{x}=\frac1M\sum_{i=1}^{M}x_i,\qquad M\geq1.
+$$
+
+$\bar{x}$ stima $\mu$ ed è definita anche per $M=1$: coincide con l'unico
+valore osservato. Sotto le ipotesi indicate, $E[\bar{x}]=\mu$: lo stimatore
+è **imparziale**, cioè il suo valore di aspettazione coincide con la media della distribuzione. Attenzione, questo non significa che ogni singola stima sia esatta, anche la media campionaria è una variabile casuale che fluttua.
+
+### Varianza e deviazione standard campionarie {#sec-varianza-campionaria}
+
+$$
+s^2=\frac1{M-1}\sum_{i=1}^{M}(x_i-\bar{x})^2,\qquad
+s=\sqrt{s^2},\qquad M\geq2.
+$$
+
+Il denominatore $M-1$ tiene conto del fatto che la media è stata stimata con
+gli stessi dati: rende $s^2$ uno stimatore imparziale di $\sigma^2$.
+$s$ stima $\sigma$, ma la radice quadrata non conserva in generale la
+proprietà di imparzialità. Con una sola osservazione $s^2$ e $s$ non sono
+definiti: nei laboratori vengono indicati con un trattino.
+
+### Deviazione standard della media {#sec-errore-media}
+
+Anche la media campionaria fluttua: se ripetiamo l'intero campionamento non necessariamente otterremo la stessa media campionaria (anzi, quasi sicuramente otteremo un valore diverso!).
+Per $M$ osservazioni indipendenti con la stessa varianza finita,
+
+$$
+\operatorname{Var}(\bar{x})=\frac{\sigma^2}{M},\qquad
+\sigma_{\bar{x}}=\frac{\sigma}{\sqrt M}.
+$$
+
+Se $\sigma$ è ignota, usiamo la stima
+
+$$
+s_{\bar{x}}=\frac{s}{\sqrt M},\qquad M\geq2.
+$$
+
+::: {.callout-important title="Dispersione e incertezza della media" icon=false}
+- **$s$** descrive la dispersione delle singole osservazioni.
+- **$s/\sqrt M$** stima l'incertezza statistica della media.
+
+Aumentare $M$ rende più precisa la media, ma non restringe la distribuzione
+delle singole osservazioni. La stima $s$ può fluttuare in entrambe le direzioni.
+La formula $\sigma/\sqrt M$ non si applica automaticamente a dati correlati.
+:::
+
+Con $M=1$ la dispersione campionaria non si può stimare, anche se il modello
+può già fornire una previsione di $\sigma$ e di $\sigma_{\bar{X}}$.
+L'incertezza statistica della media non include eventuali errori sistematici.
+
+::: {#quantili .callout-tip title="Approfondimento: quantili e inversa della cumulativa" collapse=true icon=false}
+Un **quantile** associa a una probabilità $u$, con $0<u<1$, una soglia:
+
+$$
+Q(u)=\inf\{x:F(x)\geq u\}.
+$$
+
+Se la cumulativa è continua e strettamente crescente sul supporto,
+$Q(u)=F^{-1}(u)$. Per una distribuzione discreta l'inversa ordinaria non
+esiste: si sceglie il primo valore la cui cumulativa raggiunge o supera $u$.
+Per un dado equo, $Q(0.6)=4$.
+
+Questa costruzione permette anche di simulare dati: se $U$ è uniforme tra
+zero e uno, $Q(U)$ ha la distribuzione desiderata. Per l'esponenziale,
+
+$$
+F(t)=1-e^{-\lambda t},\qquad
+Q(u)=-\frac{\ln(1-u)}{\lambda}.
+$$
+
+Il quantile al 50% è una mediana; il quantile al 95% è una soglia sotto la
+quale cade almeno il 95% della probabilità. Non è l'inverso della densità.
+:::
+
+## Usa questi concetti nei laboratori
+
+- [Binomiale](binomiale.qmd): un'osservazione è il numero di successi in una serie.
+- [Poissoniana](poisson.qmd): un'osservazione è il numero di eventi in un'unità di osservazione fissata.
+- [Esponenziale](esponenziale.qmd): un'osservazione è il tempo fra due eventi consecutivi.
+
+In tutti i casi, confronta i parametri del modello con le stime ottenute dai
+dati e distingui il numero di osservazioni dal loro valore medio.

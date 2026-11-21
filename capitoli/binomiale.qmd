@@ -1,12 +1,6 @@
 # La distribuzione binomiale {#sec-binomiale}
 
-<!-- ::: {.callout-note title="Alla fine del capitolo sai..." icon=false}
-- riconoscere quando un conteggio segue una distribuzione binomiale;
-- distinguere numero di prove, numero di successi e numero di serie;
-- calcolare una probabilità e interpretare media e deviazione standard;
-- spiegare che cosa cambia quando aumentano i dati raccolti.
-:::
---> 
+Quando ripetiamo una prova, possiamo chiederci quante volte si verificherà un certo esito. La distribuzione binomiale descrive il numero di successi $k$ in un numero fissato $n$ di prove indipendenti, ciascuna con la stessa probabilità di successo $p$. Il conteggio può assumere i valori $0,1,\ldots,n$.
 
 ::: {.callout-important title="Il numero di successi segue una binomiale se:" icon=false}
 1. **il numero di prove è fissato**
@@ -37,7 +31,7 @@ $0,1,\ldots,n$. Se l'esperimento comprende $M$ serie, significa che complessivam
 
 La definizione di successo dipende dalla domanda: per una moneta può essere
 «esce testa»; per un rivelatore, «la particella produce un segnale».
-Avere due categorie di esito, da solo, non basta a garantire il modello binomiale.
+Attenzione: avere due categorie di esito, da solo, non basta a garantire il modello binomiale.
 
 ## La probabilità di un conteggio
 
@@ -84,23 +78,10 @@ $B(3;n,p)$ riguarda solo $k=3$. La probabilità $P(k\geq3)$ comprende tutti i
 conteggi da 3 a $n$. Prima di calcolare, traduci la domanda in un evento preciso.
 :::
 
-### Un risultato raro: tre “1” in cento lanci
-
-Per un dado equo, la probabilità di osservare al massimo tre uscite della faccia 1
-in cento lanci vale
-
-$$
-P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)
-\simeq1.83\times10^{-5}.
-$$
-
-È circa lo **0.00183%**. Un risultato così basso è molto raro sotto l'ipotesi
-di dado equo e lanci indipendenti. Questo calcolo **non** è la probabilità
-che il dado sia equo: descrive i risultati attesi _assumendo_ quel modello.
-
-Notate che una simulazione di poche migliaia di serie può non produrre alcun caso di questo
-tipo. Una frequenza osservata nulla non implica una probabilità teorica nulla.
-
+::: {.callout-warning title="Attenzione: Una frequenza osservata nulla non implica una probabilità teorica nulla" icon=false}
+$P(k\leq3)=\sum_{j=0}^{3}B(j;100,1/6)\simeq1.83\times10^{-5}$. Notate che una simulazione di poche migliaia di serie può non produrre alcun caso di questo
+tipo.
+:::
 
 ## Media e deviazione standard
 
@@ -111,7 +92,7 @@ $$
 E[k] = \mu=np,\qquad Var(k) = \sigma^2=np(1-p)
 $$
 
-$\mu$ è il valore di aspettazione di $k$, ovvero del numero aspettato di successi per serie. $\sigma$ è la deviazione standard di $k$, quindi descrive la dispersione
+$\mu$ è il valore di aspettazione di $k$, ovvero del numero aspettato di successi per una serie di $n$ lanci. $\sigma$ è la deviazione standard di $k$, quindi descrive la dispersione
 dei conteggi delle singole serie attorno alla media.
 :::
 
@@ -121,38 +102,34 @@ $\sigma\simeq3.73$. La media non deve essere intera, anche se ogni conteggio lo 
 
 ![Due esempi di binomiale. A sinistra: numero di teste in quattro lanci di moneta equa. A destra: numero di uscite della faccia 1 in cento lanci di dado equo; sono mostrati i conteggi da 0 a 40, oltre i quali la probabilità è trascurabile alla scala del grafico. La linea tratteggiata indica la media teorica $\mu$.](../immagini/binomiale_confronto.png){#fig-confronto fig-alt="Probabilità discrete per la moneta, simmetriche attorno a 2, e per il dado, concentrate attorno a 16,7." width=100%}
 
-### Stimatori di media e deviazione standard
+### Dalla distribuzione al campione
 
-Un campione di $M$ serie fornisce i conteggi $k_1,\ldots,k_M$, dove $k_i$ è il numero
-di successi nella serie $i$-esima. La **media campionaria dei conteggi** è
+Un campione di $M$ serie fornisce i conteggi $k_1,\ldots,k_M$.
+La loro media campionaria $\bar{k}$ stima $\mu=np$; la deviazione standard
+campionaria $s$ stima $\sqrt{np(1-p)}$.
 
-$$
-\bar{k}=\frac{1}{M}\sum_{i=1}^M k_i,\qquad M\geq1.
-$$
+::: {.callout-note title="Quale media stiamo calcolando?" icon=false}
+- **Dentro una serie di $n$ prove**, assegnando 1 al successo e 0 all'insuccesso,
+  la media degli esiti è $k/n$ e stima $p$.
+- **Fra $M$ serie**, la media dei conteggi è $\bar{k}$ e stima $np$:
+  è questa la media campionaria mostrata nel grafico.
 
-$\bar{k}$ stima la media aspettata $\mu=np$. È definita anche con una sola serie:
-per $M=1$ coincide con l'unico conteggio osservato, $\bar{k}=k_1$.
+$\bar{k}$ è definita anche con una sola serie: per $M=1$ vale $k_1$.
+Per calcolare $s$ dai conteggi servono almeno due serie.
+:::
 
-All'interno di una singola serie possiamo anche calcolare la media dei $n$ esiti,
-assegnando 1 al successo e 0 all'insuccesso: questa media è $k/n$ e stima $p$.
-**Nel grafico interattivo confrontiamo la media dei conteggi $\bar{k}$ con $\mu=np$.**
-
-Per $M\geq2$, la deviazione standard campionaria $s$ si calcola da
-
-$$
-s^2=\frac{1}{M-1}\sum_{i=1}^M(k_i-\bar{k})^2.
-$$
-
-$s$ stima la dispersione $\sigma$ dei conteggi; con un solo conteggio non è
-definita. Per serie indipendenti, la deviazione standard della media si stima con
+Per serie indipendenti, la deviazione standard della media è
 
 $$
-s_{\bar{k}}=\frac{s}{\sqrt M},\qquad M\geq2.
+\sigma_{\bar{k}}=\sqrt{\frac{np(1-p)}{M}},
 $$
+
+e si stima dai dati con $s/\sqrt M$, per $M\geq2$.
+Le definizioni di media, varianza e deviazione standard campionarie sono
+raccolte nel capitolo [Distribuzioni, campioni e stimatori](distribuzioni-stimatori.qmd#sec-stimatori).
 
 **Aumentare $M$ rende più precisa la media; non restringe la distribuzione dei
-singoli conteggi.** La stima $s$
-fluttua al cambiare del campione (cioè può sia aumentare che diminuire in modo non monotono).
+singoli conteggi.**
 
 
 ## Prova tu: dalla previsione ai dati {#sec-attivita}
@@ -181,16 +158,6 @@ Prima di simulare, scrivi una previsione; poi confrontala con il risultato.
   style="width:100%;height:1400px;border:0;"
   allowfullscreen></iframe>
 ```
-
-:::
-
-::: {.content-visible unless-format="html"}
-
-::: {.callout-tip title="Attività interattiva" icon=false}
-Nella versione HTML di questo capitolo trovi la simulazione. Se hai la cartella
-del progetto, puoi aprire anche il file `interattivi/binomiale_lab1.html` nel browser.
-La @fig-confronto mostra le distribuzioni teoriche su cui basare le previsioni.
-:::
 
 :::
 

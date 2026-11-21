@@ -1,8 +1,9 @@
 <script>
-// Accept only layout messages from this page's simulation frame.
+// Accept layout messages only from simulation frames embedded in this page.
 window.addEventListener('message', function (event) {
-  const frame = document.getElementById('binomiale-frame');
-  if (!frame || event.source !== frame.contentWindow) return;
+  const frame = Array.from(document.querySelectorAll('iframe.lab-frame'))
+    .find(function (candidate) { return event.source === candidate.contentWindow; });
+  if (!frame) return;
   const message = event.data;
   if (!message || message.type !== 'lab1:height' || !Number.isFinite(message.height)) return;
   if (message.height < 200 || message.height > 12000) return;

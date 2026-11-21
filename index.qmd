@@ -1,32 +1,39 @@
 # Come usare il laboratorio interattivo {.unnumbered}
 
-Questo laboratorio interattivo accompagna il corso di Fisica 1 e propone attività
-per esplorare i modelli di probabilità e statistica. Ogni attività collega
-**una domanda, un modello e una simulazione**: fai una previsione, sperimenta e
-interpreta i risultati.
-
-La prima attività è dedicata alla distribuzione binomiale. Si parte da una domanda
-concreta: quante volte può verificarsi un certo esito, ripetendo una prova?
+Questo laboratorio interattivo accompagna il corso di Laboratorio di Fisica 1.
+Ogni attività collega **una domanda, un modello e una simulazione**:
+fai una previsione, sperimenta e interpreta i risultati.
 
 ::: {.callout-note title="Un percorso in tre passi" icon=false}
-1. **Capisci il modello.** Identifica la grandezza che varia e le ipotesi.
+1. **Capisci il modello.** Identifica le ipotesi e la grandezza che varia.
 2. **Usalo.** Segui un esempio e interpreta il numero ottenuto.
 3. **Verifica.** Fai una previsione, esplora la simulazione e confronta.
 :::
 
-I riquadri **Da ricordare** raccolgono i risultati essenziali; **Attenzione** segnala
-gli errori frequenti. Gli approfondimenti sono separati dal percorso principale.
-Nella versione HTML puoi sperimentare direttamente. Il PDF è la versione
-stampabile del laboratorio: raccoglie concetti, esempi, figure statiche e domande
-per le attività.
+## Il percorso {.unnumbered}
+
+- [Distribuzioni, campioni e stimatori](capitoli/distribuzioni-stimatori.qmd):
+  definizioni comuni, dalla probabilità all'incertezza della media.
+- [Binomiale](capitoli/binomiale.qmd): quanti successi in un numero fissato di prove?
+- [Poissoniana](capitoli/poisson.qmd): quanti eventi in un'unità di osservazione?
+- [Esponenziale](capitoli/esponenziale.qmd): quanto tempo passa fra due eventi?
+
+Puoi leggere prima il capitolo comune oppure consultarlo attraverso i rimandi
+nei singoli laboratori. I riquadri **Da ricordare** raccolgono i risultati
+essenziali; **Attenzione** segnala gli errori frequenti. Gli approfondimenti
+sono richiudibili e separati dal percorso principale.
+
+Nei laboratori puoi modificare i parametri, raccogliere dati simulati e
+confrontarli con le previsioni. Le simulazioni funzionano anche senza connessione,
+una volta scaricata e scompattata la versione HTML completa.
 
 ## Fonte e attribuzione {.unnumbered}
 
-Il capitolo è una rielaborazione sintetica dei contenuti sulla binomiale e sulle
-misure di efficienza di *Introduzione all'analisi dei dati. Per il laboratorio di
-Fisica*, di **Luca Baldini, Niccolò Di Lalla, Massimiliano Razzano e Carmelo Sgrò**,
-disponibile nel [progetto lab1-notes](https://github.com/unipi-physics-labs/lab1-notes).
+Il percorso rielabora in forma sintetica contenuti di *Introduzione all'analisi
+dei dati. Per il laboratorio di Fisica*, di **Luca Baldini, Niccolò Di Lalla,
+Massimiliano Razzano e Carmelo Sgrò**, disponibile nel
+[progetto lab1-notes](https://github.com/unipi-physics-labs/lab1-notes).
 
-Testo riorganizzato e abbreviato; figura e attività interattiva aggiunte per questo
-percorso. L'opera originale e questo adattamento sono distribuiti con licenza
-[Creative Commons Attribuzione - Condividi allo stesso modo 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+L'opera originale e questo adattamento sono distribuiti con
+licenza [Creative Commons Attribuzione - Condividi allo stesso modo 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+

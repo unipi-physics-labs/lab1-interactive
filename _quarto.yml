@@ -13,7 +13,10 @@ book:
   author: "Giulia Casarosa"
   chapters:
     - index.qmd
+    - capitoli/distribuzioni-stimatori.qmd
     - capitoli/binomiale.qmd
+    - capitoli/poisson.qmd
+    - capitoli/esponenziale.qmd
   sidebar:
     style: docked
     search: true

@@ -1,0 +1,149 @@
+# La distribuzione esponenziale {#sec-esponenziale}
+
+Nel capitolo sulla [Poissoniana](poisson.qmd) abbiamo contato gli eventi.
+Ora osserviamo **quanto tempo passa fra due eventi consecutivi** in un processo Poissoniano. Il conteggio è discreto; la distanza temporale è continua.
+
+## Dai conteggi ai tempi di attesa
+
+Consideriamo un processo Poissoniano nel tempo, con frequenza media costante
+$\lambda>0$: in media avvengono $\lambda$ eventi per unità di tempo.
+In un intervallo di durata $\Delta t$, il numero medio di eventi è
+
+$$
+\mu=\lambda\Delta t.
+$$ {#eq-mu-lambda}
+
+| Simbolo | Significato | Unità, usando i secondi |
+|:--:|:--|:--:|
+| $\lambda$ | Frequenza media del processo | $\mathrm{s}^{-1}$ |
+| $\Delta t$ | Durata di un intervallo di osservazione fissato | $\mathrm{s}$ |
+| $\mu$ | Numero medio di eventi in quell'intervallo | Adimensionale |
+| $\tau$ | Distanza temporale casuale fra eventi consecutivi | $\mathrm{s}$ |
+
+Per $\lambda=2\,\mathrm{s}^{-1}$, in un secondo ci aspettiamo $\mu=2$ eventi;
+in cinque secondi, $\mu=10$. **Una frequenza media costante non significa
+eventi equispaziati**: possono esserci attese brevi e lunghe.
+
+Fissiamo l'origine subito dopo un evento. Il successivo arriva dopo più di
+$t$ secondi se nell'intervallo di durata $t$ non avviene nessun evento.
+Usando la probabilità Poissoniana di zero eventi, otteniamo
+
+$$
+P(\tau>t)=P(K=0;\mu=\lambda t)=e^{-\lambda t},\qquad t\geq0.
+$$ {#eq-sopravvivenza-esponenziale}
+
+Qui $t$ è una soglia scelta; $\tau$ è la variabile casuale.
+
+## Densità di probabilità, cumulativa e probabilità
+
+Dalla probabilità di superare $t$ ricaviamo la cumulativa, poi la densità di probabilità:
+
+$$
+F(t)=1-e^{-\lambda t},\qquad
+p(t)=\frac{dF}{dt}=\lambda e^{-\lambda t},\qquad t\geq0.
+$$ {#eq-esponenziale}
+
+Per $t<0$, entrambe sono nulle. La normalizzazione segue da
+$\int_0^\infty\lambda e^{-\lambda t}\,dt=1$.
+Le definizioni generali sono nel [capitolo comune](distribuzioni-stimatori.qmd#sec-cumulativa).
+
+::: {.callout-important title="La probabilità è un'area" icon=false}
+Per $0\leq a\leq b$,
+
+$$
+P(a\leq\tau\leq b)=\int_a^b\lambda e^{-\lambda t}\,dt
+=e^{-\lambda a}-e^{-\lambda b}.
+$$
+
+La densità di probabilità $p(t)$ non è $P(\tau=t)$: per un singolo valore quest'ultima
+probabilità è zero. Se i tempi si misurano in secondi, la densità di probabilità ha unità
+$\mathrm{s}^{-1}$ e può essere maggiore di uno.
+:::
+
+Per $\lambda=2\,\mathrm{s}^{-1}$, la probabilità di aspettare più di un secondo
+è $e^{-2}\simeq0.1353$; quella di osservare il prossimo evento entro un
+secondo è $1-e^{-2}\simeq0.8647$.
+
+## Media, varianza e deviazione standard
+
+::: {.callout-note title="Da ricordare" icon=false}
+$$
+E[\tau]=\frac1\lambda,\qquad
+\operatorname{Var}(\tau)=\frac1{\lambda^2},\qquad
+\sigma_\tau=\frac1\lambda.
+$$
+
+Nell'esponenziale **media e deviazione standard coincidono**.
+Nella Poissoniana coincidevano invece media e varianza.
+:::
+
+Con $\lambda=2\,\mathrm{s}^{-1}$, media e deviazione standard valgono
+$0.5\,\mathrm{s}$, mentre la varianza vale $0.25\,\mathrm{s}^2$.
+Raddoppiando $\lambda$, la media e la deviazione standard si dimezzano,
+la varianza si riduce a un quarto.
+
+La densità è massima vicino a zero: il tempo medio non è il tempo più
+probabile. Inoltre $P(\tau>E[\tau])=e^{-1}\simeq36.8\%$, non il 50%.
+
+::: {.callout-note title="Dalla distribuzione al campione" icon=false}
+Un campione di $M$ distanze temporali complete fornisce $\bar{\tau}$, $s^2$ e $s$.
+La deviazione standard della media prevista dal modello è
+$\sigma_{\bar{\tau}}=1/(\lambda\sqrt M)$; dai dati si stima con $s/\sqrt M$,
+per $M\geq2$.
+Per le definizioni, vedi [Dal campione alle stime](distribuzioni-stimatori.qmd#sec-stimatori).
+:::
+
+## Mancanza di memoria {#sec-memoria-esponenziale}
+
+Se abbiamo già aspettato $s$ secondi senza osservare un evento, il tempo
+residuo ha la stessa distribuzione di una nuova attesa. Infatti
+
+$$
+P(\tau>s+t\mid\tau>s)
+=\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}}
+=e^{-\lambda t},\qquad s,t\geq0.
+$$
+
+L'evento non diventa «più imminente» solo perché abbiamo già aspettato.
+Questa proprietà dipende dalle ipotesi del processo: non descrive, per
+esempio, un segnale periodico con intervalli quasi regolari.
+
+Nel laboratorio scegliamo solo le attese con $\tau_i>s$ e studiamo i tempi
+residui $\tau_i-s$. Per $s$ grande rimangono poche osservazioni: un confronto
+rumoroso non smentisce la proprietà teorica.
+
+## Prova tu: misura le distanze temporali {#sec-attivita-esponenziale}
+
+1. **Due eventi al secondo.** Imposta $\lambda=2\,\mathrm{s}^{-1}$. Osserva
+   la linea del tempo: le distanze sono tutte $0.5\,\mathrm{s}$?
+   Confronta media e deviazione standard campionarie con le previsioni.
+2. **Area e altezza.** Cambia la larghezza dei bin, mantenendo gli stessi
+   dati. La probabilità dell'intervallo selezionato deve cambiare?
+3. **Attesa residua.** Apri «Esplora l’assenza di memoria», scegli un tempo già
+   trascorso e confronta la curva delle attese residue con quella teorica.
+   Aggiungi dati per aumentare il numero di attese selezionate.
+
+[Apri il laboratorio sull'esponenziale in una nuova scheda](../interattivi/esponenziale_lab1.html){target="_blank" rel="noopener" .lab-open}
+
+```{=html}
+<iframe id="esponenziale-frame" class="lab-frame"
+  src="../interattivi/esponenziale_lab1.html?embed=1"
+  title="Laboratorio sulla distribuzione esponenziale e sui tempi di attesa"
+  loading="lazy" sandbox="allow-scripts allow-downloads"
+  style="width:100%;height:1900px;border:0;" allowfullscreen></iframe>
+```
+
+::: {.callout-tip title="Confronta le tue risposte" collapse=true icon=false}
+Le singole distanze fluttuano; media e deviazione standard tendono entrambe
+a $1/\lambda$. Cambiare i bin modifica l'istogramma, ma non i dati né la
+probabilità osservata nell'intervallo scelto. Le attese residue seguono la
+stessa esponenziale; il confronto empirico peggiora se restano pochi dati.
+:::
+
+::: {.callout-tip title="Approfondimento: generare un tempo di attesa" collapse=true icon=false}
+Il laboratorio usa l'[inversa della cumulativa](distribuzioni-stimatori.qmd#quantili):
+da un numero uniforme $u$ fra zero e uno costruisce
+$\tau=-\ln(1-u)/\lambda$. Ogni distanza viene generata fino al suo evento
+finale, senza scartare le attese lunghe. La linea del tempo mostra solo i
+primi eventi; le statistiche usano tutte le $M$ distanze generate.
+:::

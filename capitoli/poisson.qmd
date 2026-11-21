@@ -1,0 +1,147 @@
+# La distribuzione di Poisson {#sec-poisson}
+
+Quanti eventi osserviamo, quando ne conosciamo il numero medio? Una
+**Poissoniana** descrive un conteggio $k$ e dipende da un solo parametro,
+la media $\mu$. Il conteggio non ha valore un massimo
+fissato come il numero di successi nella binomiale.
+
+::: {.callout-important title="Il conteggio segue una distribuzione di Poisson se il processo osservato è Poissoniano:" icon=false}
+1. **gli eventi sono indipendenti**
+2. **gli eventi non sono simultanei**: la probabilità di eventi multipli è trascurabile
+rispetto a quella di un singolo evento
+3. **il processo è stazionario**: la probabilità di un evento non dipende dal tempo
+
+Non ogni conteggio segue una Poissoniana!
+:::
+
+::: {.callout-note title="Che cosa conta una singola osservazione?" icon=false}
+Fissa un'unità di osservazione, per esempio una regione di data area o un
+intervallo di durata prestabilita, e conta gli eventi al suo interno.
+Ripetendo l'osservazione nelle stesse condizioni ottieni $M$ conteggi.
+
+**$\mu$ è il numero medio di eventi per osservazione; $M$ è il numero di
+osservazioni raccolte.**
+:::
+
+
+## La probabilità di un conteggio
+
+$$
+P(k;\mu)=\frac{\mu^k e^{-\mu}}{k!},\qquad k=0,1,2,\ldots
+$$ {#eq-poisson}
+
+La media può essere non intera: ad esempio $\mu=0.5$ significa mezzo evento
+**in media**, non mezzo evento in una singola osservazione.
+
+### Esempio: due eventi in media
+
+Per $\mu=2$,
+
+$$
+P(k=0)=e^{-2}\simeq0.1353,\qquad
+P(k=2)=\frac{2^2e^{-2}}{2!}\simeq0.2707.
+$$
+
+Anche se ci aspettiamo due eventi, osservare zero eventi non è insolito:
+accade in circa il 13.5% delle osservazioni. Il conteggio atteso non è un
+risultato garantito.
+
+### Più conteggi possibili
+
+Per «al massimo $k_0$ eventi» si sommano le probabilità da zero a $k_0$:
+
+$$
+P(k\leq k_0)=\sum_{j=0}^{k_0}P(j;\mu).
+$$
+
+Per «almeno uno» basta il complementare:
+
+$$
+P(k\geq1)=1-e^{-\mu}.
+$$
+
+Per $k_0\geq1$, $P(k\geq k_0)=1-\sum_{j=0}^{k_0-1}P(j;\mu)$.
+La [cumulativa](distribuzioni-stimatori.qmd#sec-cumulativa) raccoglie queste somme.
+
+## Media, varianza e deviazione standard
+
+::: {.callout-note title="Da ricordare" icon=false}
+$$
+E[k]=\mu,\qquad \operatorname{Var}(k)=\mu,\qquad \sigma=\sqrt{\mu}.
+$$
+
+Nella Poissoniana **media e varianza coincidono**. Per $\mu>0$ la
+dispersione relativa è $\sigma/\mu=1/\sqrt{\mu}$: all'aumentare della media
+la dispersione assoluta cresce, quella relativa diminuisce.
+:::
+
+Per $\mu=2$, la deviazione standard è $\sqrt2\simeq1.41$; per $\mu=8$
+è $\sqrt8\simeq2.83$. Quadruplicare la media raddoppia la deviazione standard.
+Per medie piccole la distribuzione è molto asimmetrica; aumentando $\mu$
+assume una forma progressivamente più simmetrica.
+
+::: {.callout-note title="Dalla distribuzione al campione" icon=false}
+Dai $M$ conteggi $k_1,\ldots,k_M$ ricaviamo $\bar{k}$, $s^2$ e $s$:
+stimano rispettivamente $\mu$, $\mu$ e $\sqrt{\mu}$.
+La previsione teorica per la deviazione standard della media è
+$\sigma_{\bar{k}}=\sqrt{\mu/M}$; la stima dai dati è $s/\sqrt M$.
+
+Le definizioni sono nel capitolo [Distribuzioni, campioni e stimatori](distribuzioni-stimatori.qmd#sec-stimatori).
+$\bar{k}$ esiste per $M\geq1$; $s^2$ e $s$ richiedono $M\geq2$.
+:::
+
+::: {.callout-warning title="L'uguaglianza riguarda il modello" icon=false}
+La media campionaria $\bar{k}$ e la varianza campionaria $s^2$ non devono
+coincidere esattamente in un campione finito. Entrambe fluttuano.
+Inoltre osservare media e varianza simili, da solo, non dimostra che il
+fenomeno sia Poissoniano: vanno considerate anche le ipotesi e la forma
+della distribuzione.
+:::
+
+## Il collegamento con la binomiale
+
+La distribuzione di Poisson è il limite della binomiale per
+$n\to\infty$, $p\to0$ e $np=\mu$ fissato. Infatti
+$np(1-p)\to\mu$: nel limite anche la varianza coincide con la media.
+La Poissoniana può quindi approssimare conteggi binomiali con molte prove e
+piccola probabilità per prova; l'accuratezza dipende dai parametri e dalla
+probabilità che interessa calcolare.
+
+Nell'esempio delle dispense, in 500 lanci di tre dadi la probabilità che la
+somma sia 4 in un lancio è $3/216$. La media del numero di occorrenze è
+$\mu=500\times3/216\simeq6.944$. La probabilità di osservare 10 occorrenze
+vale circa $0.06933$ con la binomiale e $0.06929$ con la Poissoniana.
+
+::: {.callout-tip title="Approfondimento: sommare conteggi indipendenti" collapse=true icon=false}
+Se $K_1$ e $K_2$ sono Poissoniane indipendenti con medie $\mu_1$ e $\mu_2$,
+la loro somma è Poissoniana con media $\mu_1+\mu_2$.
+Il risultato descrive, ad esempio, il conteggio totale in due regioni
+indipendenti. L'indipendenza è essenziale.
+:::
+
+## Prova tu: probabilità e fluttuazioni {#sec-attivita-poisson}
+
+1. **Zero eventi.** Imposta $\mu=2$ e «esattamente 0». Confronta $e^{-2}$
+   con la frequenza dopo 100 e 1.000 osservazioni.
+2. **Media e varianza.** Mantieni $\mu=5$ e aggiungi dati. $\bar{k}$ e $s^2$
+   si avvicinano allo stesso valore? Devono coincidere a ogni passo?
+3. **Dispersione.** Confronta $\mu=2$ e $\mu=8$. Come cambiano
+   $\sigma$ e $\sigma/\mu$? A parametri fissi, aumentare $M$ restringe
+   la distribuzione o rende più precisa la media?
+
+[Apri il laboratorio sulla Poissoniana in una nuova scheda](../interattivi/poisson_lab1.html){target="_blank" rel="noopener" .lab-open}
+
+```{=html}
+<iframe id="poisson-frame" class="lab-frame"
+  src="../interattivi/poisson_lab1.html?embed=1"
+  title="Laboratorio sulla distribuzione di Poisson"
+  loading="lazy" sandbox="allow-scripts allow-downloads"
+  style="width:100%;height:1500px;border:0;" allowfullscreen></iframe>
+```
+
+::: {.callout-tip title="Confronta le tue risposte" collapse=true icon=false}
+Le frequenze si stabilizzano intorno alle probabilità; media e varianza
+campionarie stimano entrambe $\mu$, con fluttuazioni anche non monotone.
+La dispersione dei conteggi dipende da $\mu$, non da $M$.
+La deviazione standard della media diminuisce come $1/\sqrt M$.
+:::
