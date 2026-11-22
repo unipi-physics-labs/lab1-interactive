@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Laboratorio Lab1: distribuzione generatrice, dispersione strumentale, risoluzione Delta ed errori di zero e di scala.">
+<title>Misurare: risoluzione e calibrazione · Lab1</title>
+<style>
+:root{color-scheme:light;--ink:#192c40;--muted:#5d7084;--blue:#2563c5;--blue-light:#edf3fd;--gold:#b45d09;--gold-fill:#e7a34e;--teal:#137e73;--purple:#8b3fa1;--line:#dbe3ed;--bg:#f4f6fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}main{max-width:1440px;margin:auto;padding:28px}h1{font-size:clamp(28px,3.4vw,43px);line-height:1.15;letter-spacing:-.035em;margin:12px 0}h2{font-size:19px;line-height:1.35;margin:0}h3{font-size:16px;line-height:1.4}p{line-height:1.6}button,input,select{font:inherit}button,select,summary{cursor:pointer}button,input,select{touch-action:manipulation}button{padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-size:13px;font-weight:600}button:hover:not(:disabled){border-color:var(--blue);background:var(--blue-light)}button:disabled{opacity:.45;cursor:default}.primary{color:white;background:var(--blue);border-color:var(--blue)}.primary:hover:not(:disabled){background:#194d9e;color:white}button[aria-pressed=true]{background:var(--blue-light);border-color:var(--blue)}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}input[type=number]{width:100px;border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-weight:650;color:var(--blue);background:var(--blue-light);text-align:right}input[type=range]{width:100%;margin:11px 0 0;accent-color:var(--blue);cursor:pointer}input[type=checkbox]{accent-color:var(--blue);margin:0}input:invalid{border-color:#b03b45}select{padding:9px 10px;border:1px solid var(--line);border-radius:7px;background:white;color:var(--ink);width:100%;font-size:14px}.tag{font-size:11px;font-weight:750;letter-spacing:.1em;color:var(--blue);text-transform:uppercase}.masthead{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted)}.intro{max-width:1050px;color:var(--muted);font-size:16px;margin:0 0 22px}.panel{background:white;border:1px solid var(--line);border-radius:13px;min-width:0}.model-banner{display:flex;align-items:center;gap:32px;padding:18px 22px;margin:20px 0;background:var(--blue-light);border:1px solid #c7d8f3;border-radius:11px}.equation{font:italic 28px Georgia,serif;white-space:nowrap;color:var(--blue)}.model-explanation{font-size:13px;line-height:1.65;color:#38516a;max-width:780px}.control-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:15px}.controls{padding:20px}.section-title{display:flex;align-items:center;gap:10px;margin-bottom:18px}.step{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:12px;font-weight:750}.select-label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.control{margin:16px 0}.field{display:flex;justify-content:space-between;align-items:center;gap:12px}.field label{font-size:13px;font-weight:600}.help{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 0}.help b{color:var(--ink);font-weight:600}.control-summary{font-size:13px;color:var(--blue);line-height:1.6;margin:14px 0 6px}.small-formula{background:#f6f8fb;border-radius:8px;padding:13px 10px;text-align:center;font:17px Georgia,serif;line-height:1.5}.comparison-note{font-size:12px;color:var(--muted);margin:13px 0 18px;line-height:1.6}.action-row{display:flex;align-items:center;justify-content:space-between;gap:16px}.actions{display:flex;flex-wrap:wrap;gap:8px}.sample-size{display:flex;align-items:baseline;gap:6px;white-space:nowrap;font-size:17px;color:var(--blue)}.sample-size strong{font-size:28px;font-variant-numeric:tabular-nums}.sample-size span{font-size:12px;color:var(--muted)}.status{font-size:12px;color:var(--muted);min-height:19px;margin:7px 0 18px}.plots{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:start}.plot-panel{padding:20px 18px}.legend{display:flex;align-items:center;flex-wrap:wrap;gap:10px 15px;font-size:12px;color:var(--muted);margin:15px 0 8px;min-height:22px}.legend label{display:flex;align-items:center;gap:5px;cursor:pointer}.key{display:inline-block;width:12px;height:10px;margin-right:5px;border-radius:2px;vertical-align:-1px;background:var(--blue)}.key.measured{background:var(--gold-fill)}.key.sample{background:var(--purple)}.key.ideal{height:0;width:20px;border-top:2px dashed var(--teal);background:transparent;vertical-align:3px}.key.response{height:0;width:20px;border-top:2px solid var(--gold);background:transparent;vertical-align:3px}.plot-options{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted);min-height:35px;margin:10px 0}.plot-options input{width:65px;font-size:12px}.plot-scroll{overflow-x:auto;overscroll-behavior-x:contain}.chart{display:block;width:100%;min-width:520px;height:auto;overflow:visible}.mean-chart{width:100%;height:auto;min-width:600px;display:block}.chart [role=button]:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}.readout{font-size:12px;color:var(--muted);line-height:1.6;padding:9px 11px;background:#f6f8fb;border-radius:7px;margin:4px 0}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}.stat{padding:18px}.stat h3{font-size:12px;color:var(--muted);font-weight:550;margin:0 0 10px;min-height:36px}.stat strong{font-size:25px;font-variant-numeric:tabular-nums;letter-spacing:-.025em}.stat p{font-size:13px;margin:8px 0 4px;line-height:1.5;font-variant-numeric:tabular-nums}.stat small{font-size:11px;color:var(--muted)}.true-text{color:var(--blue)}.measured-text{color:var(--gold)}.precision-panel{padding:21px}.precision-header{display:flex;justify-content:space-between;gap:25px;align-items:start}.precision-header>div:first-child{max-width:650px}.bias-box{padding:12px 16px;background:var(--blue-light);border-radius:9px;text-align:right;min-width:260px}.bias-box span,.bias-box small{display:block;font-size:11px;color:var(--muted);line-height:1.5}.bias-box strong{display:block;font-size:25px;margin:4px 0;color:var(--purple);font-variant-numeric:tabular-nums}.lesson{font-size:13px;color:var(--muted);line-height:1.65;margin:13px 0 0}.lesson b{color:var(--ink)}.theory,.data{padding:17px 21px;margin-top:16px}.theory>summary,.data>summary{font-size:14px;font-weight:650}.theory p{font-size:13px;line-height:1.7}.formula-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}.data-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:12px 0}.table-wrap{overflow:auto;max-height:350px;margin-top:14px}table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}th{position:sticky;top:0;background:#f6f8fb}caption{text-align:left;color:var(--muted);padding:0 0 10px;font-size:12px}.learning{padding:23px;margin-top:18px}.questions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:22px}.questions article{border-left:2px solid var(--line);padding-left:15px}.questions h3{margin:8px 0}.questions p{font-size:13px;color:var(--muted)}.questions summary{color:var(--blue);font-size:12px}.questions details p{color:var(--ink)}footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:22px;padding-top:15px;color:var(--muted);font-size:11px}.notice{padding:15px;background:#fff0ed;color:#9b3e25}[hidden]{display:none!important}.embedded main{padding:10px 8px}.embedded header,.embedded footer,.embedded .learning{display:none}.embedded .plots{grid-template-columns:1fr}.embedded .control-grid{grid-template-columns:1fr}.embedded .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:1120px){main{padding:23px 18px}.control-grid{grid-template-columns:1fr 1fr}.control-grid .controls:first-child{grid-column:1/-1}.plots{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.chart{min-width:520px}.precision-header{flex-wrap:wrap}.bias-box{text-align:left;min-width:0}.control-grid .controls:first-child select{max-width:500px}}
+@media(max-width:700px){main{padding:18px 12px}.masthead{flex-wrap:wrap;gap:5px}.intro{font-size:14px}.model-banner{flex-direction:column;gap:12px;align-items:start;padding:16px}.model-explanation{font-size:12px}.control-grid{grid-template-columns:1fr}.controls{padding:18px}.action-row{align-items:start;flex-direction:column;gap:13px}.actions button{padding:9px 11px;font-size:12px}.plot-panel{padding:17px 12px}.legend{font-size:11px;gap:10px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:21px}.stat h3{min-height:52px}.precision-panel{padding:17px 12px}.precision-header{gap:8px}.questions,.formula-grid{grid-template-columns:1fr}.questions{gap:25px}.learning{padding:20px 16px}.data-actions{align-items:start;flex-direction:column}.data,.theory{padding:16px 12px}.field label{font-size:13px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{body{background:white}main{max-width:none;padding:0}.actions,input[type=range],.comparison-note,.status,.learning,.data,footer{display:none}.control-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.control-grid .controls:first-child{grid-column:auto}.plots{grid-template-columns:1fr}.panel{break-inside:avoid}.plot-scroll{overflow:visible}.chart,.mean-chart{min-width:0}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+.reading-control{border-top:1px solid var(--line);padding-top:18px}.equation{font-size:24px;line-height:1.6}.bias-box #biasDetail{max-width:340px;margin-top:5px}
+
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="masthead"><span class="tag">Lab1 · Laboratorio interattivo</span><span>Dal valore vero alla misura</span></div>
+<h1>Misurare: risoluzione e calibrazione</h1>
+<p class="intro">Un fenomeno produce un valore vero <b>X</b>. Uno strumento lo trasforma nella lettura <b>Y</b>. Esplora quanto incidono la dispersione del fenomeno, il rumore dello strumento, il passo di lettura e una calibrazione sbagliata.</p>
+</header>
+<noscript><p class="notice">Per eseguire il laboratorio occorre abilitare JavaScript.</p></noscript>
+<section class="model-banner" aria-label="Modello di misura">
+<div class="equation">U = aX + b + ε<br>Y = Q<sub>Δ</sub>(U)</div><div class="model-explanation"><b>ε ∼ N(0, σ²<sub>str</sub>)</b> è un rumore indipendente da X e fra misure diverse. <b>a e b sono comuni a tutto il campione.</b> Calibrazione corretta: a = 1 e b = 0. La funzione <b>Q<sub>Δ</sub></b> arrotonda U al multiplo di Δ più vicino; con Δ = 0 restituisce U.</div>
+</section>
+<div class="control-grid">
+<section class="panel controls" aria-labelledby="generatorTitle">
+<div class="section-title"><span class="step">1</span><h2 id="generatorTitle">Il fenomeno</h2></div>
+<label class="select-label" for="generator">Distribuzione generatrice</label>
+<select id="generator"><option value="gaussian">Gaussiana</option><option value="exponential">Esponenziale</option><option value="fixed">Valore fisso · misure ripetute</option></select>
+<div id="fixedControls" hidden>
+<div class="control"><div class="field"><label for="x0">Valore vero x₀</label><input type="number" id="x0" value="10" min="-20" max="30" step="any"></div><input type="range" id="x0Range" aria-label="Valore vero x₀" min="-20" max="30" step="0.1" value="10"></div>
+</div>
+<div id="gaussianControls">
+<div class="control"><div class="field"><label for="mu">Media μ<sub>X</sub></label><input type="number" id="mu" value="10" min="-20" max="30" step="any"></div><input type="range" id="muRange" aria-label="Media della generatrice" min="-20" max="30" step="0.1" value="10"></div>
+<div class="control"><div class="field"><label for="sigmaX">Deviazione standard σ<sub>X</sub></label><input type="number" id="sigmaX" value="2" min="0.1" max="10" step="any"></div><input type="range" id="sigmaXRange" aria-label="Deviazione standard della generatrice" min="0.1" max="10" step="0.1" value="2"></div>
+</div>
+<div id="exponentialControls" hidden>
+<div class="control"><div class="field"><label for="lambda">Parametro λ (u.⁻¹)</label><input type="number" id="lambda" value="0.2" min="0.05" max="5" step="any"></div><input type="range" id="lambdaRange" aria-label="Parametro lambda della generatrice" min="0.05" max="5" step="0.05" value="0.2"></div>
+<p class="help">Per l’esponenziale μ<sub>X</sub> = σ<sub>X</sub> = 1/λ.</p>
+</div>
+<p id="generatorSummary" class="control-summary"></p><p class="help">Cambiare il fenomeno azzera il campione. I valori di X e Y sono espressi nella stessa unità, indicata con «u.».</p>
+</section>
+<section class="panel controls" aria-labelledby="noiseTitle">
+<div class="section-title"><span class="step">2</span><h2 id="noiseTitle">Rumore e lettura</h2></div>
+<div class="control"><div class="field"><label for="resolution">Dispersione strumentale σ<sub>str</sub></label><input type="number" id="resolution" value="1" min="0" max="10" step="any"></div><input type="range" id="resolutionRange" aria-label="Dispersione strumentale" min="0" max="10" step="0.05" value="1"></div>
+<p class="help">σ<sub>str</sub> è la <b>deviazione standard della risposta prima dell’arrotondamento</b>, a valore vero fissato. Il rumore cambia a ogni misura.</p>
+<div class="small-formula">U | X = x ∼ N(ax + b, σ²<sub>str</sub>)</div>
+<div class="control reading-control"><div class="field"><label for="readoutStep">Risoluzione dello strumento Δ (u.)</label><input type="number" id="readoutStep" value="0" min="0" max="10" step="0.01"></div><input type="range" id="readoutStepRange" aria-label="Risoluzione dello strumento Delta" min="0" max="10" step="0.1" value="0"></div>
+<p class="help">Δ è il <b>passo minimo di lettura</b>. Per esempio, con Δ = 0,5 u., una lettura di 10,3 u. diventa 10,5 u. A metà fra due livelli scegliamo quello più lontano da zero.</p><p class="control-summary" id="stepStatus"></p><p class="readout" id="latestReading"></p>
+<p class="help">L’arrotondamento è deterministico: non aggiungiamo un altro rumore casuale. Il modello non include saturazione o soglie di lettura.</p>
+</section>
+<section class="panel controls" aria-labelledby="calibrationTitle">
+<div class="section-title"><span class="step">3</span><h2 id="calibrationTitle">La calibrazione</h2></div>
+<div class="control"><div class="field"><label for="gain">Fattore di scala a</label><input type="number" id="gain" value="1" min="0.1" max="2" step="any"></div><input type="range" id="gainRange" aria-label="Fattore di scala" min="0.1" max="2" step="0.01" value="1"></div>
+<div class="control"><div class="field"><label for="offset">Errore di zero b (u.)</label><input type="number" id="offset" value="0" min="-10" max="10" step="any"></div><input type="range" id="offsetRange" aria-label="Errore di zero" min="-10" max="10" step="0.1" value="0"></div>
+<button id="calibrate" type="button">Ripristina a = 1, b = 0</button><p class="help" id="calibrationStatus"></p>
+</section>
+</div>
+<p class="comparison-note">Modificando lo strumento ricalcoliamo le <b>stesse osservazioni</b>: X e le estrazioni casuali standard restano fissi. Cambia soltanto la risposta strumentale; la raccolta automatica si mette in pausa.</p>
+<div class="action-row"><div class="actions"><button id="add1" class="primary" data-add="1">Simula 1 misura</button><button data-add="100">+100</button><button data-add="1000">+1.000</button><button id="auto" aria-pressed="false">▶ Automatico</button><button id="clear">Azzera i dati</button></div><div class="sample-size">M = <strong id="count">0</strong><span>misure</span></div></div>
+<p class="status" id="status" role="status"></p>
+<div class="plots">
+<section class="panel plot-panel" aria-labelledby="histTitle">
+<h2 id="histTitle">Il fenomeno e ciò che misuriamo</h2>
+<p class="help">Le barre mostrano i dati; le tracce le previsioni teoriche. Ogni istogramma ha area totale 1. Con Δ > 0 le letture Y assumono soltanto valori discreti.</p>
+<div class="legend"><span><i class="key true"></i>Valori veri X</span><span><i class="key measured"></i>Letture Y</span><label><input id="showTheory" type="checkbox" checked> Previsioni teoriche</label><label><input id="showMeans" type="checkbox" checked> Medie μ<sub>X</sub> e ȳ</label></div>
+<div class="plot-options"><label for="bins">Numero di intervalli</label><input id="bins" type="number" min="10" max="100" step="1" value="40"><span id="binWidth"></span></div>
+<div class="plot-scroll"><svg id="histogram" class="chart" viewBox="0 0 760 465" role="group" aria-labelledby="histSvgTitle histSvgDesc"><title id="histSvgTitle">Distribuzioni dei valori veri e misurati</title><desc id="histSvgDesc">Densità a sinistra, conteggi per intervallo a destra. Valori e conteggi sono disponibili nella tabella espandibile.</desc><g id="histPlot"></g></svg></div>
+<p class="readout" id="histReadout">Seleziona una barra per leggere i conteggi.</p><p class="help" id="histNote"></p>
+</section>
+<section class="panel plot-panel" aria-labelledby="scatterTitle">
+<h2 id="scatterTitle">La risposta dello strumento</h2>
+<p class="help">Ogni punto associa il valore vero alla lettura della stessa osservazione.</p>
+<div class="legend"><span><i class="key ideal"></i>Ideale: Y = X</span><span><i class="key response"></i><span id="responseLegend">Media: Y = aX + b</span></span><span><i class="key sample"></i>Misure simulate</span></div>
+<div class="plot-scroll"><svg class="chart" viewBox="0 0 760 465" role="img" aria-labelledby="scatterSvgTitle"><title id="scatterSvgTitle">Valore misurato in funzione del valore vero</title><g id="scatterPlot"></g></svg></div>
+<p class="readout" id="scatterNote"></p><p class="help" id="responseNote"></p>
+</section>
+</div>
+<section class="stats" aria-label="Previsioni teoriche e statistiche campionarie">
+<article class="panel stat"><h3>Media vera · μ<sub>X</sub></h3><strong id="trueMean">—</strong><p id="sampleTrueMean" class="true-text">—</p><small>Generatrice e media dei valori veri</small></article>
+<article class="panel stat"><h3>Media della lettura attesa · E[Y]</h3><strong id="expectedMean">—</strong><p id="sampleMean" class="measured-text">—</p><small>Previsione, incluso Δ, e media campionaria ȳ</small></article>
+<article class="panel stat"><h3>Deviazione standard delle letture · σ<sub>Y</sub></h3><strong id="expectedSd">—</strong><p id="sampleSd" class="measured-text">—</p><small>Dispersione delle singole letture</small></article>
+<article class="panel stat"><h3>Deviazione standard della media · σ<sub>Y</sub>/√M</h3><strong id="expectedSe">—</strong><p id="sampleSe" class="measured-text">—</p><small>Incertezza statistica della media</small></article>
+</section>
+<section class="panel precision-panel" aria-labelledby="precisionTitle">
+<div class="precision-header"><div><h2 id="precisionTitle">Una media precisa può essere spostata</h2><p class="help">La media campionaria esiste anche per M = 1. Per stimare la deviazione standard e l’errore standard servono almeno due misure.</p></div><div class="bias-box"><span>Scostamento sistematico della media</span><strong id="bias">—</strong><small>B = E[Y] − μ<sub>X</sub></small><small id="biasDetail"></small></div></div>
+<div class="legend"><span><i class="key true"></i>Media vera μ<sub>X</sub></span><span><i class="key measured"></i>Media misurata attesa E[Y]</span><span><i class="key sample"></i>Media campionaria ȳ ± s<sub>Y</sub>/√M</span></div>
+<div class="plot-scroll"><svg class="mean-chart" viewBox="0 0 1100 200" role="img" aria-labelledby="meanSvgTitle"><title id="meanSvgTitle">Confronto fra media vera, media misurata attesa e media campionaria con errore standard</title><g id="meanPlot"></g></svg></div>
+<p class="readout" id="meanReadout"></p><p class="lesson">Aumentare M riduce l’incertezza statistica della media. <b>Lo scostamento sistematico B resta invariato.</b> B comprende gli effetti della calibrazione e dell’arrotondamento. Può annullarsi per un particolare fenomeno senza che lo strumento sia corretto per tutti i valori.</p>
+</section>
+<details class="panel theory"><summary>Il modello e le formule da confrontare</summary>
+<p><b>Prima dell’arrotondamento</b> valgono:</p>
+<div class="formula-grid"><div class="small-formula">E[U] = aμ<sub>X</sub> + b</div><div class="small-formula">Var(U) = a²σ²<sub>X</sub> + σ²<sub>str</sub></div><div class="small-formula">Y = Q<sub>Δ</sub>(U)</div></div>
+<p>Le varianze del fenomeno trasformato e del rumore indipendente si sommano. Per un valore vero fisso, la dispersione di U coincide con σ<sub>str</sub>. La distribuzione di U è gaussiana per una generatrice gaussiana e si ottiene per convoluzione nel caso esponenziale.</p>
+<p><b>Dopo l’arrotondamento</b>, Y assume i valori jΔ, con j intero. Se U ha una distribuzione continua, la probabilità di ciascun livello è:</p>
+<div class="small-formula">P(Y = jΔ) = F<sub>U</sub>((j + ½)Δ) − F<sub>U</sub>((j − ½)Δ).</div>
+<p>Le previsioni di media e varianza delle letture sono calcolate sommando sui livelli, con code numericamente trascurabili. Se U è costante, arrotondiamo direttamente quel valore. Nei casi esattamente a metà scegliamo il livello più lontano da zero, anche per valori negativi.</p>
+<p>Per M letture indipendenti, σ<sub>Ȳ</sub> = σ<sub>Y</sub>/√M; la stima dai dati usa s²<sub>Y</sub> = Σ(yᵢ − ȳ)²/(M − 1) e s<sub>Y</sub>/√M. I riquadri e la barra d’errore usano la <b>lettura finale Y</b>. Lo scostamento totale della media è B = E[Y] − μ<sub>X</sub>; distinguiamo il contributo di calibrazione E[U] − μ<sub>X</sub> da quello di arrotondamento E[Y] − E[U].</p>
+<p>Con Δ > 0 vale |Y − U| ≤ Δ/2. Questo limite non è automaticamente una deviazione standard: l’errore di arrotondamento non è, in generale, un rumore uniforme indipendente. Letture tutte uguali possono dare s<sub>Y</sub> = 0 anche se il valore visualizzato differisce dal valore vero.</p>
+<p>Memorizziamo xᵢ e zᵢ ∼ N(0, 1), indipendenti. Ricalcoliamo uᵢ = axᵢ + b + σ<sub>str</sub>zᵢ e poi yᵢ = Q<sub>Δ</sub>(uᵢ). Cambiare Δ conserva il campione, come cambiare a, b o σ<sub>str</sub>. Il pulsante di ripristino imposta a = 1 e b = 0; non stima la calibrazione dai dati e non cambia Δ.</p>
+</details>
+<details class="panel data" id="dataPanel"><summary>Dati e download CSV</summary><div class="data-actions"><p class="help">Tabella: ultime 20 misure. Il CSV contiene l’intero campione con le impostazioni correnti.</p><button id="download" disabled>Scarica tutte le misure</button></div><div class="table-wrap"><table><caption>Valore vero, rumore, risposta U e lettura finale Y; lo scarto di arrotondamento è Y − U.</caption><thead><tr><th scope="col">i</th><th scope="col">Valore vero xᵢ</th><th scope="col">Rumore εᵢ</th><th scope="col">Prima di arrotondare uᵢ</th><th scope="col">Lettura yᵢ</th><th scope="col">Arrotondamento yᵢ − uᵢ</th><th scope="col">Scarto yᵢ − xᵢ</th></tr></thead><tbody id="dataRows"></tbody></table></div></details>
+<details class="panel data" id="histDataPanel"><summary>Tabella degli istogrammi</summary><div class="table-wrap"><table><caption>Intervalli chiusi a sinistra e aperti a destra; l’ultimo include l’estremo destro. I due istogrammi usano gli stessi intervalli.</caption><thead><tr><th scope="col">Da (u.)</th><th scope="col">A (u.)</th><th scope="col">Conteggi X</th><th scope="col">Conteggi Y</th><th scope="col">Densità X</th><th scope="col">Densità Y</th></tr></thead><tbody id="histRows"></tbody></table></div></details>
+<section class="panel learning"><h2>Quattro esperimenti da provare</h2><div class="questions">
+<article><span class="tag">01 · Solo il rumore</span><h3>Ripeti la stessa misura</h3><p>Scegli «Valore fisso», x₀ = 10, a = 1, b = 0, Δ = 0 e σ<sub>str</sub> = 1. Raccogli 100 misure, poi aggiungine altre 1.000. Confronta s<sub>Y</sub> e s<sub>Y</sub>/√M.</p><details><summary>Che cosa osservare</summary><p>La dispersione delle letture stima 1 u.; l’errore standard della media tende a diminuire. Le singole letture non diventano meno disperse.</p></details></article>
+<article><span class="tag">02 · Un errore comune</span><h3>Sposta lo zero</h3><p>Sullo stesso campione imposta b = 1,5. Aumentando M, la media si avvicina a 10 oppure a 11,5? La barra dell’errore standard rivela sempre il problema?</p><details><summary>Che cosa osservare</summary><p>La media tende a 11,5 u. La barra si restringe, ma non include lo scostamento sistematico di 1,5 u. Una media molto precisa può essere lontana dal valore vero.</p></details></article>
+<article><span class="tag">03 · Un errore di scala</span><h3>Cambia la pendenza</h3><p>Scegli «Esponenziale», λ = 0,2, Δ = 0, b = 0 e a = 1,2. Confronta la forma delle distribuzioni e la pendenza della risposta. Poi ripristina a = 1.</p><details><summary>Che cosa osservare</summary><p>La media attesa passa da 5 a 6 u. Anche la dispersione del fenomeno è moltiplicata per a; la varianza del rumore si aggiunge separatamente.</p></details></article>
+<article><span class="tag">04 · Passo di lettura</span><h3>Tutte le letture uguali</h3><p>Scegli «Valore fisso», x₀ = 10,3, a = 1, b = 0, σ<sub>str</sub> = 0 e Δ = 1. Raccogli 100 misure. Poi cambia solo Δ a 0,1.</p><details><summary>Che cosa osservare</summary><p>Con Δ = 1 tutte le letture valgono 10: la deviazione standard è zero, ma lo scostamento è −0,3 u. Con Δ = 0,1 leggi 10,3. L’arrotondamento non è un nuovo errore casuale indipendente a ogni misura.</p></details></article>
+</div></section>
+<footer><span>Lab1 · Probabilità, statistica e misura</span><span>CC BY-SA 4.0 · Funziona anche offline</span></footer>
+</main>
+<script>
+/* Lab1 · measurement model and numerical helpers · CC BY-SA 4.0 */
+(function(root){
+'use strict';
+const SQRT2PI=Math.sqrt(2*Math.PI);
+const clamp=(x,lo,hi)=>Math.max(lo,Math.min(hi,x));
+function makeNormal(random=Math.random){
+ let spare=null;
+ return function(){
+  if(spare!==null){const value=spare;spare=null;return value;}
+  const radius=Math.sqrt(-2*Math.log(1-random())),angle=2*Math.PI*random();
+  spare=radius*Math.sin(angle);return radius*Math.cos(angle);
+ };
+}
+function sourceMoments(p){
+ if(p.generator==='fixed')return{mean:p.x0,variance:0};
+ if(p.generator==='exponential')return{mean:1/p.lambda,variance:1/p.lambda**2};
+ return{mean:p.mu,variance:p.sigmaX**2};
+}
+function model(p){const s=sourceMoments(p);return{muX:s.mean,varX:s.variance,muY:p.gain*s.mean+p.offset,varY:p.gain**2*s.variance+p.resolution**2,bias:(p.gain-1)*s.mean+p.offset};}
+function generate(p,normal,random=Math.random){
+ const x=p.generator==='fixed'?p.x0:p.generator==='gaussian'?p.mu+p.sigmaX*normal():-Math.log1p(-random())/p.lambda;
+ return{x,z:normal()};
+}
+const analogMeasure=(p,x,z)=>p.gain*x+p.offset+p.resolution*z;
+function quantize(value,step){
+ if(!(step>0))return value;
+ const scaled=Math.abs(value/step),index=Math.floor(scaled+.5+8*Number.EPSILON*Math.max(1,scaled));
+ return Number((Math.sign(value)*index*step).toPrecision(15))||0;
+}
+const measure=(p,x,z)=>quantize(analogMeasure(p,x,z),p.readoutStep);
+function accumulator(){return{n:0,mean:0,m2:0};}
+function addMoment(s,x){s.n++;const d=x-s.mean;s.mean+=d/s.n;s.m2+=d*(x-s.mean);}
+function finish(s){const variance=s.n>1?Math.max(0,s.m2/(s.n-1)):null;return{n:s.n,mean:s.n?s.mean:null,variance,sd:variance===null?null:Math.sqrt(variance),se:variance===null?null:Math.sqrt(variance/s.n)};}
+function stats(values){const a=accumulator();for(const v of values)addMoment(a,v);return finish(a);}
+function recalculate(p,data){const x=accumulator(),y=accumulator(),error=accumulator();let min=Infinity,max=-Infinity;
+ for(const d of data){d.u=analogMeasure(p,d.x,d.z);d.y=quantize(d.u,p.readoutStep);addMoment(x,d.x);addMoment(y,d.y);addMoment(error,d.y-d.x);min=Math.min(min,d.x,d.y);max=Math.max(max,d.x,d.y);}
+ return{x:finish(x),y:finish(y),error:finish(error),min,max};
+}
+function normalPdf(x,mu,sigma){if(!(sigma>0))return 0;const z=(x-mu)/sigma;return Math.exp(-z*z/2)/(SQRT2PI*sigma);}
+// Complementary error function: relative accuracy approximately 1.2e-7.
+function erfcPositive(x){const t=1/(1+.5*x);return t*Math.exp(-x*x-1.26551223+t*(1.00002368+t*(.37409196+t*(.09678418+t*(-.18628806+t*(.27886807+t*(-1.13520398+t*(1.48851587+t*(-.82215223+t*.17087277)))))))));}
+function normalCdf(x){if(x===0)return .5;return x<0?.5*erfcPositive(-x/Math.SQRT2):1-.5*erfcPositive(x/Math.SQRT2);}
+function logMills(t){let term=1,total=1,previous=1;for(let n=1;n<60;n++){term*=-(2*n-1)/(t*t);if(Math.abs(term)>previous)break;total+=term;if(Math.abs(term)<1e-16*Math.abs(total))break;previous=Math.abs(term);}return-Math.log(t)+Math.log(total);}
+function exGaussianPdf(y,rate,offset,sigma){
+ if(sigma===0)return y<offset?0:rate*Math.exp(-rate*(y-offset));
+ const z=(y-offset)/sigma,v=rate*sigma,t=v-z;
+ const log=t>8?Math.log(rate)-.5*z*z-Math.log(SQRT2PI)+logMills(t):Math.log(rate)-v*z+.5*v*v+Math.log(normalCdf(-t));
+ return Math.exp(log);
+}
+function truePdf(x,p){if(p.generator==='fixed')return 0;if(p.generator==='gaussian')return normalPdf(x,p.mu,p.sigmaX);return x<0?0:p.lambda*Math.exp(-p.lambda*x);}
+function measuredPdf(x,p){const m=model(p);if(p.generator!=='exponential')return normalPdf(x,m.muY,Math.sqrt(m.varY));return exGaussianPdf(x,p.lambda/p.gain,p.offset,p.resolution);}
+// CDF and survival function of U = aX+b+epsilon, before quantization.
+function analogCdf(x,p,upper=false){
+ const m=model(p);
+ if(p.generator!=='exponential'){
+  if(m.varY===0)return upper?Number(x<m.muY):Number(x>=m.muY);
+  return normalCdf((upper?-1:1)*(x-m.muY)/Math.sqrt(m.varY));
+ }
+ const rate=p.lambda/p.gain;
+ if(p.resolution===0){if(x<p.offset)return upper?1:0;return upper?Math.exp(-rate*(x-p.offset)):-Math.expm1(-rate*(x-p.offset));}
+ const z=(x-p.offset)/p.resolution,term=exGaussianPdf(x,rate,p.offset,p.resolution)/rate;
+ return clamp(upper?normalCdf(-z)+term:normalCdf(z)-term,0,1);
+}
+function analogInterval(lo,hi,p){
+ if(!(hi>lo))return 0;
+ const center=model(p).muY;
+ return clamp(lo>=center?analogCdf(lo,p,true)-analogCdf(hi,p,true):analogCdf(hi,p)-analogCdf(lo,p),0,1);
+}
+function readingBinProbability(lo,hi,p,includeRight=false){
+ const m=model(p),step=p.readoutStep||0;
+ if(m.varY===0){const value=quantize(m.muY,step);return Number(value>=lo&&(value<hi||(includeRight&&value===hi)));}
+ if(!step)return analogInterval(lo,hi,p);
+ // Allow for floating point representation of bin boundaries on the grid.
+ const nearInteger=x=>Math.abs(x-Math.round(x))<=16*Number.EPSILON*Math.max(1,Math.abs(x))?Math.round(x):x;
+ const first=Math.ceil(nearInteger(lo/step)),last=includeRight?Math.floor(nearInteger(hi/step)):Math.ceil(nearInteger(hi/step))-1;
+ return last<first?0:analogInterval((first-.5)*step,(last+.5)*step,p);
+}
+let readingCache=null;
+function readingModel(p){
+ const key=JSON.stringify([p.generator,p.x0,p.mu,p.sigmaX,p.lambda,p.gain,p.offset,p.resolution,p.readoutStep||0]);
+ if(readingCache&&readingCache.key===key)return readingCache.value;
+ const m=model(p),step=p.readoutStep||0,result={...m,muU:m.muY,varU:m.varY,calibrationBias:m.bias,roundingBias:0};
+ if(step>0){
+  if(m.varY===0){result.muY=quantize(m.muY,step);result.varY=0;}
+  else{
+   const sigma=Math.sqrt(m.varY);
+   const lo=p.generator==='exponential'?p.offset-9*p.resolution:m.muY-9*sigma;
+   const hi=p.generator==='exponential'?p.offset+9*p.resolution+36*p.gain/p.lambda:m.muY+9*sigma;
+   const first=Math.floor(lo/step)-1,last=Math.ceil(hi/step)+1;
+   let mass=0,shift=0,second=0;
+   // Use CDF differences below the mean, survival differences above it.
+   // The chosen range leaves at most negligible Gaussian/exponential tails.
+   let cdf=analogCdf((first-.5)*step,p),sf=analogCdf((first-.5)*step,p,true);
+   for(let j=first;j<=last;j++){
+    const right=(j+.5)*step,nextCdf=analogCdf(right,p),nextSf=analogCdf(right,p,true);
+    const probability=Math.max(0,j*step>=m.muY?sf-nextSf:nextCdf-cdf),d=j*step-m.muY;
+    mass+=probability;shift+=d*probability;second+=d*d*probability;cdf=nextCdf;sf=nextSf;
+   }
+   const meanShift=shift/mass;
+   result.muY=m.muY+meanShift;result.varY=Math.max(0,second/mass-meanShift*meanShift);
+  }
+  result.roundingBias=result.muY-m.muY;result.bias=result.muY-m.muX;
+ }
+ readingCache={key,value:result};return result;
+}
+function domain(p,s){const m=model(p);let lo,hi;
+ if(p.generator==='exponential'){lo=Math.min(0,p.offset-5*p.resolution);hi=Math.max(7/p.lambda,p.offset+7*p.gain/p.lambda+5*p.resolution);}
+ else{lo=Math.min(m.muX-4.5*Math.sqrt(m.varX),m.muY-4.5*Math.sqrt(m.varY));hi=Math.max(m.muX+4.5*Math.sqrt(m.varX),m.muY+4.5*Math.sqrt(m.varY));}
+ const step=p.readoutStep||0;lo-=step/2;hi+=step/2;
+ if(s.x.n){lo=Math.min(lo,s.min);hi=Math.max(hi,s.max);}
+ if(hi-lo<1e-8){lo-=1;hi+=1;}
+ const pad=(hi-lo)*.035;return{lo:lo-pad,hi:hi+pad};
+}
+function histogram(data,lo,hi,n){const width=(hi-lo)/n,xc=Array(n).fill(0),yc=Array(n).fill(0);for(const d of data){xc[clamp(Math.floor((d.x-lo)/width),0,n-1)]++;yc[clamp(Math.floor((d.y-lo)/width),0,n-1)]++;}return{lo,hi,width,xc,yc,n};}
+function curveCoordinates(p,lo,hi){const points=[];for(let i=0;i<=320;i++)points.push(lo+(hi-lo)*i/320);const m=model(p);
+ const around=(mu,sigma)=>{if(!(sigma>0))return;for(let i=-24;i<=24;i++)points.push(mu+sigma*i/4);};
+ if(p.generator==='gaussian')around(m.muX,Math.sqrt(m.varX));
+ if(p.generator!=='exponential')around(m.muY,Math.sqrt(m.varY));
+ else{around(p.offset,p.resolution);for(let i=0;i<=60;i++){points.push(i/(10*p.lambda));points.push(p.offset+i*p.gain/(10*p.lambda));}points.push(-1e-9,0,p.offset-1e-9,p.offset);}
+ return [...new Set(points.filter(x=>x>=lo&&x<=hi))].sort((a,b)=>a-b);
+}
+function niceStep(x){if(!(x>0))return 1;const p=10**Math.floor(Math.log10(x)),f=x/p;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p;}
+function niceTop(x){const step=niceStep(x/5);return Math.max(step,Math.ceil(x/step)*step);}
+const fmt=(v,d=3)=>v===null||!Number.isFinite(v)?'—':(Math.abs(v)<.5*10**(-d)?0:v).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d});
+const num=v=>Number(v).toLocaleString('it-IT',{maximumSignificantDigits:5});
+function csvRows(p,data){const m=model(p);return[['i','x','epsilon','y','modello','mu_X','sigma_X','lambda','scala_a','offset_b','sigma_str','u_prima_arrotondamento','errore_arrotondamento','Delta'],...data.map((d,i)=>[i+1,d.x,p.resolution*d.z,d.y,p.generator,m.muX,Math.sqrt(m.varX),p.generator==='exponential'?p.lambda:'',p.gain,p.offset,p.resolution,d.u,d.y-d.u,p.readoutStep||0])];}
+const api={clamp,makeNormal,sourceMoments,model,readingModel,generate,analogMeasure,quantize,measure,stats,recalculate,normalPdf,normalCdf,exGaussianPdf,truePdf,measuredPdf,analogCdf,analogInterval,readingBinProbability,domain,histogram,curveCoordinates,niceStep,niceTop,fmt,num,csvRows};
+if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MeasurementMath=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+/* Lab1 · interactive measurement laboratory · CC BY-SA 4.0 */
+(function(){
+'use strict';
+const S=window.MeasurementMath,$=id=>document.getElementById(id),text=(id,v)=>{$(id).textContent=v;};
+const C={true:'#2563c5',measured:'#b45d09',fill:'#e7a34e',sample:'#8b3fa1',ideal:'#137e73',muted:'#5d7084',grid:'#dbe3ed'};
+const limits={x0:[-20,30],mu:[-20,30],sigmaX:[.1,10],lambda:[.05,5],resolution:[0,10],readoutStep:[0,10],gain:[.1,2],offset:[-10,10]};
+const p={generator:'gaussian',x0:10,mu:10,sigmaX:2,lambda:.2,resolution:1,readoutStep:0,gain:1,offset:0};
+let data=[],timer=null,lastAction='',selectedBin=null,sample,model,hist,currentDomain;
+let normal=S.makeNormal();
+const CAP=100000;
+function el(parent,tag,attrs={},content){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);if(content!==undefined)n.textContent=content;parent.appendChild(n);return n;}
+function label(svg,x,y,value,color=C.muted,anchor='start',size=14){return el(svg,'text',{x,y,fill:color,'text-anchor':anchor,'font-size':size},value);}
+function line(svg,x1,y1,x2,y2,color,width=1,dash=''){return el(svg,'line',{x1,y1,x2,y2,stroke:color,'stroke-width':width,'stroke-dasharray':dash,'pointer-events':'none'});}
+function ticks(lo,hi){const d=S.niceStep((hi-lo)/6),out=[];for(let x=Math.ceil(lo/d)*d;x<=hi+d*1e-8;x+=d)out.push(Math.abs(x)<d*1e-8?0:x);return out;}
+function axes(svg,lo,hi,ylo,yhi,xTitle,yTitle,countScale=0){
+ svg.replaceChildren();const f={left:76,right:676,top:76,bottom:385};f.x=x=>f.left+(x-lo)/(hi-lo)*(f.right-f.left);f.y=y=>f.bottom-(y-ylo)/(yhi-ylo)*(f.bottom-f.top);
+ label(svg,f.left,19,yTitle);if(countScale)label(svg,f.right,19,'Conteggi (barre)',C.measured,'end',13);
+ for(const x of ticks(lo,hi)){const xx=f.x(x);line(svg,xx,f.bottom,xx,f.bottom+5,C.muted);label(svg,xx,f.bottom+25,S.num(x),C.muted,'middle',13);}
+ for(const y of ticks(ylo,yhi)){const yy=f.y(y);line(svg,f.left,yy,f.right,yy,C.grid);label(svg,f.left-10,yy+4,S.num(y),C.muted,'end',13);}
+ line(svg,f.left,f.top,f.left,f.bottom,C.muted);line(svg,f.left,f.bottom,f.right,f.bottom,C.muted);
+ if(countScale){line(svg,f.right,f.top,f.right,f.bottom,C.measured);const step=Math.max(1,Math.ceil(S.niceStep(yhi*countScale/5)));for(let n=0;n<=yhi*countScale+1e-9;n+=step){const y=f.y(n/countScale);line(svg,f.right,y,f.right+5,y,C.measured);label(svg,f.right+9,y+4,S.num(n),C.measured,'start',12);}}
+ label(svg,(f.left+f.right)/2,445,xTitle,C.muted,'middle',15);return f;
+}
+function makePath(xs,f,pdf){return xs.map((x,i)=>(i?'L':'M')+f.x(x)+','+f.y(pdf(x))).join('');}
+function renderHistogram(){
+ const {lo,hi}=currentDomain,n=Number($('bins').value);hist=S.histogram(data,lo,hi,n);
+ const xs=S.curveCoordinates(p,lo,hi),showTheory=$('showTheory').checked;
+ const predicted=p.readoutStep>0?Array.from({length:n},(_,i)=>S.readingBinProbability(lo+i*hist.width,lo+(i+1)*hist.width,p,i===n-1)/hist.width):null;
+ let peak=0;for(let i=0;i<n;i++)peak=Math.max(peak,data.length?hist.xc[i]/data.length/hist.width:0,data.length?hist.yc[i]/data.length/hist.width:0);
+ if(showTheory){for(const x of xs)peak=Math.max(peak,S.truePdf(x,p),predicted?0:S.measuredPdf(x,p));if(predicted)peak=Math.max(peak,...predicted);}
+ const ymax=S.niceTop(peak>0?peak*1.12:1),svg=$('histPlot');
+ const f=axes(svg,lo,hi,0,ymax,'Valore (u.)',p.readoutStep>0?'Frequenza / h (u.⁻¹)':'Densità (u.⁻¹)',data.length*hist.width);
+ for(let i=0;i<n;i++){
+  const x=f.x(lo+i*hist.width),w=f.x(lo+(i+1)*hist.width)-x;
+  if(data.length){
+   const dx=hist.xc[i]/data.length/hist.width,dy=hist.yc[i]/data.length/hist.width;
+   el(svg,'rect',{x:x+.4,y:f.y(dx),width:Math.max(.3,w-.8),height:f.bottom-f.y(dx),fill:C.true,'fill-opacity':.17,stroke:C.true,'stroke-opacity':.4,'stroke-width':.6});
+   el(svg,'rect',{x:x+.4,y:f.y(dy),width:Math.max(.3,w-.8),height:f.bottom-f.y(dy),fill:C.fill,'fill-opacity':.65,stroke:C.measured,'stroke-opacity':.35,'stroke-width':.6});
+  }
+  const target=el(svg,'rect',{x,y:f.top,width:w,height:f.bottom-f.top,fill:'transparent',role:'button',tabindex:0,'aria-label':`Intervallo ${S.num(lo+i*hist.width)}–${S.num(lo+(i+1)*hist.width)}: ${hist.xc[i]} valori veri, ${hist.yc[i]} letture.`,style:'cursor:pointer'});
+  const inspect=()=>{selectedBin=i;renderBinReadout();};target.addEventListener('click',inspect);target.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inspect();}});
+ }
+ if(showTheory){
+  if(p.generator!=='fixed')el(svg,'path',{d:makePath(xs,f,x=>S.truePdf(x,p)),stroke:C.true,'stroke-width':2.4,fill:'none','pointer-events':'none'});
+  else{line(svg,f.x(model.muX),f.top+15,f.x(model.muX),f.bottom,C.true,2.5,'3 3');label(svg,f.x(model.muX),f.top+12,'x₀',C.true,'middle',13);}
+  if(predicted){
+   let path=`M${f.x(lo)},${f.y(predicted[0])}`;
+   for(let i=0;i<n;i++){path+=`H${f.x(lo+(i+1)*hist.width)}`;if(i<n-1)path+=`V${f.y(predicted[i+1])}`;}
+   el(svg,'path',{d:path,stroke:C.measured,'stroke-width':2.4,'stroke-dasharray':'7 4',fill:'none','pointer-events':'none'});
+  }
+  else if(model.varY>0)el(svg,'path',{d:makePath(xs,f,x=>S.measuredPdf(x,p)),stroke:C.measured,'stroke-width':2.4,'stroke-dasharray':'7 4',fill:'none','pointer-events':'none'});
+  else{line(svg,f.x(model.muY),f.top+38,f.x(model.muY),f.bottom,C.measured,2.5,'7 4');label(svg,f.x(model.muY),f.top+34,'ax₀ + b',C.measured,'middle',13);}
+ }
+ if($('showMeans').checked){
+  line(svg,f.x(model.muX),f.top,f.x(model.muX),f.bottom,C.true,1.6,'5 5');
+  label(svg,f.x(model.muX),42,'μX = '+S.fmt(model.muX,2),C.true,f.x(model.muX)>f.right-130?'end':'start',14);
+  if(sample.y.mean!==null){line(svg,f.x(sample.y.mean),f.top,f.x(sample.y.mean),f.bottom,C.sample,1.8,'2 4');label(svg,f.x(sample.y.mean),63,'ȳ = '+S.fmt(sample.y.mean,2),C.sample,f.x(sample.y.mean)>f.right-130?'end':'start',14);}
+ }
+ text('binWidth','h = '+S.num(hist.width)+' u.');
+ let note='Scala destra delle barre: conteggi = altezza × M × h. Tutti i dati sono inclusi; le previsioni teoriche non vengono rinormalizzate nell’intervallo visibile.';
+ if(p.readoutStep>0)note+=' Con Δ > 0 le letture sono discrete: la traccia arancione mostra la probabilità teorica in ciascun bin divisa per h, non una densità continua. Δ è una proprietà dello strumento; h è soltanto una scelta grafica.';
+ if(p.generator==='fixed')note+=' Le linee verticali indicano valori certi, non densità di altezza finita.';
+ if(p.generator==='exponential'&&(p.resolution>0||p.offset<0))note+=' Le letture possono essere negative per effetto del rumore o dell’errore di zero.';
+ text('histNote',note);renderBinReadout();renderHistTable();
+}
+function renderBinReadout(){if(selectedBin===null){text('histReadout',data.length?'Seleziona una barra per leggere i conteggi.':'Il campione è vuoto: sono mostrate solo le previsioni teoriche.');return;}
+ selectedBin=Math.min(selectedBin,hist.n-1);const i=selectedBin;
+ text('histReadout',`Da ${S.num(hist.lo+i*hist.width)} a ${S.num(hist.lo+(i+1)*hist.width)} u.: ${hist.xc[i].toLocaleString('it-IT')} valori veri e ${hist.yc[i].toLocaleString('it-IT')} letture, su M = ${data.length.toLocaleString('it-IT')}.`);
+}
+function renderScatter(){
+ const svg=$('scatterPlot'),{lo,hi}=currentDomain,f=axes(svg,lo,hi,lo,hi,'Valore vero X (u.)','Valore misurato Y (u.)');
+ line(svg,f.x(lo),f.y(lo),f.x(hi),f.y(hi),C.ideal,2,'7 5');
+ const start=Math.max(lo,(lo-p.offset)/p.gain),end=Math.min(hi,(hi-p.offset)/p.gain);
+ if(end>=start)line(svg,f.x(start),f.y(p.gain*start+p.offset),f.x(end),f.y(p.gain*end+p.offset),C.measured,2.3);
+ const shown=Math.min(600,data.length);
+ for(let j=0;j<shown;j++){const i=shown===1?0:Math.round(j*(data.length-1)/(shown-1)),d=data[i];const point=el(svg,'circle',{cx:f.x(d.x),cy:f.y(d.y),r:shown<30?4:2.5,fill:C.sample,'fill-opacity':shown<30?.8:.4});el(point,'title',{},`i=${i+1}; X=${S.fmt(d.x)}; Y=${S.fmt(d.y)}; ε=${S.fmt(p.resolution*d.z)}`);}
+ text('scatterNote',data.length?`Mostrate ${shown.toLocaleString('it-IT')} coppie${data.length>shown?' distribuite sull’intero campione di '+data.length.toLocaleString('it-IT'):''}. Le statistiche usano tutte le M misure.`:'Simula delle misure per vedere i punti. La retta della risposta media è già visibile.');
+ text('responseLegend',p.readoutStep>0?'Prima dell’arrotondamento: U = aX + b':'Media: Y = aX + b');
+ text('responseNote',`${p.readoutStep>0?'Risposta media prima dell’arrotondamento':'Risposta media a un valore vero x'}: ${S.num(p.gain)} × x ${p.offset<0?'−':'+'} ${S.num(Math.abs(p.offset))} u. Dispersione prima dell’arrotondamento: σstr = ${S.num(p.resolution)} u.${p.readoutStep>0?' Le letture Y sono multipli di Δ = '+S.num(p.readoutStep)+' u.; la linea arancione descrive U, non la media condizionata delle letture arrotondate.':''}`);
+}
+function renderStats(){
+ const unit=' u.';
+ text('trueMean',S.fmt(model.muX)+unit);text('sampleTrueMean','Campione x̄: '+S.fmt(sample.x.mean)+(sample.x.n?unit:''));
+ text('expectedMean',S.fmt(model.muY)+unit);text('sampleMean','Campione ȳ: '+S.fmt(sample.y.mean)+(sample.y.n?unit:''));
+ text('expectedSd',S.fmt(Math.sqrt(model.varY))+unit);text('sampleSd','Campione sY: '+S.fmt(sample.y.sd)+(sample.y.sd!==null?unit:''));
+ text('expectedSe',data.length?S.fmt(Math.sqrt(model.varY/data.length))+unit:'—');text('sampleSe','Stima sY/√M: '+S.fmt(sample.y.se)+(sample.y.se!==null?unit:''));
+ text('bias',(model.bias>0?'+':'')+S.fmt(model.bias)+unit);
+ text('biasDetail',`Calibrazione: ${S.fmt(model.calibrationBias)} u. · Arrotondamento: ${S.fmt(model.roundingBias)} u.`);
+ text('stepStatus',p.readoutStep>0?`Letture possibili: …, −${S.num(p.readoutStep)}, 0, ${S.num(p.readoutStep)}, ${S.num(2*p.readoutStep)}, … u. L’arrotondamento avviene dopo il rumore e la calibrazione.`:'Δ = 0: arrotondamento disattivato, lettura continua.');
+ const latest=data.length?data[data.length-1]:null;
+ text('latestReading',latest?`Ultima misura: X = ${S.fmt(latest.x)} → U = ${S.fmt(latest.u)} → Y = ${S.fmt(latest.y)} u. Scarto di arrotondamento: ${S.fmt(latest.y-latest.u)} u.`:'Simula una misura per confrontare il valore prima dell’arrotondamento U con la lettura finale Y.');
+}
+function renderMean(){
+ const svg=$('meanPlot');svg.replaceChildren();
+ const sigma=Math.sqrt(model.varY);let lo=Math.min(model.muX,model.muY-3*sigma),hi=Math.max(model.muX,model.muY+3*sigma);
+ if(sample.y.n){const spread=sample.y.se||0;lo=Math.min(lo,sample.y.mean-spread);hi=Math.max(hi,sample.y.mean+spread);}
+ if(hi-lo<1e-8){lo-=1;hi+=1;}
+ const pad=(hi-lo)*.12;lo-=pad;hi+=pad;
+ const left=75,right=1030,x=v=>left+(v-lo)/(hi-lo)*(right-left);
+ line(svg,left,156,right,156,C.muted);
+ for(const t of ticks(lo,hi)){line(svg,x(t),156,x(t),161,C.muted);label(svg,x(t),181,S.num(t),C.muted,'middle',14);}
+ const position=(value,row,caption,color)=>{const xx=x(value);line(svg,xx,30,xx,150,color,1.4,'3 4');el(svg,'circle',{cx:xx,cy:row,r:4.5,fill:color});label(svg,S.clamp(xx+9,left,right),row-7,caption,color,xx>right-180?'end':'start',14);};
+ position(model.muX,53,'μX = '+S.fmt(model.muX),C.true);position(model.muY,86,'E[Y] = '+S.fmt(model.muY),C.measured);
+ if(sample.y.n){const value=sample.y.mean,xx=x(value);if(sample.y.se!==null){const a=x(value-sample.y.se),b=x(value+sample.y.se);line(svg,a,122,b,122,C.sample,3);line(svg,a,115,a,129,C.sample,2);line(svg,b,115,b,129,C.sample,2);}el(svg,'circle',{cx:xx,cy:122,r:5,fill:C.sample});label(svg,xx,110,'ȳ = '+S.fmt(value),C.sample,xx>right-130?'end':'start',14);}
+ if(!sample.y.n)text('meanReadout','Simula delle misure per confrontare la media campionaria con la media vera e con quella prevista dallo strumento.');
+ else text('meanReadout',`Scostamento osservato ȳ − μX = ${S.fmt(sample.y.mean-model.muX)} u. ${sample.y.se===null?'Con M = 1 la barra dell’errore standard non è stimabile.':'La barra mostra ± '+S.fmt(sample.y.se)+' u., una deviazione standard stimata della media; non comprende B.'}${p.readoutStep>0&&sample.y.sd===0?' Letture identiche non dimostrano che il valore vero coincida con il valore visualizzato.':''}`);
+}
+function appendCells(parent,values){const row=document.createElement('tr');for(const v of values){const cell=document.createElement('td');cell.textContent=v;row.appendChild(cell);}parent.appendChild(row);}
+function renderData(){if(!$('dataPanel').open)return;$('dataRows').replaceChildren();for(let i=Math.max(0,data.length-20);i<data.length;i++){const d=data[i];appendCells($('dataRows'),[i+1,S.fmt(d.x,5),S.fmt(p.resolution*d.z,5),S.fmt(d.u,5),S.fmt(d.y,5),S.fmt(d.y-d.u,5),S.fmt(d.y-d.x,5)]);}}
+function renderHistTable(){if(!$('histDataPanel').open)return;$('histRows').replaceChildren();for(let i=0;i<hist.n;i++)appendCells($('histRows'),[S.num(hist.lo+i*hist.width),S.num(hist.lo+(i+1)*hist.width),hist.xc[i],hist.yc[i],data.length?S.num(hist.xc[i]/data.length/hist.width):'—',data.length?S.num(hist.yc[i]/data.length/hist.width):'—']);}
+function render(){
+ model=S.readingModel(p);sample=S.recalculate(p,data);currentDomain=S.domain(p,sample);
+ $('fixedControls').hidden=p.generator!=='fixed';$('gaussianControls').hidden=p.generator!=='gaussian';$('exponentialControls').hidden=p.generator!=='exponential';
+ text('generatorSummary',`μX = ${S.num(model.muX)} u. · σX = ${S.num(Math.sqrt(model.varX))} u.`);
+ text('calibrationStatus',p.gain===1&&p.offset===0?'Calibrazione corretta. Rumore e arrotondamento possono comunque influenzare le letture.':'Calibrazione modificata. Ripristinarla conserva il campione, la dispersione e la risoluzione Δ.');
+ text('count',data.length.toLocaleString('it-IT'));
+ for(const button of document.querySelectorAll('[data-add]'))button.disabled=data.length>=CAP;
+ $('auto').disabled=data.length>=CAP;$('download').disabled=!data.length;
+ text('status',data.length>=CAP?'Raggiunto il limite di 100.000 misure. Puoi esportare il campione oppure azzerarlo.':timer!==null?'Raccolta automatica in corso: 50 nuove misure ogni 0,3 secondi.':lastAction||(data.length?'Campione pronto. Modifica lo strumento o aggiungi altre misure.':'Scegli il fenomeno e simula alcune misure. Le curve mostrano già le previsioni del modello.'));
+ renderHistogram();renderScatter();renderStats();renderMean();renderData();
+}
+function stop(){if(timer!==null)clearInterval(timer);timer=null;text('auto','▶ Automatico');$('auto').setAttribute('aria-pressed','false');}
+function clear(){stop();data=[];normal=S.makeNormal();selectedBin=null;lastAction='Campione azzerato. Le impostazioni del fenomeno e dello strumento sono conservate.';render();}
+function add(n){const amount=Math.min(n,CAP-data.length);for(let i=0;i<amount;i++)data.push(S.generate(p,normal));lastAction='';if(data.length>=CAP)stop();render();}
+function changeParameter(key,source){
+ const raw=source.value===''?NaN:Number(source.value);const value=Number.isFinite(raw)?Math.round(S.clamp(raw,...limits[key])*(key==='readoutStep'?100:1000))/(key==='readoutStep'?100:1000):p[key];
+ $(key).value=value;$(key+'Range').value=value;if(value===p[key])return;
+ p[key]=value;stop();selectedBin=null;
+ if(['resolution','readoutStep','gain','offset'].includes(key)){lastAction='Strumento modificato: ricalcolate le stesse osservazioni, con gli stessi valori veri e le stesse estrazioni casuali.';}
+ else{data=[];normal=S.makeNormal();lastAction='Fenomeno modificato: inizia un nuovo campione.';}
+ render();
+}
+for(const key of Object.keys(limits)){
+ $(key).addEventListener('change',()=>changeParameter(key,$(key)));
+ $(key+'Range').addEventListener('input',()=>changeParameter(key,$(key+'Range')));
+}
+$('generator').addEventListener('change',()=>{p.generator=$('generator').value;data=[];normal=S.makeNormal();stop();selectedBin=null;lastAction='Distribuzione generatrice cambiata: inizia un nuovo campione.';render();});
+$('calibrate').addEventListener('click',()=>{p.gain=1;p.offset=0;$('gain').value=$('gainRange').value=1;$('offset').value=$('offsetRange').value=0;stop();selectedBin=null;lastAction='Calibrazione ripristinata. Campione, dispersione e risoluzione Δ sono conservati.';render();});
+for(const button of document.querySelectorAll('[data-add]'))button.addEventListener('click',()=>add(Number(button.dataset.add)));
+$('clear').addEventListener('click',clear);
+$('auto').addEventListener('click',()=>{if(timer!==null){stop();lastAction='Raccolta automatica in pausa.';}else{timer=setInterval(()=>add(50),300);text('auto','❚❚ Pausa');$('auto').setAttribute('aria-pressed','true');}render();});
+for(const id of ['showTheory','showMeans'])$(id).addEventListener('change',renderHistogram);
+$('bins').addEventListener('change',()=>{const v=$('bins').value===''?40:Number($('bins').value);$('bins').value=Number.isFinite(v)?S.clamp(Math.round(v),10,100):40;selectedBin=null;renderHistogram();});
+$('dataPanel').addEventListener('toggle',renderData);$('histDataPanel').addEventListener('toggle',renderHistTable);
+$('download').addEventListener('click',()=>{const rows=S.csvRows(p,data);const blob=new Blob(['\uFEFF'+rows.map(row=>row.join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='lab1-misure.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+addEventListener('pagehide',stop);document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();lastAction='Raccolta automatica in pausa.';render();}});
+render();
+if(new URLSearchParams(location.search).get('embed')==='1'){
+ document.body.classList.add('embedded');let previous=0;
+ const report=()=>{const height=Math.ceil(document.body.getBoundingClientRect().height)+16;if(height!==previous){previous=height;parent.postMessage({type:'lab1:height',height},'*');}};
+ new ResizeObserver(report).observe(document.body);addEventListener('load',report);report();
+}
+})();
+
+</script>
+</body></html>

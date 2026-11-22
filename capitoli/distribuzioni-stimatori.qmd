@@ -10,11 +10,11 @@ La media campionaria $\bar{x}$ e la deviazione standard campionaria $s$ si
 calcolano dai dati: cambiando campione, in generale cambiano anche le stime.
 :::
 
-## Probabilità discrete e densità {#sec-probabilita-densita}
+## Probabilità discrete e densità di probabilità {#sec-probabilita-densita}
 
 Una variabile **discreta** assume valori distinti, come il risultato del lancio di un dado
 o il numero di eventi di un certo tipo registrati. A ciascun valore $x_j$ associamo una probabilità
-$P_j=P(X=x_j)$.
+$P_j=P(x=x_j)$.
 
 Per una variabile **continua**, come un tempo di attesa, la probabilità
 è associata ad un intervallo. Se $p(x)$ è la densità di probabilità,
@@ -27,7 +27,7 @@ La probabilità è quindi l'**area** sotto la curva $p(x)$. La densità di proba
 $p(x)$ si misura in $\mathrm{s}^{-1}$. Includere o escludere gli estremi di un intervallo non cambia
 la probabilità, infatti per variabili continue $P(x=a)=0$.
 
-::: {.callout-warning title="Una densità può superare uno" icon=false}
+::: {.callout-warning title="Una densità di probabilità può superare uno" icon=false}
 Una variabile uniforme fra $0$ e $0.5\,\mathrm{s}$ ha densità
 $f(x)=2\,\mathrm{s}^{-1}$ in quell'intervallo e zero altrove.
 La probabilità totale è $2\,\mathrm{s}^{-1}\times0.5\,\mathrm{s}=1$.

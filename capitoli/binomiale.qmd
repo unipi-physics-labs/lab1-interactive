@@ -168,8 +168,3 @@ precisione della loro media. Un evento molto raro può non comparire in un
 campione finito: il calcolo teorico resta diverso da zero.
 :::
 
-::: {.callout-important title="Prima di passare oltre" icon=false}
-Sai definire il successo prima di guardare il grafico? Sai distinguere $n$, $k$ e
-$M$? Sai spiegare perché una media più precisa non implica conteggi meno dispersi?
-Se sì, hai acquisito le idee centrali del capitolo.
-:::
