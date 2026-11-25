@@ -31,7 +31,7 @@
 <section class="panel controls" aria-labelledby="generatorTitle">
 <div class="section-title"><span class="step">1</span><h2 id="generatorTitle">Il fenomeno</h2></div>
 <label class="select-label" for="generator">Distribuzione generatrice</label>
-<select id="generator"><option value="gaussian">Gaussiana</option><option value="exponential">Esponenziale</option><option value="fixed">Valore fisso · misure ripetute</option></select>
+<select id="generator"><option value="gaussian">Gaussiana</option><option value="exponential">Esponenziale</option><option value="uniform">Uniforme</option><option value="fixed">Valore fisso · misure ripetute</option></select>
 <div id="fixedControls" hidden>
 <div class="control"><div class="field"><label for="x0">Valore vero x₀</label><input type="number" id="x0" value="10" min="-20" max="30" step="any"></div><input type="range" id="x0Range" aria-label="Valore vero x₀" min="-20" max="30" step="0.1" value="10"></div>
 </div>
@@ -42,6 +42,13 @@
 <div id="exponentialControls" hidden>
 <div class="control"><div class="field"><label for="lambda">Parametro λ (u.⁻¹)</label><input type="number" id="lambda" value="0.2" min="0.05" max="5" step="any"></div><input type="range" id="lambdaRange" aria-label="Parametro lambda della generatrice" min="0.05" max="5" step="0.05" value="0.2"></div>
 <p class="help">Per l’esponenziale μ<sub>X</sub> = σ<sub>X</sub> = 1/λ.</p>
+</div>
+<div id="uniformControls" hidden>
+<div class="control"><div class="field"><label for="xMin">Estremo minimo x<sub>min</sub> (u.)</label><input type="number" id="xMin" value="0" min="-20" max="19.99" step="any"></div><input type="range" id="xMinRange" aria-label="Estremo minimo della distribuzione uniforme" min="-20" max="19.99" step="0.01" value="0"></div>
+<div class="control"><div class="field"><label for="xMax">Estremo massimo x<sub>max</sub> (u.)</label><input type="number" id="xMax" value="20" min="0.01" max="30" step="any"></div><input type="range" id="xMaxRange" aria-label="Estremo massimo della distribuzione uniforme" min="0.01" max="30" step="0.01" value="20"></div>
+<p class="help">Nell’intervallo [x<sub>min</sub>, x<sub>max</sub>], intervalli della stessa ampiezza hanno la stessa probabilità. La densità è 1/(x<sub>max</sub> − x<sub>min</sub>); fuori dall’intervallo è zero.</p>
+<div class="small-formula">μ<sub>X</sub> = (x<sub>min</sub> + x<sub>max</sub>)/2<br>σ²<sub>X</sub> = (x<sub>max</sub> − x<sub>min</sub>)²/12</div>
+<p class="help">Gli estremi devono distare almeno 0,01 u.; per un unico valore usa «Valore fisso».</p>
 </div>
 <p id="generatorSummary" class="control-summary"></p><p class="help">Cambiare il fenomeno azzera il campione. I valori di X e Y sono espressi nella stessa unità, indicata con «u.».</p>
 </section>
@@ -131,11 +138,12 @@ function makeNormal(random=Math.random){
 function sourceMoments(p){
  if(p.generator==='fixed')return{mean:p.x0,variance:0};
  if(p.generator==='exponential')return{mean:1/p.lambda,variance:1/p.lambda**2};
+ if(p.generator==='uniform')return{mean:(p.xMin+p.xMax)/2,variance:(p.xMax-p.xMin)**2/12};
  return{mean:p.mu,variance:p.sigmaX**2};
 }
 function model(p){const s=sourceMoments(p);return{muX:s.mean,varX:s.variance,muY:p.gain*s.mean+p.offset,varY:p.gain**2*s.variance+p.resolution**2,bias:(p.gain-1)*s.mean+p.offset};}
 function generate(p,normal,random=Math.random){
- const x=p.generator==='fixed'?p.x0:p.generator==='gaussian'?p.mu+p.sigmaX*normal():-Math.log1p(-random())/p.lambda;
+ const x=p.generator==='fixed'?p.x0:p.generator==='gaussian'?p.mu+p.sigmaX*normal():p.generator==='uniform'?p.xMin+(p.xMax-p.xMin)*random():-Math.log1p(-random())/p.lambda;
  return{x,z:normal()};
 }
 const analogMeasure=(p,x,z)=>p.gain*x+p.offset+p.resolution*z;
@@ -164,11 +172,36 @@ function exGaussianPdf(y,rate,offset,sigma){
  const log=t>8?Math.log(rate)-.5*z*z-Math.log(SQRT2PI)+logMills(t):Math.log(rate)-v*z+.5*v*v+Math.log(normalCdf(-t));
  return Math.exp(log);
 }
-function truePdf(x,p){if(p.generator==='fixed')return 0;if(p.generator==='gaussian')return normalPdf(x,p.mu,p.sigmaX);return x<0?0:p.lambda*Math.exp(-p.lambda*x);}
-function measuredPdf(x,p){const m=model(p);if(p.generator!=='exponential')return normalPdf(x,m.muY,Math.sqrt(m.varY));return exGaussianPdf(x,p.lambda/p.gain,p.offset,p.resolution);}
+function uniformBounds(p){return{lo:p.gain*p.xMin+p.offset,hi:p.gain*p.xMax+p.offset};}
+// For a very narrow uniform interval, Gaussian quadrature avoids subtracting
+// nearly equal CDFs. We integrate over the uniform variable, not over noise.
+function uniformAverage(f,lo,hi){
+ const mid=(lo+hi)/2,half=(hi-lo)/2;
+ return .28444444444444444*f(mid)+.23931433524968324*(f(mid-.5384693101056831*half)+f(mid+.5384693101056831*half))+.11846344252809454*(f(mid-.906179845938664*half)+f(mid+.906179845938664*half));
+}
+function uniformGaussianPdf(x,lo,hi,sigma){
+ const width=hi-lo;
+ if(sigma===0)return x<lo||x>hi?0:1/width;
+ if(width<.1*sigma)return uniformAverage(u=>normalPdf(x,u,sigma),lo,hi);
+ const a=(x-hi)/sigma,b=(x-lo)/sigma;
+ return Math.max(0,(a>0?normalCdf(-a)-normalCdf(-b):normalCdf(b)-normalCdf(a))/width);
+}
+function uniformGaussianCdf(x,lo,hi,sigma,upper=false){
+ if(sigma===0)return clamp(upper?(hi-x)/(hi-lo):(x-lo)/(hi-lo),0,1);
+ if(hi-lo<.1*sigma)return uniformAverage(u=>normalCdf((upper?-1:1)*(x-u)/sigma),lo,hi);
+ // Reflection gives the survival function without subtracting a tiny tail
+// from one. H is an antiderivative of the standard normal CDF.
+ const mid=(lo+hi)/2,d=(upper?-1:1)*(x-mid),z=-Math.abs(d),half=(hi-lo)/2;
+ const H=t=>t*normalCdf(t)+normalPdf(t,0,1);
+ const lower=clamp(sigma/(hi-lo)*(H((z+half)/sigma)-H((z-half)/sigma)),0,1);
+ return d<=0?lower:1-lower;
+}
+function truePdf(x,p){if(p.generator==='fixed')return 0;if(p.generator==='gaussian')return normalPdf(x,p.mu,p.sigmaX);if(p.generator==='uniform')return x<p.xMin||x>p.xMax?0:1/(p.xMax-p.xMin);return x<0?0:p.lambda*Math.exp(-p.lambda*x);}
+function measuredPdf(x,p){const m=model(p);if(p.generator==='uniform'){const b=uniformBounds(p);return uniformGaussianPdf(x,b.lo,b.hi,p.resolution);}if(p.generator!=='exponential')return normalPdf(x,m.muY,Math.sqrt(m.varY));return exGaussianPdf(x,p.lambda/p.gain,p.offset,p.resolution);}
 // CDF and survival function of U = aX+b+epsilon, before quantization.
 function analogCdf(x,p,upper=false){
  const m=model(p);
+ if(p.generator==='uniform'){const b=uniformBounds(p);return uniformGaussianCdf(x,b.lo,b.hi,p.resolution,upper);}
  if(p.generator!=='exponential'){
   if(m.varY===0)return upper?Number(x<m.muY):Number(x>=m.muY);
   return normalCdf((upper?-1:1)*(x-m.muY)/Math.sqrt(m.varY));
@@ -194,15 +227,16 @@ function readingBinProbability(lo,hi,p,includeRight=false){
 }
 let readingCache=null;
 function readingModel(p){
- const key=JSON.stringify([p.generator,p.x0,p.mu,p.sigmaX,p.lambda,p.gain,p.offset,p.resolution,p.readoutStep||0]);
+ const key=JSON.stringify([p.generator,p.x0,p.mu,p.sigmaX,p.lambda,p.xMin,p.xMax,p.gain,p.offset,p.resolution,p.readoutStep||0]);
  if(readingCache&&readingCache.key===key)return readingCache.value;
  const m=model(p),step=p.readoutStep||0,result={...m,muU:m.muY,varU:m.varY,calibrationBias:m.bias,roundingBias:0};
  if(step>0){
   if(m.varY===0){result.muY=quantize(m.muY,step);result.varY=0;}
   else{
    const sigma=Math.sqrt(m.varY);
-   const lo=p.generator==='exponential'?p.offset-9*p.resolution:m.muY-9*sigma;
-   const hi=p.generator==='exponential'?p.offset+9*p.resolution+36*p.gain/p.lambda:m.muY+9*sigma;
+   const b=p.generator==='uniform'?uniformBounds(p):null;
+   const lo=b?b.lo-9*p.resolution:p.generator==='exponential'?p.offset-9*p.resolution:m.muY-9*sigma;
+   const hi=b?b.hi+9*p.resolution:p.generator==='exponential'?p.offset+9*p.resolution+36*p.gain/p.lambda:m.muY+9*sigma;
    const first=Math.floor(lo/step)-1,last=Math.ceil(hi/step)+1;
    let mass=0,shift=0,second=0;
    // Use CDF differences below the mean, survival differences above it.
@@ -222,6 +256,7 @@ function readingModel(p){
 }
 function domain(p,s){const m=model(p);let lo,hi;
  if(p.generator==='exponential'){lo=Math.min(0,p.offset-5*p.resolution);hi=Math.max(7/p.lambda,p.offset+7*p.gain/p.lambda+5*p.resolution);}
+ else if(p.generator==='uniform'){const b=uniformBounds(p);lo=Math.min(p.xMin,b.lo-5*p.resolution);hi=Math.max(p.xMax,b.hi+5*p.resolution);}
  else{lo=Math.min(m.muX-4.5*Math.sqrt(m.varX),m.muY-4.5*Math.sqrt(m.varY));hi=Math.max(m.muX+4.5*Math.sqrt(m.varX),m.muY+4.5*Math.sqrt(m.varY));}
  const step=p.readoutStep||0;lo-=step/2;hi+=step/2;
  if(s.x.n){lo=Math.min(lo,s.min);hi=Math.max(hi,s.max);}
@@ -232,7 +267,11 @@ function histogram(data,lo,hi,n){const width=(hi-lo)/n,xc=Array(n).fill(0),yc=Ar
 function curveCoordinates(p,lo,hi){const points=[];for(let i=0;i<=320;i++)points.push(lo+(hi-lo)*i/320);const m=model(p);
  const around=(mu,sigma)=>{if(!(sigma>0))return;for(let i=-24;i<=24;i++)points.push(mu+sigma*i/4);};
  if(p.generator==='gaussian')around(m.muX,Math.sqrt(m.varX));
- if(p.generator!=='exponential')around(m.muY,Math.sqrt(m.varY));
+ if(p.generator==='uniform'){
+  const b=uniformBounds(p),edge=e=>{const tiny=1e-9*Math.max(1,Math.abs(e));points.push(e-tiny,e,e+tiny);};
+  edge(p.xMin);edge(p.xMax);edge(b.lo);edge(b.hi);around(b.lo,p.resolution);around(b.hi,p.resolution);
+ }
+ else if(p.generator!=='exponential')around(m.muY,Math.sqrt(m.varY));
  else{around(p.offset,p.resolution);for(let i=0;i<=60;i++){points.push(i/(10*p.lambda));points.push(p.offset+i*p.gain/(10*p.lambda));}points.push(-1e-9,0,p.offset-1e-9,p.offset);}
  return [...new Set(points.filter(x=>x>=lo&&x<=hi))].sort((a,b)=>a-b);
 }
@@ -240,7 +279,7 @@ function niceStep(x){if(!(x>0))return 1;const p=10**Math.floor(Math.log10(x)),f=
 function niceTop(x){const step=niceStep(x/5);return Math.max(step,Math.ceil(x/step)*step);}
 const fmt=(v,d=3)=>v===null||!Number.isFinite(v)?'—':(Math.abs(v)<.5*10**(-d)?0:v).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d});
 const num=v=>Number(v).toLocaleString('it-IT',{maximumSignificantDigits:5});
-function csvRows(p,data){const m=model(p);return[['i','x','epsilon','y','modello','mu_X','sigma_X','lambda','scala_a','offset_b','sigma_str','u_prima_arrotondamento','errore_arrotondamento','Delta'],...data.map((d,i)=>[i+1,d.x,p.resolution*d.z,d.y,p.generator,m.muX,Math.sqrt(m.varX),p.generator==='exponential'?p.lambda:'',p.gain,p.offset,p.resolution,d.u,d.y-d.u,p.readoutStep||0])];}
+function csvRows(p,data){const m=model(p);return[['i','x','epsilon','y','modello','mu_X','sigma_X','lambda','scala_a','offset_b','sigma_str','u_prima_arrotondamento','errore_arrotondamento','Delta','x_min','x_max'],...data.map((d,i)=>[i+1,d.x,p.resolution*d.z,d.y,p.generator,m.muX,Math.sqrt(m.varX),p.generator==='exponential'?p.lambda:'',p.gain,p.offset,p.resolution,d.u,d.y-d.u,p.readoutStep||0,p.generator==='uniform'?p.xMin:'',p.generator==='uniform'?p.xMax:''])];}
 const api={clamp,makeNormal,sourceMoments,model,readingModel,generate,analogMeasure,quantize,measure,stats,recalculate,normalPdf,normalCdf,exGaussianPdf,truePdf,measuredPdf,analogCdf,analogInterval,readingBinProbability,domain,histogram,curveCoordinates,niceStep,niceTop,fmt,num,csvRows};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MeasurementMath=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
@@ -252,8 +291,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.Meas
 'use strict';
 const S=window.MeasurementMath,$=id=>document.getElementById(id),text=(id,v)=>{$(id).textContent=v;};
 const C={true:'#2563c5',measured:'#b45d09',fill:'#e7a34e',sample:'#8b3fa1',ideal:'#137e73',muted:'#5d7084',grid:'#dbe3ed'};
-const limits={x0:[-20,30],mu:[-20,30],sigmaX:[.1,10],lambda:[.05,5],resolution:[0,10],readoutStep:[0,10],gain:[.1,2],offset:[-10,10]};
-const p={generator:'gaussian',x0:10,mu:10,sigmaX:2,lambda:.2,resolution:1,readoutStep:0,gain:1,offset:0};
+const limits={x0:[-20,30],mu:[-20,30],sigmaX:[.1,10],lambda:[.05,5],xMin:[-20,29.99],xMax:[-19.99,30],resolution:[0,10],readoutStep:[0,10],gain:[.1,2],offset:[-10,10]};
+const p={generator:'gaussian',x0:10,mu:10,sigmaX:2,lambda:.2,xMin:0,xMax:20,resolution:1,readoutStep:0,gain:1,offset:0};
 let data=[],timer=null,lastAction='',selectedBin=null,sample,model,hist,currentDomain;
 let normal=S.makeNormal();
 const CAP=100000;
@@ -310,6 +349,7 @@ function renderHistogram(){
  if(p.readoutStep>0)note+=' Con Δ > 0 le letture sono discrete: la traccia arancione mostra la probabilità teorica in ciascun bin divisa per h, non una densità continua. Δ è una proprietà dello strumento; h è soltanto una scelta grafica.';
  if(p.generator==='fixed')note+=' Le linee verticali indicano valori certi, non densità di altezza finita.';
  if(p.generator==='exponential'&&(p.resolution>0||p.offset<0))note+=' Le letture possono essere negative per effetto del rumore o dell’errore di zero.';
+ if(p.generator==='uniform'&&p.resolution>0)note+=' Il rumore smussa i bordi della distribuzione uniforme: le letture possono uscire dall’intervallo trasformato dalla calibrazione.';
  text('histNote',note);renderBinReadout();renderHistTable();
 }
 function renderBinReadout(){if(selectedBin===null){text('histReadout',data.length?'Seleziona una barra per leggere i conteggi.':'Il campione è vuoto: sono mostrate solo le previsioni teoriche.');return;}
@@ -360,6 +400,8 @@ function renderHistTable(){if(!$('histDataPanel').open)return;$('histRows').repl
 function render(){
  model=S.readingModel(p);sample=S.recalculate(p,data);currentDomain=S.domain(p,sample);
  $('fixedControls').hidden=p.generator!=='fixed';$('gaussianControls').hidden=p.generator!=='gaussian';$('exponentialControls').hidden=p.generator!=='exponential';
+ $('uniformControls').hidden=p.generator!=='uniform';
+ for(const suffix of ['', 'Range']){$('xMin'+suffix).setAttribute('max',Math.round((p.xMax-.01)*1000)/1000);$('xMax'+suffix).setAttribute('min',Math.round((p.xMin+.01)*1000)/1000);}
  text('generatorSummary',`μX = ${S.num(model.muX)} u. · σX = ${S.num(Math.sqrt(model.varX))} u.`);
  text('calibrationStatus',p.gain===1&&p.offset===0?'Calibrazione corretta. Rumore e arrotondamento possono comunque influenzare le letture.':'Calibrazione modificata. Ripristinarla conserva il campione, la dispersione e la risoluzione Δ.');
  text('count',data.length.toLocaleString('it-IT'));
@@ -372,7 +414,9 @@ function stop(){if(timer!==null)clearInterval(timer);timer=null;text('auto','▶
 function clear(){stop();data=[];normal=S.makeNormal();selectedBin=null;lastAction='Campione azzerato. Le impostazioni del fenomeno e dello strumento sono conservate.';render();}
 function add(n){const amount=Math.min(n,CAP-data.length);for(let i=0;i<amount;i++)data.push(S.generate(p,normal));lastAction='';if(data.length>=CAP)stop();render();}
 function changeParameter(key,source){
- const raw=source.value===''?NaN:Number(source.value);const value=Number.isFinite(raw)?Math.round(S.clamp(raw,...limits[key])*(key==='readoutStep'?100:1000))/(key==='readoutStep'?100:1000):p[key];
+ const raw=source.value===''?NaN:Number(source.value);let value=Number.isFinite(raw)?Math.round(S.clamp(raw,...limits[key])*(key==='readoutStep'?100:1000))/(key==='readoutStep'?100:1000):p[key];
+ if(key==='xMin')value=Math.min(value,Math.round((p.xMax-.01)*1000)/1000);
+ if(key==='xMax')value=Math.max(value,Math.round((p.xMin+.01)*1000)/1000);
  $(key).value=value;$(key+'Range').value=value;if(value===p[key])return;
  p[key]=value;stop();selectedBin=null;
  if(['resolution','readoutStep','gain','offset'].includes(key)){lastAction='Strumento modificato: ricalcolate le stesse osservazioni, con gli stessi valori veri e le stesse estrazioni casuali.';}
